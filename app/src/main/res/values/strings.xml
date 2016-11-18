@@ -1,0 +1,104 @@
+<resources>
+    <string name="app_name">Learn Exponents</string>
+
+    <!-- Navigation Drawer Application Title and Application Description -->
+    <string name="application_title">Teacher AICA</string>
+    <string name="application_desc">A Mobile-Assisted Exponent Solver and Learning Application</string>
+
+    <!-- For Hamburger Icon Animation -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Navigation Drawer Menu Titles -->
+    <string name="nav_drawer_title_solve_exponents">Solve Exponents</string>
+    <string name="nav_drawer_title_reading_materials">Reading Materials</string>
+    <string name="nav_drawer_title_lectures">Lectures</string>
+
+    <!-- Navigation Drawer Miscellaneous Menu Titles -->
+    <string name="nav_drawer_title_view_history">View History</string>
+    <string name="nav_drawer_title_check_for_updates">Check for Updates</string>
+    <string name="nav_drawer_title_user_manual">User Manual</string>
+    <string name="nav_drawer_title_about_us">About Us</string>
+
+    <!-- Tip of the Day Text -->
+    <string name="tip_of_the_day_title">TIP OF THE DAY</string>
+
+    <!-- Default Fragment Text -->
+    <string name="default_frag_prompt">Navigate through the app\'s functions by swiping the screen from left to right :)</string>
+
+    <!-- Solve Exponents Section Text -->
+    <string name="mode_input_one_title">Solve COMPUTER-GENERATED Problems</string>
+    <string name="mode_input_two_title">Solve USER-INPUT Problems</string>
+
+    <string name="next_problem_btn_text">Next Problem</string>
+    <string name="solve_problem_btn_text">Solve Problem</string>
+    <string name="cancel_problem_btn_text">Go Back</string>
+
+    <string name="generated_problem_title">GENERATED PROBLEM</string>
+
+    <string name="input_problem_title">INPUT EXPONENT PROBLEM</string>
+
+    <string name="problem_input_hint">Enter valid input</string>
+
+    <string name="submit_problem_btn_text">Submit</string>
+    <string name="cancel_input_problem_btn_text">Go Back</string>
+
+    <!-- Lectures Section Text -->
+    <string name="lecture_one_title">Prelude</string>
+    <string name="lecture_one_desc">Discussion of Teacher AICA\'s Role</string>
+
+    <string name="lecture_two_title">Positive Integer Exponents</string>
+    <string name="lecture_two_desc">Discussion of Positive Integer Exponents Concepts</string>
+
+    <string name="lecture_three_title">Base Raised to Zero</string>
+    <string name="lecture_three_desc">Discussion of Base Raised to Zero Concepts</string>
+
+    <string name="lecture_four_title">Addition of Exponents with the Same Bases</string>
+    <string name="lecture_four_desc">Discussion of Addition of Exponents with the Same Bases Concepts</string>
+
+    <string name="lecture_five_title">Multiplication of Bases with the Same Exponents</string>
+    <string name="lecture_five_desc">Discussion of Multiplication of Bases with the Same Exponents Concepts</string>
+
+    <string name="lecture_six_title">Multiplication of Exponents to Find the Power of a Power</string>
+    <string name="lecture_six_desc">Discussion of Multiplication of Exponents to Find the Power of a Power Concepts</string>
+
+    <string name="lecture_seven_title">Subtraction of Exponents</string>
+    <string name="lecture_seven_desc">Discussion of Subtraction of Exponents Concepts</string>
+
+    <string name="lecture_eight_title">Negative Integer Exponents</string>
+    <string name="lecture_eight_desc">Discussion of Negative Integer Exponents Concepts</string>
+
+    <!-- Reading Materials Section Text -->
+    <string name="reading_materials_one_title">Positive Integer Exponents</string>
+    <string name="reading_materials_one_desc">Concepts and Examples regarding Positive Integer Exponents</string>
+
+    <string name="reading_materials_two_title">Base Raised to Zero</string>
+    <string name="reading_materials_two_desc">Concepts and Examples regarding Exponents with Base Raised to Zero</string>
+
+    <string name="reading_materials_three_title">Addition of Exponents with Same Bases</string>
+    <string name="reading_materials_three_desc">Concepts and Examples regarding Addition of Exponents with Same Bases</string>
+
+    <string name="reading_materials_four_title">Multiplication of Bases with the Same Exponents</string>
+    <string name="reading_materials_four_desc">Concepts and Examples regarding Multiplication of Bases with the Same Exponents</string>
+
+    <string name="reading_materials_five_title">Multiplication of Exponents to Find the Power of a Power</string>
+    <string name="reading_materials_five_desc">Concepts and Examples regarding Multiplication of Exponents to Find the Power of a Power</string>
+
+    <string name="reading_materials_six_title">Subtraction of Exponents</string>
+    <string name="reading_materials_six_desc">Concepts and Examples regarding Subtraction of Exponents</string>
+
+    <string name="reading_materials_seven_title">Negative Integer Exponents</string>
+    <string name="reading_materials_seven_desc">Concepts and Examples regarding Negative Integer Exponents</string>
+
+    <!-- User Manual Section Text -->
+    <string name="solve_exponents_user_manual_title">Solve Exponents Section Manual</string>
+    <string name="solve_exponents_user_manual_desc">All information regarding the Solve Exponents section are located here</string>
+
+    <string name="reading_materials_user_manual_title">Reading Materials Section Manual</string>
+    <string name="reading_materials_user_manual_desc">All information regarding the Reading Materials section are located here</string>
+
+    <string name="lectures_user_manual_title">Lectures Section Manual</string>
+    <string name="lectures_user_manual_desc">All information regarding the Lectures section are located here</string>
+
+
+</resources>
