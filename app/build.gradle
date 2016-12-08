@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.1'
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "edu.its.solveexponents.teacheraica"
         minSdkVersion 19
@@ -34,4 +34,6 @@ dependencies {
     compile 'com.yarolegovich:lovely-dialog:1.0.4'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    compile 'com.github.medyo:fancybuttons:1.8.2'
+
 }
