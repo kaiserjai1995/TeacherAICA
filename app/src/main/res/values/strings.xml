@@ -43,6 +43,17 @@
     <string name="submit_problem_btn_text">Submit</string>
     <string name="cancel_input_problem_btn_text">Go Back</string>
 
+    <!-- Solve Problem Section Text -->
+    <string name="abort_problem_title">ABORT PROBLEM SOLVING?</string>
+
+    <string name="abort_problem_btn_text">Abort Solving</string>
+
+    <string name="resume_problem_btn_text">Resume Solving</string>
+
+    <string name="solve_problem_problem_title">Equation</string>
+
+    <string name="solve_problem_equation">3x*6x</string>
+
     <!-- Lectures Section Text -->
     <string name="lecture_one_title">Prelude</string>
     <string name="lecture_one_desc">Discussion of Teacher AICA\'s Role</string>

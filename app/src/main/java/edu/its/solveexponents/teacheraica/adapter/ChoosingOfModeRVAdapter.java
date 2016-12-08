@@ -1,9 +1,7 @@
 package edu.its.solveexponents.teacheraica.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +15,7 @@ import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
-import edu.its.solveexponents.teacheraica.content.LecturesFragment;
-import edu.its.solveexponents.teacheraica.content.ReadingMaterialsFragment;
+import edu.its.solveexponents.teacheraica.content.SolveProblemActivity;
 import edu.its.solveexponents.teacheraica.model.ModeInput;
 
 /**
@@ -112,17 +109,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
             .setListener(R.id.solve_problem_btn, true, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Class fragmentClass = LecturesFragment.class; //Replace with Solution Space Fragment
-                    Fragment fragment = null;
-
-                    try{
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                    Intent i = new Intent(mContext, SolveProblemActivity.class);
+                    mContext.startActivity(i);
                 }
             })
             .setListener(R.id.next_problem_btn, new View.OnClickListener() {
@@ -153,17 +141,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
             .setListener(R.id.submit_problem_btn, true, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Class fragmentClass = ReadingMaterialsFragment.class; //Replace with Solution Space Fragment
-                    Fragment fragment = null;
-
-                    try{
-                        fragment = (Fragment) fragmentClass.newInstance();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+                    Intent i = new Intent(mContext, SolveProblemActivity.class);
+                    mContext.startActivity(i);
                 }
             })
             .setListener(R.id.cancel_input_problem_btn, true, new View.OnClickListener() {
