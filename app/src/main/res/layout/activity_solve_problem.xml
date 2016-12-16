@@ -63,7 +63,8 @@
         android:layout_marginRight="7dp"
         android:padding="16dp"
         android:background="@drawable/card_background"
-        android:descendantFocusability="afterDescendants" >
+        android:descendantFocusability="afterDescendants"
+        android:isScrollContainer="true">
 
         <TextView
             android:layout_width="wrap_content"

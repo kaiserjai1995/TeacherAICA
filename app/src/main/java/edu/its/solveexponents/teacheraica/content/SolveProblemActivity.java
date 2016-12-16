@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -19,6 +20,9 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private int level;
+    private int sublevel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,13 @@ public class SolveProblemActivity extends AppCompatActivity {
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(getIntent().getExtras().getBoolean("generated")) {
+            level = getIntent().getExtras().getInt("level");
+            sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+
+            Log.d("TEACHERAICADB", "LEVEL: " + level + "_" + sublevel);
+        }
 
     }
 

@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yarolegovich.lovelydialog.LovelyCustomDialog;
+
 import java.io.File;
 
 import edu.its.solveexponents.teacheraica.R;
@@ -71,4 +73,17 @@ public class MainFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        new LovelyCustomDialog(getActivity())
+                .setTopColorRes(R.color.colorPrimaryDark)
+                .setTitle(R.string.tip_of_the_day_title)
+                .setIcon(R.drawable.aica)
+                .setTitleGravity(1)
+                .setMessageGravity(1)
+                .setMessage("No Tips Available at the moment")
+                .show();
+    }
 }

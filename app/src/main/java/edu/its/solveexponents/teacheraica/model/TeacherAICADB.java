@@ -81,14 +81,33 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_LEVELS_1_2 = "level1_2";
     private final String TBL_LEVELS_1_3 = "level1_3";
     private final String TBL_LEVELS_1_4 = "level1_4";
+    private final String TBL_LEVELS_1_5 = "level1_5";
+    private final String TBL_LEVELS_1_6 = "level1_6";
+    private final String TBL_LEVELS_1_7 = "level1_7";
+
     private final String TBL_LEVELS_2_1 = "level2_1";
     private final String TBL_LEVELS_2_2 = "level2_2";
+    private final String TBL_LEVELS_2_3 = "level2_3";
+    private final String TBL_LEVELS_2_4 = "level2_4";
+    private final String TBL_LEVELS_2_5 = "level2_5";
+    private final String TBL_LEVELS_2_6 = "level2_6";
+    private final String TBL_LEVELS_2_7 = "level2_7";
+
     private final String TBL_LEVELS_3_1 = "level3_1";
     private final String TBL_LEVELS_3_2 = "level3_2";
     private final String TBL_LEVELS_3_3 = "level3_3";
+    private final String TBL_LEVELS_3_4 = "level3_4";
+    private final String TBL_LEVELS_3_5 = "level3_5";
+    private final String TBL_LEVELS_3_6 = "level3_6";
+    private final String TBL_LEVELS_3_7 = "level3_7";
+
     private final String TBL_LEVELS_4_1 = "level4_1";
     private final String TBL_LEVELS_4_2 = "level4_2";
     private final String TBL_LEVELS_4_3 = "level4_3";
+    private final String TBL_LEVELS_4_4 = "level4_4";
+    private final String TBL_LEVELS_4_5 = "level4_5";
+    private final String TBL_LEVELS_4_6 = "level4_6";
+    private final String TBL_LEVELS_4_7 = "level4_7";
 
     private final String TBL_LECTURES_MODULE_LOGS = "tbl_lectures_module_logs";
     private final String TBL_LECTURES_MODULE_LOGS_PAGE = "page";
@@ -117,7 +136,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         Log.d("TEACHERAICADB", Environment.getExternalStorageDirectory().getPath());
 
-        maxNumberOfProblemsPerSublevel = 4;
+        maxNumberOfProblemsPerSublevel = 3;
         this.context = context;
         db = this.getWritableDatabase();
     }
@@ -222,14 +241,30 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_LEVELS_1_2 + " INTEGER, " +
                 TBL_LEVELS_1_3 + " INTEGER, " +
                 TBL_LEVELS_1_4 + " INTEGER, " +
+                TBL_LEVELS_1_5 + " INTEGER, " +
+                TBL_LEVELS_1_6 + " INTEGER, " +
+                TBL_LEVELS_1_7 + " INTEGER, " +
                 TBL_LEVELS_2_1 + " INTEGER, " +
                 TBL_LEVELS_2_2 + " INTEGER, " +
+                TBL_LEVELS_2_3 + " INTEGER, " +
+                TBL_LEVELS_2_4 + " INTEGER, " +
+                TBL_LEVELS_2_5 + " INTEGER, " +
+                TBL_LEVELS_2_6 + " INTEGER, " +
+                TBL_LEVELS_2_7 + " INTEGER, " +
                 TBL_LEVELS_3_1 + " INTEGER, " +
                 TBL_LEVELS_3_2 + " INTEGER, " +
                 TBL_LEVELS_3_3 + " INTEGER, " +
+                TBL_LEVELS_3_4 + " INTEGER, " +
+                TBL_LEVELS_3_5 + " INTEGER, " +
+                TBL_LEVELS_3_6 + " INTEGER, " +
+                TBL_LEVELS_3_7 + " INTEGER, " +
                 TBL_LEVELS_4_1 + " INTEGER, " +
                 TBL_LEVELS_4_2 + " INTEGER, " +
-                TBL_LEVELS_4_3 + " INTEGER" +
+                TBL_LEVELS_4_3 + " INTEGER, " +
+                TBL_LEVELS_4_4 + " INTEGER, " +
+                TBL_LEVELS_4_5 + " INTEGER, " +
+                TBL_LEVELS_4_6 + " INTEGER, " +
+                TBL_LEVELS_4_7 + " INTEGER" +
                 ");";
 
         try{
@@ -266,7 +301,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         if (isTableEmpty(db, TBL_LEVELS)) {
             String initializeLevelsValues = "INSERT INTO " + TBL_LEVELS +
-                    " VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);";
+                    " VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);";
             db.execSQL(initializeLevelsValues);
         }
 
@@ -465,10 +500,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     public int getCurrentLevel() {
-        String[] levels = {TBL_LEVELS_1_1, TBL_LEVELS_1_2, TBL_LEVELS_1_3, TBL_LEVELS_1_4,
-                TBL_LEVELS_2_1, TBL_LEVELS_2_2,
-                TBL_LEVELS_3_1, TBL_LEVELS_3_2, TBL_LEVELS_3_3,
-                TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3};
+        String[] levels = {TBL_LEVELS_1_1, TBL_LEVELS_1_2, TBL_LEVELS_1_3, TBL_LEVELS_1_4, TBL_LEVELS_1_5, TBL_LEVELS_1_6, TBL_LEVELS_1_7,
+                TBL_LEVELS_2_1, TBL_LEVELS_2_2, TBL_LEVELS_2_3, TBL_LEVELS_2_4, TBL_LEVELS_2_5, TBL_LEVELS_2_6, TBL_LEVELS_2_7,
+                TBL_LEVELS_3_1, TBL_LEVELS_3_2, TBL_LEVELS_3_3, TBL_LEVELS_3_4, TBL_LEVELS_3_5, TBL_LEVELS_3_6, TBL_LEVELS_3_7,
+                TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3, TBL_LEVELS_4_4,  TBL_LEVELS_4_5,  TBL_LEVELS_4_6,  TBL_LEVELS_4_7};
 
         int currentLevel = 4;
 
@@ -495,20 +530,36 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 sublevels.add(TBL_LEVELS_1_2);
                 sublevels.add(TBL_LEVELS_1_3);
                 sublevels.add(TBL_LEVELS_1_4);
+                sublevels.add(TBL_LEVELS_1_5);
+                sublevels.add(TBL_LEVELS_1_6);
+                sublevels.add(TBL_LEVELS_1_7);
                 break;
             case 2:
                 sublevels.add(TBL_LEVELS_2_1);
                 sublevels.add(TBL_LEVELS_2_2);
+                sublevels.add(TBL_LEVELS_2_3);
+                sublevels.add(TBL_LEVELS_2_4);
+                sublevels.add(TBL_LEVELS_2_5);
+                sublevels.add(TBL_LEVELS_2_6);
+                sublevels.add(TBL_LEVELS_2_7);
                 break;
             case 3:
                 sublevels.add(TBL_LEVELS_3_1);
                 sublevels.add(TBL_LEVELS_3_2);
                 sublevels.add(TBL_LEVELS_3_3);
+                sublevels.add(TBL_LEVELS_3_4);
+                sublevels.add(TBL_LEVELS_3_5);
+                sublevels.add(TBL_LEVELS_3_6);
+                sublevels.add(TBL_LEVELS_3_7);
                 break;
             case 4:
                 sublevels.add(TBL_LEVELS_4_1);
                 sublevels.add(TBL_LEVELS_4_2);
                 sublevels.add(TBL_LEVELS_4_3);
+                sublevels.add(TBL_LEVELS_4_4);
+                sublevels.add(TBL_LEVELS_4_5);
+                sublevels.add(TBL_LEVELS_4_6);
+                sublevels.add(TBL_LEVELS_4_7);
                 break;
         }
 

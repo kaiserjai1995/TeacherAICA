@@ -15,8 +15,10 @@ import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.content.MainFragment;
 import edu.its.solveexponents.teacheraica.content.SolveProblemActivity;
 import edu.its.solveexponents.teacheraica.model.ModeInput;
+import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 
 /**
  * Created by jairus on 8/2/16.
@@ -37,6 +39,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     List<ModeInput> mode_input;
     private Context mContext;
+
+    public static TeacherAICADB teacheraicadb;
     
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input){
         this.mode_input = mode_input;
@@ -110,6 +114,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(mContext, SolveProblemActivity.class);
+                    i.putExtra("generated", true);
+                    i.putExtra("level", MainFragment.teacheraicadb.getCurrentLevel());
                     mContext.startActivity(i);
                 }
             })
@@ -142,6 +148,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(mContext, SolveProblemActivity.class);
+                    i.putExtra("generated", false);
                     mContext.startActivity(i);
                 }
             })

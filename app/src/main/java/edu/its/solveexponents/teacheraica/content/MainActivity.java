@@ -170,15 +170,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        new LovelyCustomDialog(this)
-                .setTopColorRes(R.color.colorPrimaryDark)
-                .setTitle(R.string.tip_of_the_day_title)
-                .setIcon(R.drawable.aica)
-                .setTitleGravity(1)
-                .setMessageGravity(1)
-                .setMessage("No Tips Available at the moment")
-                .show();
     }
 }
 
