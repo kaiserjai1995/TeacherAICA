@@ -12,9 +12,12 @@ import android.widget.Toast;
 
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.algo.Randomizer;
 import edu.its.solveexponents.teacheraica.content.MainFragment;
 import edu.its.solveexponents.teacheraica.content.SolveProblemActivity;
 import edu.its.solveexponents.teacheraica.model.ModeInput;
@@ -40,8 +43,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     List<ModeInput> mode_input;
     private Context mContext;
 
-    public static TeacherAICADB teacheraicadb;
-    
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input){
         this.mode_input = mode_input;
         this.mContext = context;
@@ -82,7 +83,13 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
-                        showGeneratedProblemView();
+
+                        int level = MainFragment.teacheraicadb.getCurrentLevel();
+                        int sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+
+                        String equation = Randomizer.getRandomEquation(level, sublevel);
+
+                        showGeneratedProblemView(equation);
                         break;
                     case "Solve USER-INPUT Problems":
                         showInputProblemView();
@@ -98,12 +105,13 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         return mode_input.size();
     }
 
-    public void showGeneratedProblemView() {
+    public void showGeneratedProblemView(final String equation) {
 
-        //Place Randomize Algorithm Here
+        //Randomize Algorithm
 
         new LovelyCustomDialog(mContext)
             .setView(R.layout.generated_mode_problem_view)
+            .setMessage(equation)
             .setTopColorRes(R.color.darkRed)
             .setTitle(R.string.generated_problem_title)
             .setIcon(R.drawable.aica)
@@ -114,15 +122,12 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(mContext, SolveProblemActivity.class);
+
                     i.putExtra("generated", true);
                     i.putExtra("level", MainFragment.teacheraicadb.getCurrentLevel());
+                    i.putExtra("sublevel", MainFragment.teacheraicadb.getCurrentSublevel(MainFragment.teacheraicadb.getCurrentLevel()));
+                    i.putExtra("equation", equation);
                     mContext.startActivity(i);
-                }
-            })
-            .setListener(R.id.next_problem_btn, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "Next Problem Clicked", Toast.LENGTH_SHORT).show();
                 }
             })
             .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {

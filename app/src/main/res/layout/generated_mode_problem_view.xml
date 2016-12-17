@@ -7,26 +7,26 @@
               android:paddingBottom="10dp"
               android:paddingTop="10dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="10dp"
-        android:background="@android:color/darker_gray"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="@android:color/darker_gray"/>-->
 
-    <TextView
-        android:id="@+id/problem"
-        android:layout_width="wrap_content"
-        android:textSize="25sp"
-        android:textColor="@color/primaryText"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="3x*5x" />
+    <!--<TextView-->
+        <!--android:id="@+id/random_problem"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textColor="@color/primaryText"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="3x*5x" />-->
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginBottom="20dp"/>
+    <!--<Space-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_marginBottom="20dp"/>-->
 
     <View
         android:layout_width="match_parent"
@@ -51,28 +51,16 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <Button
-            android:id="@+id/next_problem_btn"
-            android:text="@string/next_problem_btn_text"
-            android:textColor="@color/darkGreen"
+            android:id="@+id/cancel_problem_btn"
+            android:text="@string/cancel_problem_btn_text"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:textStyle="bold"
-            android:theme="@style/NextProblemButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/cancel_problem_btn"
-        android:text="@string/cancel_problem_btn_text"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textStyle="bold"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
 
 </LinearLayout>

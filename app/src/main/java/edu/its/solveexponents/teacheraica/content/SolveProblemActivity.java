@@ -7,10 +7,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
+import org.w3c.dom.Text;
+
 import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.algo.Randomizer;
 
 /**
  * Created by jairus on 12/8/16.
@@ -22,6 +26,8 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     private int level;
     private int sublevel;
+    private String equation;
+    private String equationType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,11 +40,20 @@ public class SolveProblemActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TextView solve_problem_equation = (TextView)findViewById(R.id.solve_problem_equation);
+
         if(getIntent().getExtras().getBoolean("generated")) {
             level = getIntent().getExtras().getInt("level");
-            sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+            sublevel = getIntent().getExtras().getInt("sublevel");
+            equation = getIntent().getExtras().getString("equation");
 
             Log.d("TEACHERAICADB", "LEVEL: " + level + "_" + sublevel);
+
+            solve_problem_equation.setText(equation);
+
+            this.equationType = "generated";
+        } else {
+            this.equationType = "custom";
         }
 
     }
