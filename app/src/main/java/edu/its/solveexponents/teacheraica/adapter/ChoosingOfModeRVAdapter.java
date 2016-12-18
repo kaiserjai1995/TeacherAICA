@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
-
-import org.w3c.dom.Text;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import java.util.List;
 
@@ -21,7 +19,6 @@ import edu.its.solveexponents.teacheraica.algo.Randomizer;
 import edu.its.solveexponents.teacheraica.content.MainFragment;
 import edu.its.solveexponents.teacheraica.content.SolveProblemActivity;
 import edu.its.solveexponents.teacheraica.model.ModeInput;
-import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 
 /**
  * Created by jairus on 8/2/16.
@@ -141,29 +138,60 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     public void showInputProblemView() {
 
-        new LovelyCustomDialog(mContext)
-            .setView(R.layout.input_mode_problem_view)
-            .setTopColorRes(R.color.darkGreen)
-            .setTitle(R.string.input_problem_title)
-            .setIcon(R.drawable.aica)
-            .setTitleGravity(1)
-            .setMessageGravity(1)
-            .setCancelable(true)
-            .setListener(R.id.submit_problem_btn, true, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(mContext, SolveProblemActivity.class);
-                    i.putExtra("generated", false);
-                    mContext.startActivity(i);
-                }
-            })
-            .setListener(R.id.cancel_input_problem_btn, true, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+//        new LovelyCustomDialog(mContext)
+//        input_problem_dialog
+//            .setView(R.layout.input_mode_problem_view)
+//            .setTopColorRes(R.color.darkGreen)
+//            .setTitle(R.string.input_problem_title)
+//            .setIcon(R.drawable.aica)
+//            .setTitleGravity(1)
+//            .setMessageGravity(1)
+//            .setCancelable(true)
+//            .setListener(R.id.submit_problem_btn, true, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(mContext, SolveProblemActivity.class);
+//                    i.putExtra("generated", false);
+//
+////                    i.putExtra("equation", input);
+//
+//                    mContext.startActivity(i);
+//                }
+//            })
+//            .setListener(R.id.cancel_input_problem_btn, true, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                }
+//            })
+//            .show();
 
-                }
-            })
-            .show();
+        new LovelyTextInputDialog(mContext)
+                .setTopColorRes(R.color.darkGreen)
+                .setTitle(R.string.input_problem_title)
+                .setTitleGravity(1)
+                .setIcon(R.drawable.aica)
+                .setConfirmButtonColor(R.color.colorAccent)
+                .setCancelable(true)
+//                .setInstanceStateHandler(ID_TEXT_INPUT_DIALOG, saveStateHandler)
+                .setInputFilter("Invalid input", new LovelyTextInputDialog.TextFilter() {
+                    @Override
+                    public boolean check(String equation) {
+                        String expr = "qr!(?:\s*[a-zA-Z]+|\s*[1-9][0-9]*|\s*\((??{$expr})\s*\))(?:+\s*[-+*/](?:\s*[a-zA-Z]+|\s*[1-9][0-9]*|\s*\((??{$expr})\s*\)))*!";
+                        return equation.matches("$_[0] =~ /^expr\\s*\\z/");
+                    }
+                })
+                .setConfirmButton("SOLVE EQUATION", new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(String equation) {
+                        Intent i = new Intent(mContext, SolveProblemActivity.class);
+                    i.putExtra("generated", false);
+                    i.putExtra("equation", equation);
+
+                    mContext.startActivity(i);                    }
+                })
+//                .setSavedInstanceState(savedInstanceState)
+                .show();
 
     }
 }

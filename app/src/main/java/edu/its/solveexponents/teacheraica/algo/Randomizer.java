@@ -1,7 +1,5 @@
 package edu.its.solveexponents.teacheraica.algo;
 
-import android.widget.TextView;
-
 import java.util.Random;
 
 /**
@@ -180,7 +178,7 @@ public class Randomizer {
     }
 
     private static String generateLevel1(int sublevel) {
-        String equation = "2^2";
+        String equation = "((4x^2 * y^2)^3) / ((8x^3 * y)^2)";
 
         return equation;
     }

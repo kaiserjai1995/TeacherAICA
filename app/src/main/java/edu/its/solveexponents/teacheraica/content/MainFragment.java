@@ -83,7 +83,7 @@ public class MainFragment extends Fragment {
                 .setIcon(R.drawable.aica)
                 .setTitleGravity(1)
                 .setMessageGravity(1)
-                .setMessage("No Tips Available at the moment")
+                .setMessage("In solving problems pertaining to the Laws of Exponents, it is always a good idea to write them legibly in paper first then analyze from there.")
                 .show();
     }
 }
