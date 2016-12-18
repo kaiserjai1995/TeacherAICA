@@ -177,8 +177,9 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setInputFilter("Invalid input", new LovelyTextInputDialog.TextFilter() {
                     @Override
                     public boolean check(String equation) {
-                        String expr = "qr!(?:\s*[a-zA-Z]+|\s*[1-9][0-9]*|\s*\((??{$expr})\s*\))(?:+\s*[-+*/](?:\s*[a-zA-Z]+|\s*[1-9][0-9]*|\s*\((??{$expr})\s*\)))*!";
-                        return equation.matches("$_[0] =~ /^expr\\s*\\z/");
+                        String expr = "[a-zA-Z0-9\\\\+\\\\-\\\\^\\\\*/\\\\(\\\\)]*";
+
+                        return equation.matches(expr);
                     }
                 })
                 .setConfirmButton("SOLVE EQUATION", new LovelyTextInputDialog.OnTextInputConfirmListener() {
