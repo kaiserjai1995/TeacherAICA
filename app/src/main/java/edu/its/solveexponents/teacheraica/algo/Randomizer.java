@@ -93,9 +93,9 @@ public class Randomizer {
 
         Multiplication of Exponents to Find the Power of a Power
             Level 1:
-            1. (2^3)^4
-            2. (5^4)^2
-            3. (3 * 4)^3
+            1. (2^2)^3
+            2. (5^2)^2
+            3. (2 * 4)^3
             4. ((x^3 * y)^2) * (x * y^2)
             5. ((x^3)^2) * ((2x * y)^3)
             Level 2:

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
-import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import edu.its.solveexponents.teacheraica.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -165,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+
+        MultiDex.install(getApplicationContext());
     }
 
     @Override
