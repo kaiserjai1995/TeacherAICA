@@ -40,7 +40,7 @@
 
     <string name="problem_input_hint">Enter valid input</string>
 
-    <string name="submit_problem_btn_text">Submit</string>
+    <string name="submit_problem_btn_text">Continue</string>
     <string name="cancel_input_problem_btn_text">Go Back</string>
 
     <!-- Solve Problem Section Text -->

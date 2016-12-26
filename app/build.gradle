@@ -42,6 +42,7 @@ dependencies {
     compile 'com.github.medyo:fancybuttons:1.8.2'
     compile 'com.android.support:multidex:1.0.1'
     compile project(':symjalib-release-2016-04-25')
+    compile 'io.github.kexanie.library:MathView:0.0.6'
 }
 
 repositories {

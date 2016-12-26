@@ -8,24 +8,31 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp" >
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/input_problem"
+    <View
         android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <io.github.kexanie.library.MathView
+        android:id="@+id/input_mode_problem"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="@string/problem_input_hint"
-        app:met_baseColor="@color/colorPrimaryDark"
-        app:met_primaryColor="@color/darkGreen"
-        app:met_floatingLabel="normal"
-        android:inputType="text"
-        app:met_errorColor="#ddaa00" />
+        android:layout_gravity="center"
+        app:engine="MathJax">
+
+    </io.github.kexanie.library.MathView>
 
     <Space
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginBottom="20dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -55,7 +62,4 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
     </LinearLayout>
-
-
-
 </LinearLayout>

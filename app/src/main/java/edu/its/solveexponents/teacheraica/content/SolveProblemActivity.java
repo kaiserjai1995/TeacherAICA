@@ -10,13 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import java.util.ArrayList;
 
 import edu.its.solveexponents.teacheraica.R;
+import io.github.kexanie.library.MathView;
 
 /**
  * Created by jairus on 12/8/16.
@@ -28,6 +29,7 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     private int level;
     private int sublevel;
+    private String result;
     private String equation;
     private String equationType;
     private int errorsCommited;
@@ -41,6 +43,10 @@ public class SolveProblemActivity extends AppCompatActivity {
     public static View parentView;
     public static View solutionScrollView;
 
+    MathView math_equation;
+    String equation_start = "\\(";
+    String equation_end = "\\)";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,21 +58,25 @@ public class SolveProblemActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextView solve_problem_equation = (TextView)findViewById(R.id.solve_problem_equation);
+        MathView math_equation = (MathView) findViewById(R.id.math_equation);
 
         equation = getIntent().getExtras().getString("equation");
 
         if(getIntent().getExtras().getBoolean("generated")) {
             level = getIntent().getExtras().getInt("level");
             sublevel = getIntent().getExtras().getInt("sublevel");
+            result = getIntent().getExtras().getString("result");
 
             Log.d("TEACHERAICADB", "LEVEL: " + level + "_" + sublevel);
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
-            solve_problem_equation.setText(equation);
+            math_equation.setText(equation_start + equation + equation_end);
 
             this.equationType = "generated";
         } else {
-            solve_problem_equation.setText(equation);
+            result = getIntent().getExtras().getString("result");
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            math_equation.setText(equation_start + equation + equation_end);
             this.equationType = "custom";
         }
 

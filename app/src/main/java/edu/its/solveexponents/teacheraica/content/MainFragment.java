@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yarolegovich.lovelydialog.LovelyCustomDialog;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.io.File;
 
@@ -77,12 +77,15 @@ public class MainFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        new LovelyCustomDialog(getActivity())
+        new LovelyInfoDialog(getActivity())
                 .setTopColorRes(R.color.colorPrimaryDark)
-                .setTitle(R.string.tip_of_the_day_title)
                 .setIcon(R.drawable.aica)
+                //This will add Don't show again checkbox to the dialog. You can pass any ID as argument
+                .setNotShowAgainOptionEnabled(0)
+                .setTitle(R.string.tip_of_the_day_title)
                 .setTitleGravity(1)
                 .setMessageGravity(1)
+                .setCancelable(false)
                 .setMessage("In solving problems pertaining to the Laws of Exponents, it is always a good idea to write them legibly in paper first then analyze from there.")
                 .show();
     }
