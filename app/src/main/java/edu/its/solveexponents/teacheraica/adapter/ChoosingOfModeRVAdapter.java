@@ -8,9 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
+
+import org.matheclipse.core.eval.EvalEngine;
+import org.matheclipse.core.eval.ExprEvaluator;
+import org.matheclipse.core.interfaces.AbstractEvalStepListener;
+import org.matheclipse.core.interfaces.IExpr;
+import org.matheclipse.parser.client.SyntaxError;
+import org.matheclipse.parser.client.math.MathException;
 
 import java.util.List;
 
@@ -34,6 +42,17 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
             super(itemView);
             cv_choosing_of_mode = (CardView)itemView.findViewById(R.id.cv_choosing_of_mode);
             mode_title = (TextView)itemView.findViewById(R.id.mode_title);
+        }
+    }
+
+    private static class StepListener extends AbstractEvalStepListener {
+        /**
+         * Listens to the evaluation step in the evaluation engine.
+         */
+        @Override
+        public void add(IExpr inputExpr, IExpr resultExpr, int recursionDepth, long iterationCounter, String hint) {
+            System.out.println("Depth " + recursionDepth + " Iteration " + iterationCounter + ": " + inputExpr.toString() + " ==> "
+                    + resultExpr.toString());
         }
     }
 
@@ -171,25 +190,79 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setTitle(R.string.input_problem_title)
                 .setTitleGravity(1)
                 .setIcon(R.drawable.aica)
-                .setConfirmButtonColor(R.color.colorAccent)
+                .setHint("Enter VALID equation input")
                 .setCancelable(true)
 //                .setInstanceStateHandler(ID_TEXT_INPUT_DIALOG, saveStateHandler)
-                .setInputFilter("Invalid input", new LovelyTextInputDialog.TextFilter() {
+                .setInputFilter("Invalid input! Please check and try again.", new LovelyTextInputDialog.TextFilter() {
                     @Override
                     public boolean check(String equation) {
-                        String expr = "[a-zA-Z0-9\\\\+\\\\-\\\\^\\\\*/\\\\(\\\\)]*";
+                        String expr = "([+-]?(?:(?:\\d+x\\^\\d+)|(?:\\d+x)|(?:\\d+)|(?:x)))";
 
-                        return equation.matches(expr);
+                        Boolean match;
+
+                        try {
+                            match = true;
+
+//                            if (!equation.matches(expr)) {
+//                                match = false;
+//                            }
+
+                            if (equation.matches("^-?\\d+$")) {
+                                match = false;
+                                Toast.makeText(mContext, "Your equation " +equation+ " is INVALID (Single Digit is not allowed)", Toast.LENGTH_LONG).show();
+                            }
+                            if (equation.matches("(\\w+)")) {
+                                match = false;
+                                Toast.makeText(mContext, "Your equation " +equation+ " is INVALID (Not an Equation)", Toast.LENGTH_LONG).show();
+                            }
+
+                            ExprEvaluator util = new ExprEvaluator();
+                            EvalEngine engine = util.getEvalEngine();
+                            engine.setStepListener(new StepListener());
+                            IExpr result = util.evaluate(equation);
+                            System.out.println("Result: " + result.toString());
+
+                            if (result.isAST()) {
+                                match = true;
+                                Toast.makeText(mContext, "Your equation " +equation+ " is VALID!", Toast.LENGTH_LONG).show();
+                            }
+                            if (result.isIndeterminate()) {
+                                match = false;
+                                Toast.makeText(mContext, "Your equation " +equation+ " is INVALID (Indeterminate)", Toast.LENGTH_LONG).show();
+                            }
+
+                            // disable trace mode if the step listener isn't necessary anymore
+                            engine.setTraceMode(false);
+
+                        } catch (SyntaxError e) {
+                            // catch Symja parser errors here
+                            System.out.println(e.getMessage());
+                            match = false;
+                            Toast.makeText(mContext, "Your equation " +equation+ " is INVALID (Invalid Syntax)", Toast.LENGTH_LONG).show();
+                        } catch (MathException me) {
+                            // catch Symja math errors here
+                            System.out.println(me.getMessage());
+                            match = false;
+                            Toast.makeText(mContext, "Your equation " +equation+ " is INVALID (Invalid Mathematical Syntax)", Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            match = false;
+                            Toast.makeText(mContext, "Your equation " +equation+ " is INVALID (Invalid Syntax)", Toast.LENGTH_LONG).show();
+                        }
+
+                        return match;
                     }
                 })
                 .setConfirmButton("SOLVE EQUATION", new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(String equation) {
                         Intent i = new Intent(mContext, SolveProblemActivity.class);
-                    i.putExtra("generated", false);
-                    i.putExtra("equation", equation);
+                        i.putExtra("generated", false);
+                        i.putExtra("equation", equation);
 
-                    mContext.startActivity(i);                    }
+                        mContext.startActivity(i);
+
+                    }
                 })
 //                .setSavedInstanceState(savedInstanceState)
                 .show();

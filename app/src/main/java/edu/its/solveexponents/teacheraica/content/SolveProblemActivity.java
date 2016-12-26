@@ -11,16 +11,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import edu.its.solveexponents.teacheraica.R;
-import edu.its.solveexponents.teacheraica.algo.Randomizer;
 
 /**
  * Created by jairus on 12/8/16.

@@ -53,6 +53,13 @@
             android:textSize="30sp"
             android:text="3x * 5x"/>
 
+        <io.github.kexanie.library.MathView
+            android:id="@+id/formula_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            fancy:engine="MathJax" >
+        </io.github.kexanie.library.MathView>
+
     </RelativeLayout>
 
     <LinearLayout
