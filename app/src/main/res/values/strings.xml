@@ -30,7 +30,6 @@
     <string name="mode_input_one_title">Solve COMPUTER-GENERATED Problems</string>
     <string name="mode_input_two_title">Solve USER-INPUT Problems</string>
 
-    <string name="next_problem_btn_text">Next Problem</string>
     <string name="solve_problem_btn_text">Solve Problem</string>
     <string name="cancel_problem_btn_text">Go Back</string>
 
@@ -40,6 +39,7 @@
 
     <string name="problem_input_hint">Enter valid input</string>
 
+    <string name="validate_problem_btn_text">Validate Equation</string>
     <string name="submit_problem_btn_text">Continue</string>
     <string name="cancel_input_problem_btn_text">Go Back</string>
 
