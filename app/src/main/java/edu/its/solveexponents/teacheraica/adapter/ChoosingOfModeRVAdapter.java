@@ -2,6 +2,7 @@ package edu.its.solveexponents.teacheraica.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -61,6 +62,26 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     List<ModeInput> mode_input;
     private Context mContext;
+    String equation;
+    int level, sublevel;
+    MaterialEditText input_problem;
+    MathView generated_problem;
+    Intent i;
+    ExprEvaluator util;
+    EvalEngine engine;
+    IExpr result;
+    Button validate_problem_btn;
+    int current_level;
+    int current_sublevel;
+    InputMethodManager inputMethodManager;
+    FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
+            btn_zero, btn_left_shift, btn_right_shift, btn_add, btn_subtract, btn_multiply, btn_divide, btn_power,
+            btn_decimal, btn_open_parenthesis, btn_closing_parenthesis, btn_backspace, btn_clear, btn_open_brace,
+            btn_closing_brace, btn_var_w, btn_var_x, btn_var_y, btn_var_z, btn_var_a, btn_var_b, btn_var_c,
+            btn_var_d;
+    MathView input_mode_problem;
+    String resultString;
+    Boolean match;
 
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input){
         this.mode_input = mode_input;
@@ -83,17 +104,20 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     public void onBindViewHolder(final ChoosingOfModeRVAdapter.ChoosingOfModeViewHolder choosingOfModeViewHolder, final int i) {
         choosingOfModeViewHolder.mode_title.setText(mode_input.get(i).mode_title);
 
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+
         if (i == 0) {
-            choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_generated);
-            // Replace setBackgroundResource with code below if API Level of device is below 21
-//
-//            choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorAccent);
-        }
-        if (i == 1) {
-            choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_input);
-            // Replace setBackgroundResource with code below if API Level of device is below 21
-//
-//            choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorPrimaryDark);
+            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP){
+                choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorAccent);
+            } else {
+                choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_generated);
+            }
+        } else if (i == 1) {
+            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP){
+                choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorPrimaryDark);
+            } else {
+                choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_input);
+            }
         }
 
         choosingOfModeViewHolder.cv_choosing_of_mode.setOnClickListener(new View.OnClickListener() {
@@ -102,11 +126,9 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
-
-                        int level = MainFragment.teacheraicadb.getCurrentLevel();
-                        int sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
-
-                        String equation = Randomizer.getRandomEquation(level, sublevel);
+                        level = MainFragment.teacheraicadb.getCurrentLevel();
+                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+                        equation = Randomizer.getRandomEquation(level, sublevel);
 
                         showGeneratedProblemView(equation);
                         break;
@@ -125,9 +147,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     }
 
     public void showGeneratedProblemView(final String equation) {
-
-        //Randomize Algorithm
-
         new LovelyCustomDialog(mContext)
             .setView(R.layout.generated_mode_problem_view)
             .setTopColorRes(R.color.darkRed)
@@ -139,25 +158,27 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .configureView(new LovelyCustomDialog.ViewConfigurator() {
                     @Override
                     public void configureView(View v) {
-                        MathView generated_problem = (MathView)v.findViewById(R.id.generated_problem);
-
+                        generated_problem = (MathView)v.findViewById(R.id.generated_problem);
                         generated_problem.setText("$$" + equation + "$$");
                     }
                 })
             .setListener(R.id.solve_problem_btn, true, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(mContext, SolveProblemActivity.class);
+                    i = new Intent(mContext, SolveProblemActivity.class);
 
-                    ExprEvaluator util = new ExprEvaluator();
-                    EvalEngine engine = util.getEvalEngine();
+                    util = new ExprEvaluator();
+                    engine = util.getEvalEngine();
                     engine.setStepListener(new StepListener());
-                    IExpr result = util.evaluate(equation);
+                    result = util.evaluate(equation);
                     System.out.println("Result: " + result.toString());
 
+                    current_level = MainFragment.teacheraicadb.getCurrentLevel();
+                    current_sublevel = MainFragment.teacheraicadb.getCurrentSublevel(current_level);
+
                     i.putExtra("generated", true);
-                    i.putExtra("level", MainFragment.teacheraicadb.getCurrentLevel());
-                    i.putExtra("sublevel", MainFragment.teacheraicadb.getCurrentSublevel(MainFragment.teacheraicadb.getCurrentLevel()));
+                    i.putExtra("level", current_level);
+                    i.putExtra("sublevel", current_sublevel);
                     i.putExtra("equation", equation);
                     i.putExtra("result", result.toString());
                     mContext.startActivity(i);
@@ -166,16 +187,15 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
             .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Remove Problem data here and randomize
+
                 }
             })
             .show();
     }
 
     public void showInputProblemView() {
-
         new LovelyCustomDialog(mContext)
-                .setTitle("INPUT EXPONENT PROBLEM")
+                .setTitle(R.string.input_problem_title)
                 .setIcon(R.drawable.aica)
                 .setTitleGravity(1)
                 .setTopColorRes(R.color.darkGreen)
@@ -184,424 +204,349 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .configureView(new LovelyCustomDialog.ViewConfigurator() {
                     @Override
                     public void configureView(View v) {
-                        final MaterialEditText input_problem = (MaterialEditText) v.findViewById(R.id.input_problem);
-
-                        input_problem.setText("");
-
-                        String currentDisplayedInput = "";
-                        String inputToBeParsed = "";
-
-                        input_problem.setSelection(0);
+                        input_problem = (MaterialEditText) v.findViewById(R.id.input_problem);
 
                         input_problem.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                             }
                         });
 
-//                        input_problem.requestFocus();
+                        btn_one = (FancyButton)v.findViewById(R.id.btn_one);
+                        btn_two = (FancyButton)v.findViewById(R.id.btn_two);
+                        btn_three = (FancyButton)v.findViewById(R.id.btn_three);
+                        btn_four = (FancyButton)v.findViewById(R.id.btn_four);
+                        btn_five = (FancyButton)v.findViewById(R.id.btn_five);
+                        btn_six = (FancyButton)v.findViewById(R.id.btn_six);
+                        btn_seven = (FancyButton)v.findViewById(R.id.btn_seven);
+                        btn_eight = (FancyButton)v.findViewById(R.id.btn_eight);
+                        btn_nine = (FancyButton)v.findViewById(R.id.btn_nine);
+                        btn_zero = (FancyButton)v.findViewById(R.id.btn_zero);
+                        btn_left_shift = (FancyButton)v.findViewById(R.id.btn_left_shift);
+                        btn_right_shift = (FancyButton)v.findViewById(R.id.btn_right_shift);
+                        btn_add = (FancyButton)v.findViewById(R.id.btn_add);
+                        btn_subtract = (FancyButton)v.findViewById(R.id.btn_subtract);
+                        btn_multiply = (FancyButton)v.findViewById(R.id.btn_multiply);
+                        btn_divide = (FancyButton)v.findViewById(R.id.btn_divide);
+                        btn_power = (FancyButton)v.findViewById(R.id.btn_power);
+                        btn_decimal = (FancyButton)v.findViewById(R.id.btn_decimal);
+                        btn_open_parenthesis = (FancyButton)v.findViewById(R.id.btn_open_parenthesis);
+                        btn_closing_parenthesis = (FancyButton)v.findViewById(R.id.btn_closing_parenthesis);
+                        btn_open_brace = (FancyButton)v.findViewById(R.id.btn_open_brace);
+                        btn_closing_brace = (FancyButton)v.findViewById(R.id.btn_closing_brace);
+                        btn_backspace = (FancyButton)v.findViewById(R.id.btn_backspace);
+                        btn_clear = (FancyButton)v.findViewById(R.id.btn_clear);
+                        btn_var_w = (FancyButton)v.findViewById(R.id.btn_var_w);
+                        btn_var_x = (FancyButton)v.findViewById(R.id.btn_var_x);
+                        btn_var_y = (FancyButton)v.findViewById(R.id.btn_var_y);
+                        btn_var_z = (FancyButton)v.findViewById(R.id.btn_var_z);
+                        btn_var_a = (FancyButton)v.findViewById(R.id.btn_var_a);
+                        btn_var_b = (FancyButton)v.findViewById(R.id.btn_var_b);
+                        btn_var_c = (FancyButton)v.findViewById(R.id.btn_var_c);
+                        btn_var_d = (FancyButton)v.findViewById(R.id.btn_var_d);
 
-                        Button validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
-
-                        FancyButton btn_one = (FancyButton)v.findViewById(R.id.btn_one);
                         btn_one.setText("1");
                         btn_one.setTextSize(20);
-
-                        FancyButton btn_two = (FancyButton)v.findViewById(R.id.btn_two);
                         btn_two.setText("2");
                         btn_two.setTextSize(20);
-
-                        FancyButton btn_three = (FancyButton)v.findViewById(R.id.btn_three);
                         btn_three.setText("3");
                         btn_three.setTextSize(20);
-
-                        FancyButton btn_four = (FancyButton)v.findViewById(R.id.btn_four);
                         btn_four.setText("4");
                         btn_four.setTextSize(20);
-
-                        FancyButton btn_five = (FancyButton)v.findViewById(R.id.btn_five);
                         btn_five.setText("5");
                         btn_five.setTextSize(20);
-
-                        FancyButton btn_six = (FancyButton)v.findViewById(R.id.btn_six);
                         btn_six.setText("6");
                         btn_six.setTextSize(20);
-
-                        FancyButton btn_seven = (FancyButton)v.findViewById(R.id.btn_seven);
                         btn_seven.setText("7");
                         btn_seven.setTextSize(20);
-
-                        FancyButton btn_eight = (FancyButton)v.findViewById(R.id.btn_eight);
                         btn_eight.setText("8");
                         btn_eight.setTextSize(20);
-
-                        FancyButton btn_nine = (FancyButton)v.findViewById(R.id.btn_nine);
                         btn_nine.setText("9");
                         btn_nine.setTextSize(20);
-
-                        FancyButton btn_zero = (FancyButton)v.findViewById(R.id.btn_zero);
                         btn_zero.setText("0");
                         btn_zero.setTextSize(20);
-
-                        FancyButton btn_left_shift = (FancyButton)v.findViewById(R.id.btn_left_shift);
                         btn_left_shift.setText("←");
                         btn_left_shift.setTextSize(20);
-
-                        FancyButton btn_right_shift = (FancyButton)v.findViewById(R.id.btn_right_shift);
                         btn_right_shift.setText("→");
                         btn_right_shift.setTextSize(20);
-
-                        FancyButton btn_add = (FancyButton)v.findViewById(R.id.btn_add);
                         btn_add.setText("+");
                         btn_add.setTextSize(20);
-
-                        FancyButton btn_subtract = (FancyButton)v.findViewById(R.id.btn_subtract);
                         btn_subtract.setText("-");
                         btn_subtract.setTextSize(20);
-
-                        FancyButton btn_multiply = (FancyButton)v.findViewById(R.id.btn_multiply);
                         btn_multiply.setText("*");
                         btn_multiply.setTextSize(20);
-
-                        FancyButton btn_divide = (FancyButton)v.findViewById(R.id.btn_divide);
                         btn_divide.setText("/");
                         btn_divide.setTextSize(20);
-
-                        FancyButton btn_power = (FancyButton)v.findViewById(R.id.btn_power);
                         btn_power.setText("^");
                         btn_power.setTextSize(20);
-
-                        FancyButton btn_decimal = (FancyButton)v.findViewById(R.id.btn_decimal);
                         btn_decimal.setText(".");
                         btn_decimal.setTextSize(20);
-
-                        FancyButton btn_open_parenthesis = (FancyButton)v.findViewById(R.id.btn_open_parenthesis);
                         btn_open_parenthesis.setText("(");
                         btn_open_parenthesis.setTextSize(20);
-
-                        FancyButton btn_closing_parenthesis = (FancyButton)v.findViewById(R.id.btn_closing_parenthesis);
                         btn_closing_parenthesis.setText(")");
                         btn_closing_parenthesis.setTextSize(20);
-
-                        FancyButton btn_open_brace = (FancyButton)v.findViewById(R.id.btn_open_brace);
                         btn_open_brace.setText("{");
                         btn_open_brace.setTextSize(20);
-
-                        FancyButton btn_closing_brace = (FancyButton)v.findViewById(R.id.btn_closing_brace);
                         btn_closing_brace.setText("}");
                         btn_closing_brace.setTextSize(20);
-
-                        FancyButton btn_backspace = (FancyButton)v.findViewById(R.id.btn_backspace);
                         btn_backspace.setIconResource(R.drawable.sym_keyboard_delete);
                         btn_backspace.setTextSize(20);
-
-                        FancyButton btn_clear = (FancyButton)v.findViewById(R.id.btn_clear);
                         btn_clear.setText("C");
                         btn_clear.setTextSize(20);
-
-                        FancyButton btn_var_w = (FancyButton)v.findViewById(R.id.btn_var_w);
                         btn_var_w.setText("w");
                         btn_var_w.setTextSize(20);
-
-                        FancyButton btn_var_x = (FancyButton)v.findViewById(R.id.btn_var_x);
                         btn_var_x.setText("x");
                         btn_var_x.setTextSize(20);
-
-                        FancyButton btn_var_y = (FancyButton)v.findViewById(R.id.btn_var_y);
                         btn_var_y.setText("y");
                         btn_var_y.setTextSize(20);
-
-                        FancyButton btn_var_z = (FancyButton)v.findViewById(R.id.btn_var_z);
                         btn_var_z.setText("z");
                         btn_var_z.setTextSize(20);
-
-                        FancyButton btn_var_a = (FancyButton)v.findViewById(R.id.btn_var_a);
                         btn_var_a.setText("a");
                         btn_var_a.setTextSize(20);
-
-                        FancyButton btn_var_b = (FancyButton)v.findViewById(R.id.btn_var_b);
                         btn_var_b.setText("b");
                         btn_var_b.setTextSize(20);
-
-                        FancyButton btn_var_c = (FancyButton)v.findViewById(R.id.btn_var_c);
                         btn_var_c.setText("c");
                         btn_var_c.setTextSize(20);
-
-                        FancyButton btn_var_d = (FancyButton)v.findViewById(R.id.btn_var_d);
                         btn_var_d.setText("d");
                         btn_var_d.setTextSize(20);
+
+                        validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
 
                         btn_one.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                    input_problem.getText().insert(input_problem.getSelectionStart(), "1");
-                                    input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_one.getText().toString());
                             }
                         });
 
                         btn_two.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "2");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_two.getText().toString());
                             }
                         });
 
                         btn_three.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "3");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_three.getText().toString());
                             }
                         });
 
                         btn_four.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "4");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_four.getText().toString());
                             }
                         });
 
                         btn_five.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "5");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_five.getText().toString());
                             }
                         });
 
                         btn_six.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "6");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_six.getText().toString());
                             }
                         });
 
                         btn_seven.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "7");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_seven.getText().toString());
                             }
                         });
 
                         btn_eight.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "8");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_eight.getText().toString());
                             }
                         });
 
                         btn_nine.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "9");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_nine.getText().toString());
                             }
                         });
 
                         btn_zero.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "0");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_zero.getText().toString());
                             }
                         });
 
                         btn_left_shift.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (input_problem.getSelectionStart() == 0) {
-                                    input_problem.setSelection(0);
-                                } else {
-                                    input_problem.setSelection(input_problem.getSelectionEnd() - 1);
-                                }
+                                left_shift();
                             }
                         });
 
                         btn_right_shift.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (input_problem.getSelectionEnd() == input_problem.length()) {
-                                    input_problem.setSelection(input_problem.length());
-                                } else {
-                                    input_problem.setSelection(input_problem.getSelectionEnd() + 1);
-                                }
+                                right_shift();
                             }
                         });
 
                         btn_var_w.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "w");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_w.getText().toString());
                             }
                         });
 
                         btn_var_x.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "x");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_x.getText().toString());
                             }
                         });
 
                         btn_var_y.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "y");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_y.getText().toString());
                             }
                         });
 
                         btn_var_z.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "z");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_z.getText().toString());
                             }
                         });
 
                         btn_var_a.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "a");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_a.getText().toString());
                             }
                         });
 
                         btn_var_b.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "b");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_b.getText().toString());
                             }
                         });
 
                         btn_var_c.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "c");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_c.getText().toString());
                             }
                         });
 
                         btn_var_d.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "d");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_var_d.getText().toString());
                             }
                         });
 
                         btn_add.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "+");
-                                input_problem.setSelection(input_problem.getSelectionStart());                            }
+                                process_btn_chars(btn_add.getText().toString());
+                            }
                         });
 
                         btn_subtract.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "-");
-                                input_problem.setSelection(input_problem.getSelectionStart());                            }
+                                process_btn_chars(btn_subtract.getText().toString());
+                            }
                         });
 
                         btn_multiply.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "*");
-                                input_problem.setSelection(input_problem.getSelectionStart());                            }
+                                process_btn_chars(btn_multiply.getText().toString());
+                            }
                         });
 
                         btn_divide.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "/");
-                                input_problem.setSelection(input_problem.getSelectionStart());                            }
+                                process_btn_chars(btn_divide.getText().toString());
+                            }
                         });
 
                         btn_power.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "^");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_power.getText().toString());
                             }
                         });
 
                         btn_decimal.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), ".");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_decimal.getText().toString());
                             }
                         });
 
                         btn_open_parenthesis.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "(");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_open_parenthesis.getText().toString());
                             }
                         });
 
                         btn_closing_parenthesis.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), ")");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_closing_parenthesis.getText().toString());
                             }
                         });
 
                         btn_backspace.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                int cursorPosition = input_problem.getSelectionStart();
-                                if (cursorPosition > 0) {
-                                    input_problem.setText(input_problem.getText().delete(cursorPosition - 1, cursorPosition));
-                                    input_problem.setSelection(cursorPosition-1);
-                                }
+                                backspace();
                             }
                         });
 
                         btn_clear.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.setText("");
+                                clear_equation();
                             }
                         });
 
                         btn_open_brace.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "{");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_open_brace.getText().toString());
                             }
                         });
 
                         btn_closing_brace.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                input_problem.getText().insert(input_problem.getSelectionStart(), "}");
-                                input_problem.setSelection(input_problem.getSelectionStart());
+                                process_btn_chars(btn_closing_brace.getText().toString());
                             }
                         });
 
                         validate_problem_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                final String equation = input_problem.getText().toString();
+                                equation = input_problem.getText().toString();
 
                                 if (check(equation)) {
                                     new LovelyCustomDialog(mContext)
                                             .setIcon(R.drawable.aica)
-                                            .setTitle("SOLVE THIS EQUATION?")
+                                            .setTitle(R.string.validate_problem_title)
                                             .setView(R.layout.input_mode_problem_view)
                                             .setTitleGravity(1)
                                             .setTopColorRes(R.color.darkGreen)
@@ -609,22 +554,19 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                             .configureView(new LovelyCustomDialog.ViewConfigurator() {
                                                 @Override
                                                 public void configureView(View v) {
-                                                    MathView input_mode_problem = (MathView) v.findViewById(R.id.input_mode_problem);
-
+                                                    input_mode_problem = (MathView) v.findViewById(R.id.input_mode_problem);
                                                     input_mode_problem.setText("$$" + equation + "$$");
                                                 }
                                             })
                                             .setListener(R.id.submit_problem_btn, true, new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    Intent i = new Intent(mContext, SolveProblemActivity.class);
+                                                    i = new Intent(mContext, SolveProblemActivity.class);
 
-                                                    String resultString;
-
-                                                    ExprEvaluator util = new ExprEvaluator();
-                                                    EvalEngine engine = util.getEvalEngine();
+                                                    util = new ExprEvaluator();
+                                                    engine = util.getEvalEngine();
                                                     engine.setStepListener(new StepListener());
-                                                    IExpr result = util.evaluate(equation);
+                                                    result = util.evaluate(equation);
 
                                                     if (result.toString().contains("{") && result.toString().contains("}")) {
                                                         resultString = result.toString().substring(1, result.toString().length()-1);
@@ -668,8 +610,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     }
 
     public boolean check(String equation) {
-        Boolean match;
-
         try {
             match = true;
 
@@ -680,10 +620,11 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 match = false;
             }
 
-            ExprEvaluator util = new ExprEvaluator();
-            EvalEngine engine = util.getEvalEngine();
+            util = new ExprEvaluator();
+            engine = util.getEvalEngine();
             engine.setStepListener(new StepListener());
-            IExpr result = util.evaluate(equation);
+            result = util.evaluate(equation);
+
             System.out.println("Result: " + result.toString());
 
             if (result.isAST()) {
@@ -713,5 +654,38 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         }
 
         return match;
+    }
+
+    public void process_btn_chars(String chars) {
+        input_problem.getText().insert(input_problem.getSelectionStart(), chars);
+        input_problem.setSelection(input_problem.getSelectionStart());
+    }
+
+    public void left_shift() {
+        if (input_problem.getSelectionStart() == 0) {
+            input_problem.setSelection(0);
+        } else {
+            input_problem.setSelection(input_problem.getSelectionEnd() - 1);
+        }
+    }
+
+    public void right_shift() {
+        if (input_problem.getSelectionEnd() == input_problem.length()) {
+            input_problem.setSelection(input_problem.length());
+        } else {
+            input_problem.setSelection(input_problem.getSelectionEnd() + 1);
+        }
+    }
+
+    public void backspace() {
+        int cursorPosition = input_problem.getSelectionStart();
+        if (cursorPosition > 0) {
+            input_problem.setText(input_problem.getText().delete(cursorPosition - 1, cursorPosition));
+            input_problem.setSelection(cursorPosition-1);
+        }
+    }
+
+    public void clear_equation() {
+        input_problem.setText("");
     }
 }

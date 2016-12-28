@@ -126,6 +126,7 @@
                                 android:visibility="visible"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_1"
                                 android:layout_toEndOf="@id/solution_step_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -154,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -180,6 +181,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_2"
                                 android:layout_toEndOf="@id/solution_step_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -209,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -235,6 +237,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_3"
                                 android:layout_toEndOf="@id/solution_step_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -264,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -290,6 +293,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_4"
                                 android:layout_toEndOf="@id/solution_step_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -319,7 +323,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -345,6 +349,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_5"
                                 android:layout_toEndOf="@id/solution_step_5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -374,7 +379,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -400,6 +405,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_6"
                                 android:layout_toEndOf="@id/solution_step_6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -429,7 +435,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -455,6 +461,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_7"
                                 android:layout_toEndOf="@id/solution_step_7"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -484,7 +491,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -510,6 +517,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_8"
                                 android:layout_toEndOf="@id/solution_step_8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -539,7 +547,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -565,6 +573,7 @@
                                 android:cursorVisible="true"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_9"
                                 android:layout_toEndOf="@id/solution_step_9"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -587,9 +596,7 @@
 
                     <!-- Step End -->
 
-
                 </LinearLayout>
-
 
             </LinearLayout>
 

@@ -1,5 +1,6 @@
 package edu.its.solveexponents.teacheraica.content;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +10,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import java.util.ArrayList;
@@ -47,6 +51,20 @@ public class SolveProblemActivity extends AppCompatActivity {
     String equation_start = "\\(";
     String equation_end = "\\)";
 
+    FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
+            btn_zero, btn_left_shift, btn_right_shift, btn_add, btn_subtract, btn_multiply, btn_divide, btn_power,
+            btn_decimal, btn_open_parenthesis, btn_closing_parenthesis, btn_backspace, btn_clear, btn_open_brace,
+            btn_closing_brace, btn_var_w, btn_var_x, btn_var_y, btn_var_z, btn_var_a, btn_var_b, btn_var_c,
+            btn_var_d;
+    FancyButton submit_solution_step_1, submit_solution_step_2, submit_solution_step_3, submit_solution_step_4,
+            submit_solution_step_5, submit_solution_step_6, submit_solution_step_7, submit_solution_step_8,
+            submit_solution_step_9;
+    MaterialEditText solution_step_1, solution_step_2, solution_step_3, solution_step_4, solution_step_5,
+            solution_step_6, solution_step_7, solution_step_8, solution_step_9;
+    LinearLayout solution_step_1_view, solution_step_2_view, solution_step_3_view, solution_step_4_view,
+            solution_step_5_view, solution_step_6_view, solution_step_7_view, solution_step_8_view,
+            solution_step_9_view;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +76,7 @@ public class SolveProblemActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MathView math_equation = (MathView) findViewById(R.id.math_equation);
+        math_equation = (MathView) findViewById(R.id.math_equation);
 
         equation = getIntent().getExtras().getString("equation");
 
@@ -78,398 +96,477 @@ public class SolveProblemActivity extends AppCompatActivity {
             this.equationType = "custom";
         }
 
-        FancyButton btn_one = (FancyButton)findViewById(R.id.btn_one);
+        submit_solution_step_1 = (FancyButton)findViewById(R.id.submit_solution_step_1);
+        submit_solution_step_2 = (FancyButton)findViewById(R.id.submit_solution_step_2);
+        submit_solution_step_3 = (FancyButton)findViewById(R.id.submit_solution_step_3);
+        submit_solution_step_4 = (FancyButton)findViewById(R.id.submit_solution_step_4);
+        submit_solution_step_5 = (FancyButton)findViewById(R.id.submit_solution_step_5);
+        submit_solution_step_6 = (FancyButton)findViewById(R.id.submit_solution_step_6);
+        submit_solution_step_7 = (FancyButton)findViewById(R.id.submit_solution_step_7);
+        submit_solution_step_8 = (FancyButton)findViewById(R.id.submit_solution_step_8);
+        submit_solution_step_9 = (FancyButton)findViewById(R.id.submit_solution_step_9);
+
+        btn_one = (FancyButton)findViewById(R.id.btn_one);
+        btn_two = (FancyButton)findViewById(R.id.btn_two);
+        btn_three = (FancyButton)findViewById(R.id.btn_three);
+        btn_four = (FancyButton)findViewById(R.id.btn_four);
+        btn_five = (FancyButton)findViewById(R.id.btn_five);
+        btn_six = (FancyButton)findViewById(R.id.btn_six);
+        btn_seven = (FancyButton)findViewById(R.id.btn_seven);
+        btn_eight = (FancyButton)findViewById(R.id.btn_eight);
+        btn_nine = (FancyButton)findViewById(R.id.btn_nine);
+        btn_zero = (FancyButton)findViewById(R.id.btn_zero);
+        btn_left_shift = (FancyButton)findViewById(R.id.btn_left_shift);
+        btn_right_shift = (FancyButton)findViewById(R.id.btn_right_shift);
+        btn_add = (FancyButton)findViewById(R.id.btn_add);
+        btn_subtract = (FancyButton)findViewById(R.id.btn_subtract);
+        btn_multiply = (FancyButton)findViewById(R.id.btn_multiply);
+        btn_divide = (FancyButton)findViewById(R.id.btn_divide);
+        btn_power = (FancyButton)findViewById(R.id.btn_power);
+        btn_decimal = (FancyButton)findViewById(R.id.btn_decimal);
+        btn_open_parenthesis = (FancyButton)findViewById(R.id.btn_open_parenthesis);
+        btn_closing_parenthesis = (FancyButton)findViewById(R.id.btn_closing_parenthesis);
+        btn_open_brace = (FancyButton)findViewById(R.id.btn_open_brace);
+        btn_closing_brace = (FancyButton)findViewById(R.id.btn_closing_brace);
+        btn_backspace = (FancyButton)findViewById(R.id.btn_backspace);
+        btn_clear = (FancyButton)findViewById(R.id.btn_clear);
+        btn_var_w = (FancyButton)findViewById(R.id.btn_var_w);
+        btn_var_x = (FancyButton)findViewById(R.id.btn_var_x);
+        btn_var_y = (FancyButton)findViewById(R.id.btn_var_y);
+        btn_var_z = (FancyButton)findViewById(R.id.btn_var_z);
+        btn_var_a = (FancyButton)findViewById(R.id.btn_var_a);
+        btn_var_b = (FancyButton)findViewById(R.id.btn_var_b);
+        btn_var_c = (FancyButton)findViewById(R.id.btn_var_c);
+        btn_var_d = (FancyButton)findViewById(R.id.btn_var_d);
+
         btn_one.setText("1");
         btn_one.setTextSize(20);
-
-        FancyButton btn_two = (FancyButton)findViewById(R.id.btn_two);
         btn_two.setText("2");
         btn_two.setTextSize(20);
-
-        FancyButton btn_three = (FancyButton)findViewById(R.id.btn_three);
         btn_three.setText("3");
         btn_three.setTextSize(20);
-
-        FancyButton btn_four = (FancyButton)findViewById(R.id.btn_four);
         btn_four.setText("4");
         btn_four.setTextSize(20);
-
-        FancyButton btn_five = (FancyButton)findViewById(R.id.btn_five);
         btn_five.setText("5");
         btn_five.setTextSize(20);
-
-        FancyButton btn_six = (FancyButton)findViewById(R.id.btn_six);
         btn_six.setText("6");
         btn_six.setTextSize(20);
-
-        FancyButton btn_seven = (FancyButton)findViewById(R.id.btn_seven);
         btn_seven.setText("7");
         btn_seven.setTextSize(20);
-
-        FancyButton btn_eight = (FancyButton)findViewById(R.id.btn_eight);
         btn_eight.setText("8");
         btn_eight.setTextSize(20);
-
-        FancyButton btn_nine = (FancyButton)findViewById(R.id.btn_nine);
         btn_nine.setText("9");
         btn_nine.setTextSize(20);
-
-        FancyButton btn_zero = (FancyButton)findViewById(R.id.btn_zero);
         btn_zero.setText("0");
         btn_zero.setTextSize(20);
-
-        FancyButton btn_left_shift = (FancyButton)findViewById(R.id.btn_left_shift);
         btn_left_shift.setText("←");
         btn_left_shift.setTextSize(20);
-
-        FancyButton btn_right_shift = (FancyButton)findViewById(R.id.btn_right_shift);
         btn_right_shift.setText("→");
         btn_right_shift.setTextSize(20);
-
-        FancyButton btn_add = (FancyButton)findViewById(R.id.btn_add);
         btn_add.setText("+");
         btn_add.setTextSize(20);
-
-        FancyButton btn_subtract = (FancyButton)findViewById(R.id.btn_subtract);
         btn_subtract.setText("-");
         btn_subtract.setTextSize(20);
-
-        FancyButton btn_multiply = (FancyButton)findViewById(R.id.btn_multiply);
         btn_multiply.setText("*");
         btn_multiply.setTextSize(20);
-
-        FancyButton btn_divide = (FancyButton)findViewById(R.id.btn_divide);
         btn_divide.setText("/");
         btn_divide.setTextSize(20);
-
-        FancyButton btn_power = (FancyButton)findViewById(R.id.btn_power);
         btn_power.setText("^");
         btn_power.setTextSize(20);
-
-        FancyButton btn_decimal = (FancyButton)findViewById(R.id.btn_decimal);
         btn_decimal.setText(".");
         btn_decimal.setTextSize(20);
-
-        FancyButton btn_open_parenthesis = (FancyButton)findViewById(R.id.btn_open_parenthesis);
         btn_open_parenthesis.setText("(");
         btn_open_parenthesis.setTextSize(20);
-
-        FancyButton btn_closing_parenthesis = (FancyButton)findViewById(R.id.btn_closing_parenthesis);
         btn_closing_parenthesis.setText(")");
         btn_closing_parenthesis.setTextSize(20);
-
-        FancyButton btn_open_brace = (FancyButton)findViewById(R.id.btn_open_brace);
         btn_open_brace.setText("{");
         btn_open_brace.setTextSize(20);
-
-        FancyButton btn_closing_brace = (FancyButton)findViewById(R.id.btn_closing_brace);
         btn_closing_brace.setText("}");
         btn_closing_brace.setTextSize(20);
-
-        FancyButton btn_backspace = (FancyButton)findViewById(R.id.btn_backspace);
         btn_backspace.setIconResource(R.drawable.sym_keyboard_delete);
         btn_backspace.setTextSize(20);
-
-        FancyButton btn_clear = (FancyButton)findViewById(R.id.btn_clear);
         btn_clear.setText("C");
         btn_clear.setTextSize(20);
-
-        FancyButton btn_var_w = (FancyButton)findViewById(R.id.btn_var_w);
         btn_var_w.setText("w");
         btn_var_w.setTextSize(20);
-
-        FancyButton btn_var_x = (FancyButton)findViewById(R.id.btn_var_x);
         btn_var_x.setText("x");
         btn_var_x.setTextSize(20);
-
-        FancyButton btn_var_y = (FancyButton)findViewById(R.id.btn_var_y);
         btn_var_y.setText("y");
         btn_var_y.setTextSize(20);
-
-        FancyButton btn_var_z = (FancyButton)findViewById(R.id.btn_var_z);
         btn_var_z.setText("z");
         btn_var_z.setTextSize(20);
-
-        FancyButton btn_var_a = (FancyButton)findViewById(R.id.btn_var_a);
         btn_var_a.setText("a");
         btn_var_a.setTextSize(20);
-
-        FancyButton btn_var_b = (FancyButton)findViewById(R.id.btn_var_b);
         btn_var_b.setText("b");
         btn_var_b.setTextSize(20);
-
-        FancyButton btn_var_c = (FancyButton)findViewById(R.id.btn_var_c);
         btn_var_c.setText("c");
         btn_var_c.setTextSize(20);
-
-        FancyButton btn_var_d = (FancyButton)findViewById(R.id.btn_var_d);
         btn_var_d.setText("d");
         btn_var_d.setTextSize(20);
+
+        solution_step_1 = (MaterialEditText)findViewById(R.id.solution_step_1);
+        solution_step_2 = (MaterialEditText)findViewById(R.id.solution_step_2);
+        solution_step_3 = (MaterialEditText)findViewById(R.id.solution_step_3);
+        solution_step_4 = (MaterialEditText)findViewById(R.id.solution_step_4);
+        solution_step_5 = (MaterialEditText)findViewById(R.id.solution_step_5);
+        solution_step_6 = (MaterialEditText)findViewById(R.id.solution_step_6);
+        solution_step_7 = (MaterialEditText)findViewById(R.id.solution_step_7);
+        solution_step_8 = (MaterialEditText)findViewById(R.id.solution_step_8);
+        solution_step_9 = (MaterialEditText)findViewById(R.id.solution_step_9);
+
+        solution_step_1_view = (LinearLayout)findViewById(R.id.solution_step_1_view);
+        solution_step_2_view = (LinearLayout)findViewById(R.id.solution_step_2_view);
+        solution_step_3_view = (LinearLayout)findViewById(R.id.solution_step_3_view);
+        solution_step_4_view = (LinearLayout)findViewById(R.id.solution_step_4_view);
+        solution_step_5_view = (LinearLayout)findViewById(R.id.solution_step_5_view);
+        solution_step_6_view = (LinearLayout)findViewById(R.id.solution_step_6_view);
+        solution_step_7_view = (LinearLayout)findViewById(R.id.solution_step_7_view);
+        solution_step_8_view = (LinearLayout)findViewById(R.id.solution_step_8_view);
+        solution_step_9_view = (LinearLayout)findViewById(R.id.solution_step_9_view);
+
+        solution_step_1.requestFocus();
+
+        focus_settings();
+
+        submit_solution_step_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_1.setEnabled(false);
+                solution_step_2_view.setVisibility(View.VISIBLE);
+                submit_solution_step_1.setGhost(true);
+                submit_solution_step_1.setEnabled(false);
+                solution_step_2.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_2.setEnabled(false);
+                solution_step_3_view.setVisibility(View.VISIBLE);
+                submit_solution_step_2.setGhost(true);
+                submit_solution_step_2.setEnabled(false);
+                solution_step_3.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_3.setEnabled(false);
+                solution_step_4_view.setVisibility(View.VISIBLE);
+                submit_solution_step_3.setGhost(true);
+                submit_solution_step_3.setEnabled(false);
+                solution_step_4.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_4.setEnabled(false);
+                solution_step_5_view.setVisibility(View.VISIBLE);
+                submit_solution_step_4.setGhost(true);
+                submit_solution_step_4.setEnabled(false);
+                solution_step_5.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_5.setEnabled(false);
+                solution_step_6_view.setVisibility(View.VISIBLE);
+                submit_solution_step_5.setGhost(true);
+                submit_solution_step_5.setEnabled(false);
+                solution_step_6.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_6.setEnabled(false);
+                solution_step_7_view.setVisibility(View.VISIBLE);
+                submit_solution_step_6.setGhost(true);
+                submit_solution_step_6.setEnabled(false);
+                solution_step_7.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_7.setEnabled(false);
+                solution_step_8_view.setVisibility(View.VISIBLE);
+                submit_solution_step_7.setGhost(true);
+                submit_solution_step_7.setEnabled(false);
+                solution_step_8.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_8.setEnabled(false);
+                solution_step_9_view.setVisibility(View.VISIBLE);
+                submit_solution_step_8.setGhost(true);
+                submit_solution_step_8.setEnabled(false);
+                solution_step_9.requestFocus();
+                focus_settings();
+            }
+        });
+
+        submit_solution_step_9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                solution_step_9.setEnabled(false);
+                submit_solution_step_9.setGhost(true);
+                submit_solution_step_9.setEnabled(false);
+                focus_settings();
+            }
+        });
+
+
 
         btn_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "1");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_one.getText().toString());
             }
         });
 
         btn_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "2");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_two.getText().toString());
             }
         });
 
         btn_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "3");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_three.getText().toString());
             }
         });
 
         btn_four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "4");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_four.getText().toString());
             }
         });
 
         btn_five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "5");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_five.getText().toString());
             }
         });
 
         btn_six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "6");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_six.getText().toString());
             }
         });
 
         btn_seven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "7");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_seven.getText().toString());
             }
         });
 
         btn_eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "8");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_eight.getText().toString());
             }
         });
 
         btn_nine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "9");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_nine.getText().toString());
             }
         });
 
         btn_zero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "0");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_zero.getText().toString());
             }
         });
 
         btn_left_shift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (input_problem.getSelectionStart() == 0) {
-//                    input_problem.setSelection(0);
-//                } else {
-//                    input_problem.setSelection(input_problem.getSelectionEnd() - 1);
-//                }
+                left_shift();
             }
         });
 
         btn_right_shift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (input_problem.getSelectionEnd() == input_problem.length()) {
-//                    input_problem.setSelection(input_problem.length());
-//                } else {
-//                    input_problem.setSelection(input_problem.getSelectionEnd() + 1);
-//                }
+                right_shift();
             }
         });
 
         btn_var_w.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "w");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_w.getText().toString());
             }
         });
 
         btn_var_x.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "x");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_x.getText().toString());
             }
         });
 
         btn_var_y.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "y");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_y.getText().toString());
             }
         });
 
         btn_var_z.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "z");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_z.getText().toString());
             }
         });
 
         btn_var_a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "a");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_a.getText().toString());
             }
         });
 
         btn_var_b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "b");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_b.getText().toString());
             }
         });
 
         btn_var_c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "c");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_c.getText().toString());
             }
         });
 
         btn_var_d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "d");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_var_d.getText().toString());
             }
         });
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "+");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_add.getText().toString());
             }
         });
 
         btn_subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "-");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_subtract.getText().toString());
             }
         });
 
         btn_multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "*");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_multiply.getText().toString());
             }
         });
 
         btn_divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "/");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_divide.getText().toString());
             }
         });
 
         btn_power.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "^");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_power.getText().toString());
             }
         });
 
         btn_decimal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), ".");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_decimal.getText().toString());
             }
         });
 
         btn_open_parenthesis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "(");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_open_parenthesis.getText().toString());
             }
         });
 
         btn_closing_parenthesis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), ")");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_closing_parenthesis.getText().toString());
             }
         });
 
         btn_backspace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                int cursorPosition = input_problem.getSelectionStart();
-//                if (cursorPosition > 0) {
-//                    input_problem.setText(input_problem.getText().delete(cursorPosition - 1, cursorPosition));
-//                    input_problem.setSelection(cursorPosition-1);
-//                }
+                backspace();
+            }
+        });
+
+        btn_backspace.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                clear_equation();
+                return false;
             }
         });
 
         btn_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.setText("");
+                clear_equation();
             }
         });
 
         btn_open_brace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "{");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_open_brace.getText().toString());
             }
         });
 
         btn_closing_brace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                input_problem.getText().insert(input_problem.getSelectionStart(), "}");
-//                input_problem.setSelection(input_problem.getSelectionStart());
+                process_btn_chars(btn_closing_brace.getText().toString());
             }
         });
-
 
         errorsCommited = 0;
 
@@ -587,5 +684,313 @@ public class SolveProblemActivity extends AppCompatActivity {
                 })
                 .show();
 
+    }
+
+    public void focus_settings() {
+        if (solution_step_1.hasFocus()) {
+            solution_step_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_2.hasFocus()) {
+            solution_step_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_3.hasFocus()) {
+            solution_step_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_4.hasFocus()) {
+            solution_step_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_5.hasFocus()) {
+            solution_step_5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_6.hasFocus()) {
+            solution_step_6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_7.hasFocus()) {
+            solution_step_7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_8.hasFocus()) {
+            solution_step_8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_9.hasFocus()) {
+            solution_step_9.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        }
+
+
+    }
+
+    public void process_btn_chars(String chars) {
+        if (solution_step_1.hasFocus()) {
+            solution_step_1.getText().insert(solution_step_1.getSelectionStart(), chars);
+            solution_step_1.setSelection(solution_step_1.getSelectionStart());
+        } else if (solution_step_2.hasFocus()) {
+            solution_step_2.getText().insert(solution_step_2.getSelectionStart(), chars);
+            solution_step_2.setSelection(solution_step_2.getSelectionStart());
+        } else if (solution_step_3.hasFocus()) {
+            solution_step_3.getText().insert(solution_step_3.getSelectionStart(), chars);
+            solution_step_3.setSelection(solution_step_3.getSelectionStart());
+        } else if (solution_step_4.hasFocus()) {
+            solution_step_4.getText().insert(solution_step_4.getSelectionStart(), chars);
+            solution_step_4.setSelection(solution_step_4.getSelectionStart());
+        } else if (solution_step_5.hasFocus()) {
+            solution_step_5.getText().insert(solution_step_5.getSelectionStart(), chars);
+            solution_step_5.setSelection(solution_step_5.getSelectionStart());
+        } else if (solution_step_6.hasFocus()) {
+            solution_step_6.getText().insert(solution_step_6.getSelectionStart(), chars);
+            solution_step_6.setSelection(solution_step_6.getSelectionStart());
+        } else if (solution_step_7.hasFocus()) {
+            solution_step_7.getText().insert(solution_step_7.getSelectionStart(), chars);
+            solution_step_7.setSelection(solution_step_7.getSelectionStart());
+        } else if (solution_step_8.hasFocus()) {
+            solution_step_8.getText().insert(solution_step_8.getSelectionStart(), chars);
+            solution_step_8.setSelection(solution_step_8.getSelectionStart());
+        } else if (solution_step_9.hasFocus()) {
+            solution_step_9.getText().insert(solution_step_9.getSelectionStart(), chars);
+            solution_step_9.setSelection(solution_step_9.getSelectionStart());
+        }
+    }
+
+    public void left_shift() {
+        if (solution_step_1.hasFocus()) {
+            if (solution_step_1.getSelectionStart() == 0) {
+                solution_step_1.setSelection(0);
+            } else {
+                solution_step_1.setSelection(solution_step_1.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_2.hasFocus()) {
+            if (solution_step_2.getSelectionStart() == 0) {
+                solution_step_2.setSelection(0);
+            } else {
+                solution_step_2.setSelection(solution_step_2.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_3.hasFocus()) {
+            if (solution_step_3.getSelectionStart() == 0) {
+                solution_step_3.setSelection(0);
+            } else {
+                solution_step_3.setSelection(solution_step_3.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_4.hasFocus()) {
+            if (solution_step_4.getSelectionStart() == 0) {
+                solution_step_4.setSelection(0);
+            } else {
+                solution_step_4.setSelection(solution_step_4.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_5.hasFocus()) {
+            if (solution_step_5.getSelectionStart() == 0) {
+                solution_step_5.setSelection(0);
+            } else {
+                solution_step_5.setSelection(solution_step_5.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_6.hasFocus()) {
+            if (solution_step_6.getSelectionStart() == 0) {
+                solution_step_6.setSelection(0);
+            } else {
+                solution_step_6.setSelection(solution_step_6.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_7.hasFocus()) {
+            if (solution_step_7.getSelectionStart() == 0) {
+                solution_step_7.setSelection(0);
+            } else {
+                solution_step_7.setSelection(solution_step_7.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_8.hasFocus()) {
+            if (solution_step_8.getSelectionStart() == 0) {
+                solution_step_8.setSelection(0);
+            } else {
+                solution_step_8.setSelection(solution_step_8.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_9.hasFocus()) {
+            if (solution_step_9.getSelectionStart() == 0) {
+                solution_step_9.setSelection(0);
+            } else {
+                solution_step_9.setSelection(solution_step_9.getSelectionEnd() - 1);
+            }
+        }
+
+    }
+
+    public void right_shift() {
+        if (solution_step_1.hasFocus()) {
+            if (solution_step_1.getSelectionEnd() == solution_step_1.length()) {
+                solution_step_1.setSelection(solution_step_1.length());
+            } else {
+                solution_step_1.setSelection(solution_step_1.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_2.hasFocus()) {
+            if (solution_step_2.getSelectionEnd() == solution_step_2.length()) {
+                solution_step_2.setSelection(solution_step_2.length());
+            } else {
+                solution_step_2.setSelection(solution_step_2.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_3.hasFocus()) {
+            if (solution_step_3.getSelectionEnd() == solution_step_3.length()) {
+                solution_step_3.setSelection(solution_step_3.length());
+            } else {
+                solution_step_3.setSelection(solution_step_3.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_4.hasFocus()) {
+            if (solution_step_4.getSelectionEnd() == solution_step_4.length()) {
+                solution_step_4.setSelection(solution_step_4.length());
+            } else {
+                solution_step_4.setSelection(solution_step_4.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_5.hasFocus()) {
+            if (solution_step_5.getSelectionEnd() == solution_step_5.length()) {
+                solution_step_5.setSelection(solution_step_5.length());
+            } else {
+                solution_step_5.setSelection(solution_step_5.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_6.hasFocus()) {
+            if (solution_step_6.getSelectionEnd() == solution_step_6.length()) {
+                solution_step_6.setSelection(solution_step_6.length());
+            } else {
+                solution_step_6.setSelection(solution_step_6.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_7.hasFocus()) {
+            if (solution_step_7.getSelectionEnd() == solution_step_7.length()) {
+                solution_step_7.setSelection(solution_step_7.length());
+            } else {
+                solution_step_7.setSelection(solution_step_7.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_8.hasFocus()) {
+            if (solution_step_8.getSelectionEnd() == solution_step_8.length()) {
+                solution_step_8.setSelection(solution_step_8.length());
+            } else {
+                solution_step_8.setSelection(solution_step_8.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_9.hasFocus()) {
+            if (solution_step_9.getSelectionEnd() == solution_step_9.length()) {
+                solution_step_9.setSelection(solution_step_9.length());
+            } else {
+                solution_step_9.setSelection(solution_step_9.getSelectionEnd() + 1);
+            }
+        }
+    }
+
+    public void backspace() {
+        int cursorPosition;
+
+        if (solution_step_1.hasFocus()) {
+            cursorPosition = solution_step_1.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_1.setText(solution_step_1.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_1.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_2.hasFocus()) {
+            cursorPosition = solution_step_2.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_2.setText(solution_step_2.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_2.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_3.hasFocus()) {
+            cursorPosition = solution_step_3.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_3.setText(solution_step_3.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_3.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_4.hasFocus()) {
+            cursorPosition = solution_step_4.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_4.setText(solution_step_4.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_4.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_5.hasFocus()) {
+            cursorPosition = solution_step_5.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_5.setText(solution_step_5.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_5.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_6.hasFocus()) {
+            cursorPosition = solution_step_6.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_6.setText(solution_step_6.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_6.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_7.hasFocus()) {
+            cursorPosition = solution_step_7.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_7.setText(solution_step_7.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_7.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_8.hasFocus()) {
+            cursorPosition = solution_step_8.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_8.setText(solution_step_8.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_8.setSelection(cursorPosition-1);
+            }
+        } else if (solution_step_9.hasFocus()) {
+            cursorPosition = solution_step_9.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_9.setText(solution_step_9.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_9.setSelection(cursorPosition-1);
+            }
+        }
+    }
+
+    public void clear_equation() {
+        if (solution_step_1.hasFocus()) {
+            solution_step_1.setText("");
+        } else if (solution_step_2.hasFocus()) {
+            solution_step_2.setText("");
+        } else if (solution_step_3.hasFocus()) {
+            solution_step_3.setText("");
+        } else if (solution_step_4.hasFocus()) {
+            solution_step_4.setText("");
+        } else if (solution_step_5.hasFocus()) {
+            solution_step_5.setText("");
+        } else if (solution_step_6.hasFocus()) {
+            solution_step_6.setText("");
+        } else if (solution_step_7.hasFocus()) {
+            solution_step_7.setText("");
+        } else if (solution_step_8.hasFocus()) {
+            solution_step_8.setText("");
+        } else if (solution_step_9.hasFocus()) {
+            solution_step_9.setText("");
+        }
     }
 }
