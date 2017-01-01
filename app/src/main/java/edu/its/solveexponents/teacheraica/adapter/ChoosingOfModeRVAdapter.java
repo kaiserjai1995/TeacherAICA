@@ -86,6 +86,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     String resultString;
     Boolean match;
     String equation_string;
+    String final_equation;
 
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input){
         this.mode_input = mode_input;
@@ -130,8 +131,10 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
-                        level = MainFragment.teacheraicadb.getCurrentLevel();
-                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+//                        level = MainFragment.teacheraicadb.getCurrentLevel();
+                        level = 4;
+//                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+                        sublevel = 2;
                         equation = Randomizer.getRandomEquation(level, sublevel);
 
                         showGeneratedProblemView(equation);
@@ -163,9 +166,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     @Override
                     public void configureView(View v) {
                         generated_problem = (MathView)v.findViewById(R.id.generated_problem);
-//                        generated_problem.setText("$$" + equation + "$$");
-
-//                        equation = Randomizer.getRandomEquation(level, sublevel);
 
                         Toast.makeText(mContext, "Level: " + level +
                                 "\nSublevel: " + sublevel +
@@ -179,7 +179,11 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         StringWriter stw = new StringWriter();
                         mathUtil.toMathML(equation, stw);
 
-                        equation_string = "<center><b><font size='+2'>" + stw.toString() + "</font></b></center>";
+                        System.out.println(stw.toString());
+
+                        final_equation = stw.toString();
+
+                        equation_string = "<center><b><font size='+2'>" + final_equation + "</font></b></center>";
 
                         generated_problem.setText(equation_string);
                     }
@@ -204,6 +208,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     i.putExtra("equation", equation);
                     i.putExtra("result", result.toString());
                     i.putExtra("equation_string", equation_string);
+                    i.putExtra("expr_result", result);
                     mContext.startActivity(i);
                 }
             })
@@ -623,6 +628,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                     i.putExtra("equation", equation);
                                                     i.putExtra("result", resultString);
                                                     i.putExtra("equation_string", equation_string);
+                                                    i.putExtra("expr_result", result);
 
                                                     mContext.startActivity(i);
                                                 }

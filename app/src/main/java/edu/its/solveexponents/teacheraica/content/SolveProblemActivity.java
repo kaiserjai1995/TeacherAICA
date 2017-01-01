@@ -20,6 +20,8 @@ import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.interfaces.AbstractEvalStepListener;
 import org.matheclipse.core.interfaces.IExpr;
 
+import java.util.Arrays;
+
 import edu.its.solveexponents.teacheraica.R;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
@@ -68,6 +70,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     IExpr current_result;
     String current_solution;
     String final_equation_string;
+    IExpr expr_result;
 
     private static class StepListener extends AbstractEvalStepListener {
         /**
@@ -272,18 +275,37 @@ public class SolveProblemActivity extends AppCompatActivity {
                     util = new ExprEvaluator();
                     current_result = util.evaluate(current_solution);
 
-                    if (current_solution.equals(final_answer) || current_solution.equals(final_answer.replace("*", ""))) {
+                    String[] current_answer_tokens = current_solution.split("(?<=[-+*/])|(?=[-+*/])");
+                    String[] final_answer_tokens = final_answer.split("(?<=[-+*/])|(?=[-+*/])");
 
+                    String[] final_answer_with_asterisk_tokens = final_answer.replace("*", "").split("(?<=[-+*/])|(?=[-+*/])");
+                    String[] current_answer_with_asterisk_tokens = current_solution.replace("*", "").replace("(", "").replace(")", "").split("(?<=[-+*/])|(?=[-+*/])");
+
+                    Arrays.sort(current_answer_tokens);
+                    Arrays.sort(final_answer_tokens);
+                    Arrays.sort(final_answer_with_asterisk_tokens);
+                    Arrays.sort(current_answer_with_asterisk_tokens);
+
+                    System.out.println(Arrays.toString(current_answer_tokens));
+                    System.out.println(Arrays.toString(final_answer_tokens));
+                    System.out.println(Arrays.toString(current_answer_with_asterisk_tokens));
+                    System.out.println(Arrays.toString(final_answer_with_asterisk_tokens));
+
+                    if ((Arrays.equals(current_answer_with_asterisk_tokens, final_answer_with_asterisk_tokens)
+                            && current_answer_with_asterisk_tokens.length == final_answer_with_asterisk_tokens.length)
+                            || (Arrays.equals(current_answer_tokens, final_answer_tokens)
+                            && current_answer_tokens.length == final_answer_tokens.length)) {
                         Toast.makeText(getApplicationContext(), "Final Answer has been reached!", Toast.LENGTH_LONG).show();
                         solved = true;
 
-                        if(equationType.equals("generated")) {
+                        if (equationType.equals("generated")) {
                             next_problem_prompt();
                         } else if (equationType.equals("custom")) {
                             next_problem_prompt();
                         } // Add for quizzes coming from Lecture
                     } else if (current_result.toString().equals(final_answer)) {
                         Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
+
                         solution_step_1.setEnabled(false);
                         solution_step_2_view.setVisibility(View.VISIBLE);
                         submit_solution_step_1.setGhost(true);
