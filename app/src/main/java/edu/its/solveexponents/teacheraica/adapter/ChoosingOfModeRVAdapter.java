@@ -11,17 +11,20 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
+import org.matheclipse.core.eval.MathMLUtilities;
 import org.matheclipse.core.interfaces.AbstractEvalStepListener;
 import org.matheclipse.core.interfaces.IExpr;
 import org.matheclipse.parser.client.SyntaxError;
 import org.matheclipse.parser.client.math.MathException;
 
+import java.io.StringWriter;
 import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
@@ -82,6 +85,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     MathView input_mode_problem;
     String resultString;
     Boolean match;
+    String equation_string;
 
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input){
         this.mode_input = mode_input;
@@ -159,7 +163,25 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     @Override
                     public void configureView(View v) {
                         generated_problem = (MathView)v.findViewById(R.id.generated_problem);
-                        generated_problem.setText("$$" + equation + "$$");
+//                        generated_problem.setText("$$" + equation + "$$");
+
+//                        equation = Randomizer.getRandomEquation(level, sublevel);
+
+                        Toast.makeText(mContext, "Level: " + level +
+                                "\nSublevel: " + sublevel +
+                                "\nEquation: " + equation, Toast.LENGTH_LONG).show();
+
+                        util = new ExprEvaluator();
+                        engine = util.getEvalEngine();
+
+                        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+
+                        StringWriter stw = new StringWriter();
+                        mathUtil.toMathML(equation, stw);
+
+                        equation_string = "<center><b><font size='+2'>" + stw.toString() + "</font></b></center>";
+
+                        generated_problem.setText(equation_string);
                     }
                 })
             .setListener(R.id.solve_problem_btn, true, new View.OnClickListener() {
@@ -181,6 +203,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     i.putExtra("sublevel", current_sublevel);
                     i.putExtra("equation", equation);
                     i.putExtra("result", result.toString());
+                    i.putExtra("equation_string", equation_string);
                     mContext.startActivity(i);
                 }
             })
@@ -517,6 +540,14 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                             }
                         });
 
+                        btn_backspace.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                clear_equation();
+                                return false;
+                            }
+                        });
+
                         btn_clear.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -555,7 +586,19 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                 @Override
                                                 public void configureView(View v) {
                                                     input_mode_problem = (MathView) v.findViewById(R.id.input_mode_problem);
-                                                    input_mode_problem.setText("$$" + equation + "$$");
+//                                                    input_mode_problem.setText("$$" + equation + "$$");
+
+                                                    util = new ExprEvaluator();
+                                                    engine = util.getEvalEngine();
+
+                                                    MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+
+                                                    StringWriter stw = new StringWriter();
+                                                    mathUtil.toMathML(equation, stw);
+
+                                                    equation_string = "<center><b><font size='+2'>" + stw.toString() + "</font></b></center>";
+
+                                                    input_mode_problem.setText(equation_string);
                                                 }
                                             })
                                             .setListener(R.id.submit_problem_btn, true, new View.OnClickListener() {
@@ -579,6 +622,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                     i.putExtra("generated", false);
                                                     i.putExtra("equation", equation);
                                                     i.putExtra("result", resultString);
+                                                    i.putExtra("equation_string", equation_string);
 
                                                     mContext.startActivity(i);
                                                 }

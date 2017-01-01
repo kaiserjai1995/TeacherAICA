@@ -1,5 +1,7 @@
 package edu.its.solveexponents.teacheraica.algo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -10,68 +12,68 @@ public class Randomizer {
 
     /*
     Each skill set will be having 12 equations overall in 4 levels of difficulty, having 3 equations each level
-        Positive Integer Exponents:
+        1. Positive Integer Exponents:
             Level 1:
-            1. 2^2 = 4
-            2. 7^2 = 49
-            3. 5^2 = 25
-            4. 4^3 = 64
-            5. 5^3 = 125
-            6. 10^6 = 1000000
+            1. 2^2 = 4 -
+            2. 7^2 = 49 -
+            3. 5^2 = 25 -
+            4. 4^3 = 64 -
+            5. 5^3 = 125 -
+            6. 10^6 = 1000000 -
             Level 2:
-            4. 5^2 - 4^2 = 9
-            5. 3^4 + 2^5 = 113
-            6. 2^2 * 3^3 = 108
+            4. 5^2 - 4^2 = 9 -
+            5. 3^4 + 2^5 = 113 -
+            6. 2^2 * 3^3 = 108 -
             Level 3:
-            7. x^2 + x^12 + 24x^0 = x^2 + x^12 + 24
-            8. 3x^3 + 2x^3 = 5x^3
-            9. (-3)^4 = 81
+            7. x^2 + (x^12)^0 + 24x^0 = x^2 + 25 -
+            8. 3x^3 + 2x^3 = 5x^3 -
+            9. (-3)^4 = 81 -
             Level 4:
-            10. 3x^10 + 5x^10 + 10y^10 / 2^0 = 8x^10 + 10y^10
-            11. 2^5 + 3x^2 = 3x^2 + 32
-            12. (-2)^5 * (-3)^2 = -288
+            10. (3x^10 + 5x^10 + 10x^10)/(2x^10) = 9 -
+            11. 2^5 + 3x^2 = 3x^2 + 32 -
+            12. (-2)^3 * (-3)^2 = -72 -
 
-        Base Raised to Zero:
+        2. Base Raised to Zero:
             Level 1:
-            1. 3^0 = 1
-            2. 199^0 = 1
-            3. 100000000^0 = 1
-            4. (10^6)^0 = 1
-            5. ((5^2)^3)^0 = 1
+            1. 3^0 = 1 -
+            2. 199^0 = 1 -
+            3. 100000000^0 = 1 -
+            4. (10^6)^0 = 1 -
+            5. ((5^2)^3)^0 = 1 -
             Level 2:
-            4. 3x^0 + 2x^2 = 2x^2 + 3
-            5. 4y^2 - 2x^0 = 4y^2 - 2
-            6. 100x^0 / 50y^0 = 2
+            4. 3x^0 + 2x^2 = 2x^2 + 3 -
+            5. 4y^2 - 2x^0 = 4y^2 - 2 -
+            6. (100x^0) / (50y^0) = 2 -
             Level 3:
-            7. 3^4 - 200^0 = 80
-            8. (-5)^0 + 3x^0 = 4
-            9. 3^2 * 5x^0 + 3y^0 = 48
+            7. 3^4 - 200^0 = 80 -
+            8. (-5)^0 + 3x^0 = 4 -
+            9. (3x^2)(5x^0) + 3y^0 = 15x^2 + 3 -
             Level 4:
-            10. (4x^2)^0 = 1
-            11. ((3x^4)^0)^3 = 1
-            12. (2x^(2*0))^(5*2) = 1024
+            10. (4x^2)^0 = 1 -
+            11. ((3x^4)^0)^3 = 1 -
+            12. (2x^0)^(3+2) = 32 -
 
-        Addition of Exponents with Same Bases
+        3. Addition of Exponents with Same Bases
             Level 1:
-            1. x^2 * x^4 = x^6
-            2. y^3 * y^2 * y = y^6
-            3. (2x^2) * (5x^2) = 10x^4
-            4. x^5 * x^2 * x^3 = x^10
-            5. y^4 * y^2 = y^6
+            1. x^2 * x^4 = x^6 -
+            2. y^3 * y^2 * y = y^6 -
+            3. (2x^2) * (5x^2) = 10x^4 -
+            4. x^5 * x^2 * x^3 = x^10 -
+            5. y^4 * y^2 = y^6 -
             Level 2:
-            4. 3x^2 * 5x^3 + 2x^2 = 15x^5 + 2x^2
-            5. 4y^2 * 3x^3 * 4y^3 = 48x^3 * y^5
-            6. 5x^3 + 2x^2 * 4^0 = 5x^3 + 2x^2
+            4. 3x^2 * 5x^3 + 2x^2 = 15x^5 + 2x^2 -
+            5. y^2 * 3y^3 * y^3 = 3y^8 -
+            6. 5x^3 + 2x^3 * 4^0 = 7x^3 -
             Level 3:
             7. 6^2 + x^3 * y^2 * 2x^4 = 2x^7 * y^2 + 36
-            8. (x + y)^5 * (x + y) = (x + y)^6
-            9. (x^3 * y^2) * (x * y^3) = x^4 * y^5
+            8. x^5 * x + y^5 * y = (x + y)^6
+            9. (x^3 * y^2) * (x * y^3) = x^4 * y^5 -
             Level 4:
             10. x^(3+y) * x^(3y-1) = x^{4y + 2}
             11. y^(2-x+3) * x^(5+x) = x^{x+5} * y^{x-5}
             12. (3x^4) * (-2x^4 * y) = -6x^8 * y
 
-        Multiplication of Bases with the Same Exponents
+        4. Multiplication of Bases with the Same Exponents
             Level 1:
             1. 3^2 * 3^2 = 81
             2. 2^2 * 3^2 = 36
@@ -91,11 +93,11 @@ public class Randomizer {
             11. ((x^0)^3) * (y^(2+1)) * (x^3) = x^3 * y^3
             12. (2y^3) * (3^3) * (y^3) = 54y^6
 
-        Multiplication of Exponents to Find the Power of a Power
+        5. Multiplication of Exponents to Find the Power of a Power
             Level 1:
             1. (2^2)^3 = 64
             2. (3^2)^2 = 81
-            3. (2 * 4)^2 = 64
+            3. (2 + 4)^2 = 64
             4. (x^2)^3 = x^6
             5. ((2x)^2)^2 = 16x^4
             Level 2:
@@ -111,7 +113,7 @@ public class Randomizer {
             11. (2x^3 * y^2)^3 = 8x^9 * y^6
             12. ((x^2 * 2x^2)^2)^2 = 16x^16
 
-        Subtraction of Exponents
+        6. Subtraction of Exponents
             Level 1:
             1. (y^10) / (y^7) = y^3
             2. (x^5) / (x^2) = x^3
@@ -131,14 +133,14 @@ public class Randomizer {
             11. ((2x^2) * (3x^3)^2) / ((6x^2) * (3x^2)) = x^4
             12. ((x^3 * y^2) / (2x)^2 = 1 / 4 * x * y^2
 
-        Negative Integer Exponents
+        7. Negative Integer Exponents
             Level 1:
             1. 2^(-3) = 1/8
-            2. 3^(-1) = 1/3
+            2. 3^(-2) = 1/3
             3. (2^(-2))^2 = 1/16
             4. 4^(-2) = 1/16
             5. 5^(-2) = 1/25
-            6. (3^(-3))^(-1) = 27
+            6. (3^(-3))^(-2) = 81
             Level 2:
             4. (x^(-2))^3 = 1 / x^6
             5. x^3 * x^(-4) = 1 / x
@@ -151,11 +153,11 @@ public class Randomizer {
             10. ((2x^(-1)) / (4x^2))^(-2) = 4x^6
             11. ((x^4) * y^(-3)) / (x * y^2) = x^3 / y^5
             12. ((-x)^2)^2 * (-x)^(-4) * ((-x)^(-9))^(-2) = x^18
-
     */
 
     public static String getRandomEquation(int level, int sublevel) {
         Random random = new Random();
+
         String equation = "";
 
         switch (level) {
@@ -173,34 +175,480 @@ public class Randomizer {
                 break;
         }
 
-
         return equation;
     }
 
     private static String generateLevel1(int sublevel) {
-        String equation = "((4x^2 * y^2)^3) / ((8x^3 * y)^2)";
+        Random random = new Random();
+        ArrayList<String> equation_list;
+        String equations[];
+        String equation = "";
+
+        switch (sublevel) {
+            case 1:
+                //Positive Integer Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"2^2", "7^2", "5^2", "4^3", "5^3", "10^6"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 2:
+                //Base Raised to Zero
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"3^0", "199^0", "100000000^0", "((10^6)^0)", "((5^2)^3)^0"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 3:
+                //Addition of Exponents with Same Bases
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"x^2 * x^4", "y^3 * y^2 * y", "(2x^2) * (5x^2)", "x^5 * x^2 * x^3", "y^4 * y^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 4:
+                //Multiplication of Bases with the Same Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[] {"3^2 * 3^2", "2^2 * 3^2", "1^3 * 2^3", "4^2 * 2^4", "3^2 * 4^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 5:
+                //Multiplication of Exponents to Find the Power of a Power
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"(2^2)^3", "(3^2)^2", "(2^2)^2", "(x^2)^3", "((2x)^2)^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 6:
+                //Subtraction of Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"(y^10) / (y^7)", "(x^5) / (x^2)", "(2x^2) / (2x^2)", "(y^12) / (y^7)", "(x^3) / (x^2)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 7:
+                //Negative Integer Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[] {"2^(-3)", "3^(-2)", "(2^(-2))^2", "4^(-2)", "5^(-2)", "(3^(-2))^(-2)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+        }
 
         return equation;
     }
 
     private static String generateLevel2(int sublevel) {
-        String equation ="";
+        Random random = new Random();
+        ArrayList<String> equation_list;
+        String equations[];
+        String equation = "";
+
+        switch (sublevel) {
+            case 1:
+                //Positive Integer Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"5^2 - 4^2", "3^4 + 2^5", "2^2 * 3^3"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 2:
+                //Base Raised to Zero
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"3x^0 + 2x^2", "4y^2 - 2x^0", "(100x^0) / (50y^0)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 3:
+                //Addition of Exponents with Same Bases
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"3x^2 * 5x^3 + 2x^2", "y^2 * 3y^3 * y^3", "5x^3 + 2x^3 * 4^0"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 4:
+                //Multiplication of Bases with the Same Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"2x^2 * x^2", "x^2 * 2^2", "3x^3 * 5x^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 5:
+                //Multiplication of Exponents to Find the Power of a Power
+                equation_list = new ArrayList<String>();
+                equations = new String[] {"(3x^2)^2 * (2x^3)^2", "(x^3 * x^4)^2", "(x^3 * y^2)^3"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 6:
+                //Subtraction of Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[] {"((x + 3)^5) / ((x + 3)^6)", "(60x^3) / (10x^3)", "((x^3) * y) / (x^3)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 7:
+                //Negative Integer Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[] {"(x^(-2))^3", "x^3 * x^(-4)", "(x^(-4)) / (x^(-2))"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+        }
 
         return equation;
-
     }
 
     private static String generateLevel3(int sublevel) {
-        String equation ="";
+        Random random = new Random();
+        ArrayList<String> equation_list;
+        String equations[];
+        String equation = "";
 
+        switch (sublevel) {
+            case 1:
+                //Positive Integer Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"x^2 + (x^12)^0 + 24x^0", "3x^3 + 2x^3", "(-3)^4"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 2:
+                //Base Raised to Zero
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"3^4 - 200^0", "(-5)^0 + 3x^0", "(3x^2)(5x^0) + 3y^0"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 3:
+                //Addition of Exponents with Same Bases
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"6^2 + x^3 * y^2 * 2x^4", "x^5 * x + y^5 * y", "(x^3 * y^2) * (x * y^3)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 4:
+                //Multiplication of Bases with the Same Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"((x^2 * 2x^2)^2) * ((2x^2 * x^2)^2)", "((x^2 * 5x^2)^2) * ((x^4)^2)", "((x^3 * 2x^3)^2) * ((x^3 * x^3)^2)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 5:
+                //Multiplication of Exponents to Find the Power of a Power
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"((2 + x)^2)^3", "((x^3 * y)^2) * (x * y^2)", "((x^3)^2) * ((2x * y)^3)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 6:
+                //Subtraction of Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[]{"(2 / 3)^3", "(3 / x)^4", "(x / y)^3"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 7:
+                //Negative Integer Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[]{"(2^(-2) * 3^(-2))^(-1)", "1 / (x^(-4))", "(12x^4) / (48x^(-1))"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+        }
         return equation;
-
     }
 
     private static String generateLevel4(int sublevel) {
-        String equation ="";
+        Random random = new Random();
+        ArrayList<String> equation_list;
+        String equations[];
+        String equation = "";
 
+        switch (sublevel) {
+            case 1:
+                //Positive Integer Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"(3x^10 + 5x^10 + 10x^10)/(2x^10)", "2^5 + 3x^2", "(-2)^3 * (-3)^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 2:
+                //Base Raised to Zero
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"(4x^2)^0", "((3x^4)^0)^3", "(2x^0)^(3+2)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 3:
+                //Addition of Exponents with Same Bases
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"x^(3+y) * x^(3y-1)", "y^(2-x+3) * x^(5+x)", "(3x^4) * (-2x^4 * y)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 4:
+                //Multiplication of Bases with the Same Exponents
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"((x + y)^2) * ((x^2)^2) * (x^2)", "((x^0)^3) * (y^(2+1)) * (x^3)", "(2y^3) * (3^3) * (y^3)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 5:
+                //Multiplication of Exponents to Find the Power of a Power
+                equation_list = new ArrayList<String>();
+                equations = new String[]{"((2x^3) * ((3y^2)^2)", "(2x^3 * y^2)^3", "((x^2 * 2x^2)^2)^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 6:
+                //Subtraction of Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[]{"((4x^2 * y^2)^3) / ((8x^3 * y)^2)", "((2x^2) * (3x^3)^2) / ((6x^2) * (3x^2))", "((x^3 * y^2) / (2x)^2"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+            case 7:
+                //Negative Integer Exponents
+                equation_list = new ArrayList<String>();
+
+                equations = new String[]{"((2x^(-1)) / (4x^2))^(-2)", "((x^4) * y^(-3)) / (x * y^2)", "((-x)^2)^2 * (-x)^(-4) * ((-x)^(-9))^(-2)"};
+
+                for (int i = 0; i < equations.length; i++) {
+                    equation_list.add(equations[i]);
+                }
+
+                Collections.shuffle(equation_list);
+
+                equation = equation_list.get(random.nextInt(equation_list.size()));
+
+                System.out.println(equation_list);
+                break;
+        }
         return equation;
-
     }
 }

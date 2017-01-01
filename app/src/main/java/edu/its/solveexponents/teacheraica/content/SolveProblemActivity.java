@@ -5,19 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
-import java.util.ArrayList;
+import org.matheclipse.core.eval.ExprEvaluator;
+import org.matheclipse.core.interfaces.AbstractEvalStepListener;
+import org.matheclipse.core.interfaces.IExpr;
 
 import edu.its.solveexponents.teacheraica.R;
 import io.github.kexanie.library.MathView;
@@ -33,7 +34,7 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     private int level;
     private int sublevel;
-    private String result;
+    private String final_answer;
     private String equation;
     private String equationType;
     private int errorsCommited;
@@ -48,8 +49,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     public static View solutionScrollView;
 
     MathView math_equation;
-    String equation_start = "\\(";
-    String equation_end = "\\)";
+    String equation_string;
 
     FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
             btn_zero, btn_left_shift, btn_right_shift, btn_add, btn_subtract, btn_multiply, btn_divide, btn_power,
@@ -64,6 +64,21 @@ public class SolveProblemActivity extends AppCompatActivity {
     LinearLayout solution_step_1_view, solution_step_2_view, solution_step_3_view, solution_step_4_view,
             solution_step_5_view, solution_step_6_view, solution_step_7_view, solution_step_8_view,
             solution_step_9_view;
+    ExprEvaluator util;
+    IExpr current_result;
+    String current_solution;
+    String final_equation_string;
+
+    private static class StepListener extends AbstractEvalStepListener {
+        /**
+         * Listens to the evaluation step in the evaluation engine.
+         */
+        @Override
+        public void add(IExpr inputExpr, IExpr resultExpr, int recursionDepth, long iterationCounter, String hint) {
+            System.out.println("Depth " + recursionDepth + " Iteration " + iterationCounter + ": " + inputExpr.toString() + " ==> "
+                    + resultExpr.toString() + " ==> " + hint);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,64 +95,71 @@ public class SolveProblemActivity extends AppCompatActivity {
 
         equation = getIntent().getExtras().getString("equation");
 
-        if(getIntent().getExtras().getBoolean("generated")) {
+        equation_string = getIntent().getExtras().getString("equation_string");
+
+        final_equation_string = equation_string.replace("<center>", "")
+                .replace("</center>", "");
+
+        if (getIntent().getExtras().getBoolean("generated")) {
             level = getIntent().getExtras().getInt("level");
             sublevel = getIntent().getExtras().getInt("sublevel");
-            result = getIntent().getExtras().getString("result");
+            final_answer = getIntent().getExtras().getString("result");
 
             Log.d("TEACHERAICADB", "LEVEL: " + level + "_" + sublevel);
 
-            math_equation.setText(equation_start + equation + equation_end);
+            math_equation.setText(final_equation_string);
 
             this.equationType = "generated";
         } else {
-            result = getIntent().getExtras().getString("result");
-            math_equation.setText(equation_start + equation + equation_end);
+            final_answer = getIntent().getExtras().getString("result");
+            math_equation.setText(final_equation_string);
             this.equationType = "custom";
         }
 
-        submit_solution_step_1 = (FancyButton)findViewById(R.id.submit_solution_step_1);
-        submit_solution_step_2 = (FancyButton)findViewById(R.id.submit_solution_step_2);
-        submit_solution_step_3 = (FancyButton)findViewById(R.id.submit_solution_step_3);
-        submit_solution_step_4 = (FancyButton)findViewById(R.id.submit_solution_step_4);
-        submit_solution_step_5 = (FancyButton)findViewById(R.id.submit_solution_step_5);
-        submit_solution_step_6 = (FancyButton)findViewById(R.id.submit_solution_step_6);
-        submit_solution_step_7 = (FancyButton)findViewById(R.id.submit_solution_step_7);
-        submit_solution_step_8 = (FancyButton)findViewById(R.id.submit_solution_step_8);
-        submit_solution_step_9 = (FancyButton)findViewById(R.id.submit_solution_step_9);
+        Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
 
-        btn_one = (FancyButton)findViewById(R.id.btn_one);
-        btn_two = (FancyButton)findViewById(R.id.btn_two);
-        btn_three = (FancyButton)findViewById(R.id.btn_three);
-        btn_four = (FancyButton)findViewById(R.id.btn_four);
-        btn_five = (FancyButton)findViewById(R.id.btn_five);
-        btn_six = (FancyButton)findViewById(R.id.btn_six);
-        btn_seven = (FancyButton)findViewById(R.id.btn_seven);
-        btn_eight = (FancyButton)findViewById(R.id.btn_eight);
-        btn_nine = (FancyButton)findViewById(R.id.btn_nine);
-        btn_zero = (FancyButton)findViewById(R.id.btn_zero);
-        btn_left_shift = (FancyButton)findViewById(R.id.btn_left_shift);
-        btn_right_shift = (FancyButton)findViewById(R.id.btn_right_shift);
-        btn_add = (FancyButton)findViewById(R.id.btn_add);
-        btn_subtract = (FancyButton)findViewById(R.id.btn_subtract);
-        btn_multiply = (FancyButton)findViewById(R.id.btn_multiply);
-        btn_divide = (FancyButton)findViewById(R.id.btn_divide);
-        btn_power = (FancyButton)findViewById(R.id.btn_power);
-        btn_decimal = (FancyButton)findViewById(R.id.btn_decimal);
-        btn_open_parenthesis = (FancyButton)findViewById(R.id.btn_open_parenthesis);
-        btn_closing_parenthesis = (FancyButton)findViewById(R.id.btn_closing_parenthesis);
-        btn_open_brace = (FancyButton)findViewById(R.id.btn_open_brace);
-        btn_closing_brace = (FancyButton)findViewById(R.id.btn_closing_brace);
-        btn_backspace = (FancyButton)findViewById(R.id.btn_backspace);
-        btn_clear = (FancyButton)findViewById(R.id.btn_clear);
-        btn_var_w = (FancyButton)findViewById(R.id.btn_var_w);
-        btn_var_x = (FancyButton)findViewById(R.id.btn_var_x);
-        btn_var_y = (FancyButton)findViewById(R.id.btn_var_y);
-        btn_var_z = (FancyButton)findViewById(R.id.btn_var_z);
-        btn_var_a = (FancyButton)findViewById(R.id.btn_var_a);
-        btn_var_b = (FancyButton)findViewById(R.id.btn_var_b);
-        btn_var_c = (FancyButton)findViewById(R.id.btn_var_c);
-        btn_var_d = (FancyButton)findViewById(R.id.btn_var_d);
+        submit_solution_step_1 = (FancyButton) findViewById(R.id.submit_solution_step_1);
+        submit_solution_step_2 = (FancyButton) findViewById(R.id.submit_solution_step_2);
+        submit_solution_step_3 = (FancyButton) findViewById(R.id.submit_solution_step_3);
+        submit_solution_step_4 = (FancyButton) findViewById(R.id.submit_solution_step_4);
+        submit_solution_step_5 = (FancyButton) findViewById(R.id.submit_solution_step_5);
+        submit_solution_step_6 = (FancyButton) findViewById(R.id.submit_solution_step_6);
+        submit_solution_step_7 = (FancyButton) findViewById(R.id.submit_solution_step_7);
+        submit_solution_step_8 = (FancyButton) findViewById(R.id.submit_solution_step_8);
+        submit_solution_step_9 = (FancyButton) findViewById(R.id.submit_solution_step_9);
+
+        btn_one = (FancyButton) findViewById(R.id.btn_one);
+        btn_two = (FancyButton) findViewById(R.id.btn_two);
+        btn_three = (FancyButton) findViewById(R.id.btn_three);
+        btn_four = (FancyButton) findViewById(R.id.btn_four);
+        btn_five = (FancyButton) findViewById(R.id.btn_five);
+        btn_six = (FancyButton) findViewById(R.id.btn_six);
+        btn_seven = (FancyButton) findViewById(R.id.btn_seven);
+        btn_eight = (FancyButton) findViewById(R.id.btn_eight);
+        btn_nine = (FancyButton) findViewById(R.id.btn_nine);
+        btn_zero = (FancyButton) findViewById(R.id.btn_zero);
+        btn_left_shift = (FancyButton) findViewById(R.id.btn_left_shift);
+        btn_right_shift = (FancyButton) findViewById(R.id.btn_right_shift);
+        btn_add = (FancyButton) findViewById(R.id.btn_add);
+        btn_subtract = (FancyButton) findViewById(R.id.btn_subtract);
+        btn_multiply = (FancyButton) findViewById(R.id.btn_multiply);
+        btn_divide = (FancyButton) findViewById(R.id.btn_divide);
+        btn_power = (FancyButton) findViewById(R.id.btn_power);
+        btn_decimal = (FancyButton) findViewById(R.id.btn_decimal);
+        btn_open_parenthesis = (FancyButton) findViewById(R.id.btn_open_parenthesis);
+        btn_closing_parenthesis = (FancyButton) findViewById(R.id.btn_closing_parenthesis);
+        btn_open_brace = (FancyButton) findViewById(R.id.btn_open_brace);
+        btn_closing_brace = (FancyButton) findViewById(R.id.btn_closing_brace);
+        btn_backspace = (FancyButton) findViewById(R.id.btn_backspace);
+        btn_clear = (FancyButton) findViewById(R.id.btn_clear);
+        btn_var_w = (FancyButton) findViewById(R.id.btn_var_w);
+        btn_var_x = (FancyButton) findViewById(R.id.btn_var_x);
+        btn_var_y = (FancyButton) findViewById(R.id.btn_var_y);
+        btn_var_z = (FancyButton) findViewById(R.id.btn_var_z);
+        btn_var_a = (FancyButton) findViewById(R.id.btn_var_a);
+        btn_var_b = (FancyButton) findViewById(R.id.btn_var_b);
+        btn_var_c = (FancyButton) findViewById(R.id.btn_var_c);
+        btn_var_d = (FancyButton) findViewById(R.id.btn_var_d);
 
         btn_one.setText("1");
         btn_one.setTextSize(20);
@@ -204,25 +226,30 @@ public class SolveProblemActivity extends AppCompatActivity {
         btn_var_d.setText("d");
         btn_var_d.setTextSize(20);
 
-        solution_step_1 = (MaterialEditText)findViewById(R.id.solution_step_1);
-        solution_step_2 = (MaterialEditText)findViewById(R.id.solution_step_2);
-        solution_step_3 = (MaterialEditText)findViewById(R.id.solution_step_3);
-        solution_step_4 = (MaterialEditText)findViewById(R.id.solution_step_4);
-        solution_step_5 = (MaterialEditText)findViewById(R.id.solution_step_5);
-        solution_step_6 = (MaterialEditText)findViewById(R.id.solution_step_6);
-        solution_step_7 = (MaterialEditText)findViewById(R.id.solution_step_7);
-        solution_step_8 = (MaterialEditText)findViewById(R.id.solution_step_8);
-        solution_step_9 = (MaterialEditText)findViewById(R.id.solution_step_9);
+        solution_step_1 = (MaterialEditText) findViewById(R.id.solution_step_1);
+        solution_step_2 = (MaterialEditText) findViewById(R.id.solution_step_2);
+        solution_step_3 = (MaterialEditText) findViewById(R.id.solution_step_3);
+        solution_step_4 = (MaterialEditText) findViewById(R.id.solution_step_4);
+        solution_step_5 = (MaterialEditText) findViewById(R.id.solution_step_5);
+        solution_step_6 = (MaterialEditText) findViewById(R.id.solution_step_6);
+        solution_step_7 = (MaterialEditText) findViewById(R.id.solution_step_7);
+        solution_step_8 = (MaterialEditText) findViewById(R.id.solution_step_8);
+        solution_step_9 = (MaterialEditText) findViewById(R.id.solution_step_9);
 
-        solution_step_1_view = (LinearLayout)findViewById(R.id.solution_step_1_view);
-        solution_step_2_view = (LinearLayout)findViewById(R.id.solution_step_2_view);
-        solution_step_3_view = (LinearLayout)findViewById(R.id.solution_step_3_view);
-        solution_step_4_view = (LinearLayout)findViewById(R.id.solution_step_4_view);
-        solution_step_5_view = (LinearLayout)findViewById(R.id.solution_step_5_view);
-        solution_step_6_view = (LinearLayout)findViewById(R.id.solution_step_6_view);
-        solution_step_7_view = (LinearLayout)findViewById(R.id.solution_step_7_view);
-        solution_step_8_view = (LinearLayout)findViewById(R.id.solution_step_8_view);
-        solution_step_9_view = (LinearLayout)findViewById(R.id.solution_step_9_view);
+        solution_step_1_view = (LinearLayout) findViewById(R.id.solution_step_1_view);
+        solution_step_2_view = (LinearLayout) findViewById(R.id.solution_step_2_view);
+        solution_step_3_view = (LinearLayout) findViewById(R.id.solution_step_3_view);
+        solution_step_4_view = (LinearLayout) findViewById(R.id.solution_step_4_view);
+        solution_step_5_view = (LinearLayout) findViewById(R.id.solution_step_5_view);
+        solution_step_6_view = (LinearLayout) findViewById(R.id.solution_step_6_view);
+        solution_step_7_view = (LinearLayout) findViewById(R.id.solution_step_7_view);
+        solution_step_8_view = (LinearLayout) findViewById(R.id.solution_step_8_view);
+        solution_step_9_view = (LinearLayout) findViewById(R.id.solution_step_9_view);
+
+        errorsCommited = 0;
+        solutionNumber = 0;
+        hintType = MainFragment.teacheraicadb.determineHintType();
+        stepNumber = 0;
 
         solution_step_1.requestFocus();
 
@@ -231,13 +258,60 @@ public class SolveProblemActivity extends AppCompatActivity {
         submit_solution_step_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                solution_step_1.setEnabled(false);
-                solution_step_2_view.setVisibility(View.VISIBLE);
-                submit_solution_step_1.setGhost(true);
-                submit_solution_step_1.setEnabled(false);
-                solution_step_2.requestFocus();
-                focus_settings();
+                current_solution = solution_step_1.getText().toString();
+
+                Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
+
+                if (!current_solution.isEmpty()) {
+                    if (errorsCommited == 3) {
+                        //POPUP FOR HINT
+                    } else if (errorsCommited == 5) {
+                        //POPUP FOR ANSWERING PROBLEM
+                    }
+
+                    util = new ExprEvaluator();
+                    current_result = util.evaluate(current_solution);
+
+                    if (current_solution.equals(final_answer) || current_solution.equals(final_answer.replace("*", ""))) {
+
+                        Toast.makeText(getApplicationContext(), "Final Answer has been reached!", Toast.LENGTH_LONG).show();
+                        solved = true;
+
+                        if(equationType.equals("generated")) {
+                            next_problem_prompt();
+                        } else if (equationType.equals("custom")) {
+                            next_problem_prompt();
+                        } // Add for quizzes coming from Lecture
+                    } else if (current_result.toString().equals(final_answer)) {
+                        Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
+                        solution_step_1.setEnabled(false);
+                        solution_step_2_view.setVisibility(View.VISIBLE);
+                        submit_solution_step_1.setGhost(true);
+                        submit_solution_step_1.setEnabled(false);
+                        solution_step_2.requestFocus();
+                        focus_settings();
+                    } else {
+                        errorsCommited += 1;
+                        solution_step_1.setError("Wrong solution!");
+                    }
+
+//                    else if (current_solution != result.toString()) {
+//                        Toast.makeText(getApplicationContext(), "Wrong solution!", Toast.LENGTH_LONG).show();
+//                    } else {
+//                        solution_step_1.setEnabled(false);
+//                        solution_step_2_view.setVisibility(View.VISIBLE);
+//                        submit_solution_step_1.setGhost(true);
+//                        submit_solution_step_1.setEnabled(false);
+//                        solution_step_2.requestFocus();
+//                        focus_settings();
+//                    }
+
+                } else {
+                    solution_step_1.setError("Wrong solution!");
+                }
+
             }
+
         });
 
         submit_solution_step_2.setOnClickListener(new View.OnClickListener() {
@@ -333,7 +407,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                 focus_settings();
             }
         });
-
 
 
         btn_one.setOnClickListener(new View.OnClickListener() {
@@ -568,94 +641,8 @@ public class SolveProblemActivity extends AppCompatActivity {
             }
         });
 
-        errorsCommited = 0;
-
-        solutionNumber = 0;
-        hintType = MainFragment.teacheraicadb.determineHintType();
-
-        stepNumber = 0;
-
-        this.solved = true;
-
-        addTextChangeListenerToTextboxes();
-
         parentView = (View) findViewById(R.id.activity_layout_solve);
         solutionScrollView = (View) findViewById(R.id.scrollView_solve);
-    }
-
-    private void addTextChangeListenerToTextboxes() {
-        ArrayList<EditText> stepsTextBoxes = new ArrayList<>();
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_1));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_2));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_3));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_4));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_5));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_6));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_7));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_8));
-        stepsTextBoxes.add((EditText) findViewById(R.id.solution_step_9));
-
-        for (EditText stepTextbox : stepsTextBoxes) {
-            stepTextbox.addTextChangedListener(new TextWatcher() {
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    EditText solution_step = null;
-
-                    switch(stepNumber + 1) {
-                        case 1:
-                            solution_step = (EditText) findViewById(R.id.solution_step_1);
-                            break;
-                        case 2:
-                            solution_step = (EditText) findViewById(R.id.solution_step_2);
-                            break;
-                        case 3:
-                            solution_step = (EditText) findViewById(R.id.solution_step_3);
-                            break;
-                        case 4:
-                            solution_step = (EditText) findViewById(R.id.solution_step_4);
-                            break;
-                        case 5:
-                            solution_step = (EditText) findViewById(R.id.solution_step_5);
-                            break;
-                        case 6:
-                            solution_step = (EditText) findViewById(R.id.solution_step_6);
-                            break;
-                        case 7:
-                            solution_step = (EditText) findViewById(R.id.solution_step_7);
-                            break;
-                        case 8:
-                            solution_step = (EditText) findViewById(R.id.solution_step_8);
-                            break;
-                        case 9:
-                            solution_step = (EditText) findViewById(R.id.solution_step_9);
-                            break;
-                    }
-
-                    String inputStep = solution_step.getText().toString();
-
-//                    if (Validations.isInputIncomplete(inputStep)) {
-//                        setAllButtonsToQuestion();
-//                    } else {
-//                        setAllButtonsToCheck();
-//                    }
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count,
-                                              int after) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    // TODO Auto-generated method stub
-
-                }
-            });
-        }
-
     }
 
     @Override
@@ -919,55 +906,55 @@ public class SolveProblemActivity extends AppCompatActivity {
             cursorPosition = solution_step_1.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_1.setText(solution_step_1.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_1.setSelection(cursorPosition-1);
+                solution_step_1.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_2.hasFocus()) {
             cursorPosition = solution_step_2.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_2.setText(solution_step_2.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_2.setSelection(cursorPosition-1);
+                solution_step_2.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_3.hasFocus()) {
             cursorPosition = solution_step_3.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_3.setText(solution_step_3.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_3.setSelection(cursorPosition-1);
+                solution_step_3.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_4.hasFocus()) {
             cursorPosition = solution_step_4.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_4.setText(solution_step_4.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_4.setSelection(cursorPosition-1);
+                solution_step_4.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_5.hasFocus()) {
             cursorPosition = solution_step_5.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_5.setText(solution_step_5.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_5.setSelection(cursorPosition-1);
+                solution_step_5.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_6.hasFocus()) {
             cursorPosition = solution_step_6.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_6.setText(solution_step_6.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_6.setSelection(cursorPosition-1);
+                solution_step_6.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_7.hasFocus()) {
             cursorPosition = solution_step_7.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_7.setText(solution_step_7.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_7.setSelection(cursorPosition-1);
+                solution_step_7.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_8.hasFocus()) {
             cursorPosition = solution_step_8.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_8.setText(solution_step_8.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_8.setSelection(cursorPosition-1);
+                solution_step_8.setSelection(cursorPosition - 1);
             }
         } else if (solution_step_9.hasFocus()) {
             cursorPosition = solution_step_9.getSelectionStart();
             if (cursorPosition > 0) {
                 solution_step_9.setText(solution_step_9.getText().delete(cursorPosition - 1, cursorPosition));
-                solution_step_9.setSelection(cursorPosition-1);
+                solution_step_9.setSelection(cursorPosition - 1);
             }
         }
     }
@@ -992,5 +979,26 @@ public class SolveProblemActivity extends AppCompatActivity {
         } else if (solution_step_9.hasFocus()) {
             solution_step_9.setText("");
         }
+    }
+
+    public void congrats_popup() {
+        new LovelyInfoDialog(this)
+                .setMessage("Congrats")
+                .setTitle("Congratulation")
+                .setIcon(R.drawable.aica)
+                .setTopColorRes(R.color.darkDeepOrange)
+                .show();
+    }
+
+    public void next_problem_prompt() {
+        new LovelyInfoDialog(this)
+                .setIcon(R.drawable.aica)
+                .setTitle("Try Solving Another Problem Again?")
+                .setTopColorRes(R.color.darkDeepOrange)
+                .show();
+    }
+
+    public void evaluate_solution(String current_solution) {
+
     }
 }
