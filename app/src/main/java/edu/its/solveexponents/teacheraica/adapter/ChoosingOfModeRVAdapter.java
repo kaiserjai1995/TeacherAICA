@@ -39,7 +39,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * Created by jairus on 8/2/16.
  */
 
-public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfModeRVAdapter.ChoosingOfModeViewHolder>  {
+public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfModeRVAdapter.ChoosingOfModeViewHolder> {
     public static class ChoosingOfModeViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv_choosing_of_mode;
@@ -47,8 +47,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
         public ChoosingOfModeViewHolder(View itemView) {
             super(itemView);
-            cv_choosing_of_mode = (CardView)itemView.findViewById(R.id.cv_choosing_of_mode);
-            mode_title = (TextView)itemView.findViewById(R.id.mode_title);
+            cv_choosing_of_mode = (CardView) itemView.findViewById(R.id.cv_choosing_of_mode);
+            mode_title = (TextView) itemView.findViewById(R.id.mode_title);
         }
     }
 
@@ -88,7 +88,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     String equation_string;
     String final_equation;
 
-    public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input){
+    public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input) {
         this.mode_input = mode_input;
         this.mContext = context;
     }
@@ -112,13 +112,13 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 
         if (i == 0) {
-            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP){
+            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP) {
                 choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorAccent);
             } else {
                 choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_generated);
             }
         } else if (i == 1) {
-            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP){
+            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP) {
                 choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorPrimaryDark);
             } else {
                 choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_input);
@@ -132,9 +132,9 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
 //                        level = MainFragment.teacheraicadb.getCurrentLevel();
-                        level = 4;
+                        level = 2;
 //                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
-                        sublevel = 2;
+                        sublevel = 4;
                         equation = Randomizer.getRandomEquation(level, sublevel);
 
                         showGeneratedProblemView(equation);
@@ -155,17 +155,17 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     public void showGeneratedProblemView(final String equation) {
         new LovelyCustomDialog(mContext)
-            .setView(R.layout.generated_mode_problem_view)
-            .setTopColorRes(R.color.darkRed)
-            .setTitle(R.string.generated_problem_title)
-            .setIcon(R.drawable.aica)
-            .setTitleGravity(1)
-            .setMessageGravity(1)
-            .setCancelable(false)
+                .setView(R.layout.generated_mode_problem_view)
+                .setTopColorRes(R.color.darkRed)
+                .setTitle(R.string.generated_problem_title)
+                .setIcon(R.drawable.aica)
+                .setTitleGravity(1)
+                .setMessageGravity(1)
+                .setCancelable(false)
                 .configureView(new LovelyCustomDialog.ViewConfigurator() {
                     @Override
                     public void configureView(View v) {
-                        generated_problem = (MathView)v.findViewById(R.id.generated_problem);
+                        generated_problem = (MathView) v.findViewById(R.id.generated_problem);
 
                         Toast.makeText(mContext, "Level: " + level +
                                 "\nSublevel: " + sublevel +
@@ -188,37 +188,37 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         generated_problem.setText(equation_string);
                     }
                 })
-            .setListener(R.id.solve_problem_btn, true, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    i = new Intent(mContext, SolveProblemActivity.class);
+                .setListener(R.id.solve_problem_btn, true, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        i = new Intent(mContext, SolveProblemActivity.class);
 
-                    util = new ExprEvaluator();
-                    engine = util.getEvalEngine();
-                    engine.setStepListener(new StepListener());
-                    result = util.evaluate(equation);
-                    System.out.println("Result: " + result.toString());
+                        util = new ExprEvaluator();
+                        engine = util.getEvalEngine();
+                        engine.setStepListener(new StepListener());
+                        result = util.evaluate(equation);
+                        System.out.println("Result: " + result.toString());
 
-                    current_level = MainFragment.teacheraicadb.getCurrentLevel();
-                    current_sublevel = MainFragment.teacheraicadb.getCurrentSublevel(current_level);
+                        current_level = MainFragment.teacheraicadb.getCurrentLevel();
+                        current_sublevel = MainFragment.teacheraicadb.getCurrentSublevel(current_level);
 
-                    i.putExtra("generated", true);
-                    i.putExtra("level", current_level);
-                    i.putExtra("sublevel", current_sublevel);
-                    i.putExtra("equation", equation);
-                    i.putExtra("result", result.toString());
-                    i.putExtra("equation_string", equation_string);
-                    i.putExtra("expr_result", result);
-                    mContext.startActivity(i);
-                }
-            })
-            .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                        i.putExtra("generated", true);
+                        i.putExtra("level", current_level);
+                        i.putExtra("sublevel", current_sublevel);
+                        i.putExtra("equation", equation);
+                        i.putExtra("result", result.toString());
+                        i.putExtra("equation_string", equation_string);
+                        i.putExtra("expr_result", result);
+                        mContext.startActivity(i);
+                    }
+                })
+                .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                }
-            })
-            .show();
+                    }
+                })
+                .show();
     }
 
     public void showInputProblemView() {
@@ -242,38 +242,38 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                             }
                         });
 
-                        btn_one = (FancyButton)v.findViewById(R.id.btn_one);
-                        btn_two = (FancyButton)v.findViewById(R.id.btn_two);
-                        btn_three = (FancyButton)v.findViewById(R.id.btn_three);
-                        btn_four = (FancyButton)v.findViewById(R.id.btn_four);
-                        btn_five = (FancyButton)v.findViewById(R.id.btn_five);
-                        btn_six = (FancyButton)v.findViewById(R.id.btn_six);
-                        btn_seven = (FancyButton)v.findViewById(R.id.btn_seven);
-                        btn_eight = (FancyButton)v.findViewById(R.id.btn_eight);
-                        btn_nine = (FancyButton)v.findViewById(R.id.btn_nine);
-                        btn_zero = (FancyButton)v.findViewById(R.id.btn_zero);
-                        btn_left_shift = (FancyButton)v.findViewById(R.id.btn_left_shift);
-                        btn_right_shift = (FancyButton)v.findViewById(R.id.btn_right_shift);
-                        btn_add = (FancyButton)v.findViewById(R.id.btn_add);
-                        btn_subtract = (FancyButton)v.findViewById(R.id.btn_subtract);
-                        btn_multiply = (FancyButton)v.findViewById(R.id.btn_multiply);
-                        btn_divide = (FancyButton)v.findViewById(R.id.btn_divide);
-                        btn_power = (FancyButton)v.findViewById(R.id.btn_power);
-                        btn_decimal = (FancyButton)v.findViewById(R.id.btn_decimal);
-                        btn_open_parenthesis = (FancyButton)v.findViewById(R.id.btn_open_parenthesis);
-                        btn_closing_parenthesis = (FancyButton)v.findViewById(R.id.btn_closing_parenthesis);
-                        btn_open_brace = (FancyButton)v.findViewById(R.id.btn_open_brace);
-                        btn_closing_brace = (FancyButton)v.findViewById(R.id.btn_closing_brace);
-                        btn_backspace = (FancyButton)v.findViewById(R.id.btn_backspace);
-                        btn_clear = (FancyButton)v.findViewById(R.id.btn_clear);
-                        btn_var_w = (FancyButton)v.findViewById(R.id.btn_var_w);
-                        btn_var_x = (FancyButton)v.findViewById(R.id.btn_var_x);
-                        btn_var_y = (FancyButton)v.findViewById(R.id.btn_var_y);
-                        btn_var_z = (FancyButton)v.findViewById(R.id.btn_var_z);
-                        btn_var_a = (FancyButton)v.findViewById(R.id.btn_var_a);
-                        btn_var_b = (FancyButton)v.findViewById(R.id.btn_var_b);
-                        btn_var_c = (FancyButton)v.findViewById(R.id.btn_var_c);
-                        btn_var_d = (FancyButton)v.findViewById(R.id.btn_var_d);
+                        btn_one = (FancyButton) v.findViewById(R.id.btn_one);
+                        btn_two = (FancyButton) v.findViewById(R.id.btn_two);
+                        btn_three = (FancyButton) v.findViewById(R.id.btn_three);
+                        btn_four = (FancyButton) v.findViewById(R.id.btn_four);
+                        btn_five = (FancyButton) v.findViewById(R.id.btn_five);
+                        btn_six = (FancyButton) v.findViewById(R.id.btn_six);
+                        btn_seven = (FancyButton) v.findViewById(R.id.btn_seven);
+                        btn_eight = (FancyButton) v.findViewById(R.id.btn_eight);
+                        btn_nine = (FancyButton) v.findViewById(R.id.btn_nine);
+                        btn_zero = (FancyButton) v.findViewById(R.id.btn_zero);
+                        btn_left_shift = (FancyButton) v.findViewById(R.id.btn_left_shift);
+                        btn_right_shift = (FancyButton) v.findViewById(R.id.btn_right_shift);
+                        btn_add = (FancyButton) v.findViewById(R.id.btn_add);
+                        btn_subtract = (FancyButton) v.findViewById(R.id.btn_subtract);
+                        btn_multiply = (FancyButton) v.findViewById(R.id.btn_multiply);
+                        btn_divide = (FancyButton) v.findViewById(R.id.btn_divide);
+                        btn_power = (FancyButton) v.findViewById(R.id.btn_power);
+                        btn_decimal = (FancyButton) v.findViewById(R.id.btn_decimal);
+                        btn_open_parenthesis = (FancyButton) v.findViewById(R.id.btn_open_parenthesis);
+                        btn_closing_parenthesis = (FancyButton) v.findViewById(R.id.btn_closing_parenthesis);
+                        btn_open_brace = (FancyButton) v.findViewById(R.id.btn_open_brace);
+                        btn_closing_brace = (FancyButton) v.findViewById(R.id.btn_closing_brace);
+                        btn_backspace = (FancyButton) v.findViewById(R.id.btn_backspace);
+                        btn_clear = (FancyButton) v.findViewById(R.id.btn_clear);
+                        btn_var_w = (FancyButton) v.findViewById(R.id.btn_var_w);
+                        btn_var_x = (FancyButton) v.findViewById(R.id.btn_var_x);
+                        btn_var_y = (FancyButton) v.findViewById(R.id.btn_var_y);
+                        btn_var_z = (FancyButton) v.findViewById(R.id.btn_var_z);
+                        btn_var_a = (FancyButton) v.findViewById(R.id.btn_var_a);
+                        btn_var_b = (FancyButton) v.findViewById(R.id.btn_var_b);
+                        btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
+                        btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
 
                         btn_one.setText("1");
                         btn_one.setTextSize(20);
@@ -617,7 +617,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                     result = util.evaluate(equation);
 
                                                     if (result.toString().contains("{") && result.toString().contains("}")) {
-                                                        resultString = result.toString().substring(1, result.toString().length()-1);
+                                                        resultString = result.toString().substring(1, result.toString().length() - 1);
                                                     } else {
                                                         resultString = result.toString();
                                                     }
@@ -731,7 +731,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         int cursorPosition = input_problem.getSelectionStart();
         if (cursorPosition > 0) {
             input_problem.setText(input_problem.getText().delete(cursorPosition - 1, cursorPosition));
-            input_problem.setSelection(cursorPosition-1);
+            input_problem.setSelection(cursorPosition - 1);
         }
     }
 

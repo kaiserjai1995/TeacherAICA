@@ -21,8 +21,8 @@ public class SplashScreen extends Activity {
 
         mProgress = (ProgressBar) findViewById(R.id.splash_screen_progress_bar);
 
-        Thread timerThread = new Thread(){
-            public void run(){
+        Thread timerThread = new Thread() {
+            public void run() {
                 doWork();
                 startApp();
                 finish();
@@ -39,11 +39,11 @@ public class SplashScreen extends Activity {
     }
 
     private void doWork() {
-        for(int progress = 0; progress < 100; progress += 10)
-            try{
+        for (int progress = 0; progress < 100; progress += 10)
+            try {
                 Thread.sleep(500);
                 mProgress.setProgress(progress);
-            }catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
     }

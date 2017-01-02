@@ -177,10 +177,16 @@ public class Randomizer {
     }
 
     private static String generateLevel1(int sublevel) {
+        String[] variables = {"a", "b", "c", "d", "w", "x", "y", "z"};
+        Random random = new Random();
         String equation = "";
         String a = "";
+        String b = "";
         String e1 = "";
+        String e2 = "";
+        String v1 = variables[random.nextInt(variables.length)];
         String s1 = random_plus_minus_sign(false);
+        String s3 = random_plus_minus_sign(false);
 
         switch (sublevel) {
             case 1:
@@ -196,29 +202,46 @@ public class Randomizer {
                 break;
             case 3:
                 //Addition of Exponents with Same Bases
-
+                equation = "([v1]^[e1]) * ([v1]^[e2])";
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
             case 4:
                 //Multiplication of Bases with the Same Exponents
-
+                equation = "([s1][a]^[e1]) * ([s3][b]^[e1])";
+                a = random_integer(false, 1, 3);
+                b = random_integer(false, 1, 3);
+                e1 = random_integer(false, 1, 3);
                 break;
             case 5:
                 //Multiplication of Exponents to Find the Power of a Power
-
+                equation = "([a]^[e1])^[e2]";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
                 break;
             case 6:
                 //Subtraction of Exponents
-
+                equation = "([a]^[e1]) / ([b]^[e2])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
             case 7:
                 //Negative Integer Exponents
-
+                equation = "[a]^(-[e1])";
+                a = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
                 break;
         }
 
         equation = equation.replace("[a]", a)
+                .replace("[b]", b)
                 .replace("[s1]", s1)
-                .replace("[e1]", e1);
+                .replace("[s3]", s3)
+                .replace("[e1]", e1)
+                .replace("[e2]", e2)
+                .replace("[v1]", v1);
 
         System.out.println(equation);
 
@@ -226,11 +249,14 @@ public class Randomizer {
     }
 
     private static String generateLevel2(int sublevel) {
+        String[] variables = {"a", "b", "c", "d", "w", "x", "y", "z"};
+        Random random = new Random();
         String equation = "";
         String a = "";
         String b = "";
         String e1 = "";
         String e2 = "";
+        String v1 = variables[random.nextInt(variables.length)];
         String s1 = random_plus_minus_sign(false);
         String s2 = random_all_sign();
         String s3 = random_plus_minus_sign(false);
@@ -252,23 +278,39 @@ public class Randomizer {
                 break;
             case 3:
                 //Addition of Exponents with Same Bases
-
+                equation = "([a][v1]^[e1]) * ([b][v1]^[e2])";
+                a = random_integer(true, 1, 4);
+                b = random_integer(true, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
             case 4:
                 //Multiplication of Bases with the Same Exponents
-
+                equation = "([s1][a][v1]^[e1]) * ([s3][b][v1]^[e1])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
                 break;
             case 5:
                 //Multiplication of Exponents to Find the Power of a Power
-
+                equation = "([s1][a][v1]^[e1])^[e2]";
+                a = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
             case 6:
                 //Subtraction of Exponents
-
+                equation = "([a][v1]^[e1]) / ([b][v1]^[e2])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
             case 7:
                 //Negative Integer Exponents
-
+                equation = "[s1][a][v1]^(-[e1])";
+                a = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
                 break;
         }
 
@@ -278,7 +320,8 @@ public class Randomizer {
                 .replace("[e2]", e2)
                 .replace("[s1]", s1)
                 .replace("[s2]", s2)
-                .replace("[s3]", s3);
+                .replace("[s3]", s3)
+                .replace("[v1]", v1);
 
         System.out.println(equation);
 
@@ -289,11 +332,14 @@ public class Randomizer {
         String[] variables = {"a", "b", "c", "d", "w", "x", "y", "z"};
         Random random = new Random();
         String v1 = variables[random.nextInt(variables.length)];
+        String v2 = variables[random.nextInt(variables.length)];
         String equation = "";
         String a = "";
         String b = "";
         String e1 = "";
         String e2 = "";
+        String e3 = "";
+        String e4 = "";
         String s1 = random_plus_minus_sign(false);
         String s2 = random_all_sign();
         String s3 = random_plus_minus_sign(false);
@@ -315,23 +361,47 @@ public class Randomizer {
                 break;
             case 3:
                 //Addition of Exponents with Same Bases
-
+                equation = "([s1][a][v1]^[e1]) * ([s3][b][v1]^[e2])";
+                a = random_integer(true, 1, 3);
+                b = random_integer(true, 1, 3);
+                e1 = random_integer(false, 0, 3);
+                e2 = random_integer(false, 0, 3);
                 break;
             case 4:
                 //Multiplication of Bases with the Same Exponents
-
+                equation = "(([s1][a][v1]^[e1])^[e3]) * (([s3][b][v1]^[e2])^[e4])";
+                a = random_integer(true, 1, 3);
+                b = random_integer(true, 1, 3);
+                e1 = random_integer(false, 0, 3);
+                e2 = random_integer(false, 0, 3);
+                e3 = random_integer(false, 0, 3);
+                e4 = random_integer(false, 0, 3);
                 break;
             case 5:
                 //Multiplication of Exponents to Find the Power of a Power
-
+                equation = "(([a][v1]^[e1])^[e2]) [s2] (([b][v1]^[e3])^[e4])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
+                e3 = random_integer(false, 2, 3);
+                e4 = random_integer(false, 2, 3);
                 break;
             case 6:
                 //Subtraction of Exponents
-
+                equation = "([s1][a][v1]^[e1]) / ([s3][b][v1]^[e2])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
             case 7:
                 //Negative Integer Exponents
-
+                equation = "([s1][a][v1]^(-[e1])) [s2] ([s3][b][v1]^(-[e2]))";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
                 break;
         }
 
@@ -339,10 +409,13 @@ public class Randomizer {
                 .replace("[b]", b)
                 .replace("[e1]", e1)
                 .replace("[e2]", e2)
+                .replace("[e3]", e3)
+                .replace("[e4]", e4)
                 .replace("[s1]", s1)
                 .replace("[s2]", s2)
                 .replace("[s3]", s3)
-                .replace("[v1]", v1);
+                .replace("[v1]", v1)
+                .replace("[v2]", v2);
 
         System.out.println(equation);
 
@@ -356,6 +429,8 @@ public class Randomizer {
         String equation = "";
         String a = "";
         String b = "";
+        String c = "";
+        String d = "";
         String e1 = "";
         String e2 = "";
         String e3 = "";
@@ -363,6 +438,8 @@ public class Randomizer {
         String s1 = random_plus_minus_sign(false);
         String s2 = random_all_sign();
         String s3 = random_plus_minus_sign(false);
+        String s4 = random_plus_minus_sign(false);
+        String s5 = random_plus_minus_sign(false);
 
         switch (sublevel) {
             case 1:
@@ -385,28 +462,57 @@ public class Randomizer {
                 break;
             case 3:
                 //Addition of Exponents with Same Bases
-
+                equation = "(([s1][a][v1]^[e1])^[e3]) * (([s3][b][v1]^[e2])^[e3])";
+                a = random_integer(true, 1, 3);
+                b = random_integer(true, 1, 3);
+                e1 = random_integer(false, 0, 3);
+                e2 = random_integer(false, 0, 3);
+                e3 = random_integer(false, 0, 3);
                 break;
             case 4:
                 //Multiplication of Bases with the Same Exponents
-
+                equation = "(([s1][a][v1]^[e1]) * ([s3][b][v1]^[e1])) [s2] (([s4][c][v1]^[e1]) * ([s5][d][v1]^[e1])";
+                a = random_integer(true, 1, 3);
+                b = random_integer(true, 1, 3);
+                c = random_integer(true, 1, 3);
+                d = random_integer(true, 1, 3);
                 break;
             case 5:
                 //Multiplication of Exponents to Find the Power of a Power
-
+                equation = "(([s1][a][v1]^[e1])^[e2]) [s2] (([s3][b][v1]^[e3])^[e4])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
+                e3 = random_integer(false, 2, 3);
+                e4 = random_integer(false, 2, 3);
                 break;
             case 6:
                 //Subtraction of Exponents
-
+                equation = "(([s1][a][v1]^[e1])^[e3]) / (([s3][b][v1]^[e2])^[e4])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
+                e3 = random_integer(false, 2, 3);
+                e4 = random_integer(false, 2, 3);
                 break;
             case 7:
                 //Negative Integer Exponents
-
+                equation = "(([s1][a][v1]^(-[e1]))^[e3]) [s2] (([s3][b][v1]^(-[e2]))^[e4])";
+                a = random_integer(false, 1, 4);
+                b = random_integer(false, 1, 4);
+                e1 = random_integer(false, 2, 3);
+                e2 = random_integer(false, 2, 3);
+                e3 = random_integer(false, 2, 3);
+                e4 = random_integer(false, 2, 3);
                 break;
         }
 
         equation = equation.replace("[a]", a)
                 .replace("[b]", b)
+                .replace("[c]", c)
+                .replace("[d]", d)
                 .replace("[e1]", e1)
                 .replace("[e2]", e2)
                 .replace("[e3]", e3)
@@ -414,6 +520,8 @@ public class Randomizer {
                 .replace("[s1]", s1)
                 .replace("[s2]", s2)
                 .replace("[s3]", s3)
+                .replace("[s4]", s4)
+                .replace("[s5]", s5)
                 .replace("[v1]", v1);
 
         System.out.println(equation);
@@ -474,7 +582,7 @@ public class Randomizer {
             sign = "-";
         } else if (randomNum == 1) {
             sign = "*";
-        } else  {
+        } else {
             sign = "/";
         }
 

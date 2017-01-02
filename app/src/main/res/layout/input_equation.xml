@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
               android:orientation="vertical"
               android:paddingBottom="10dp"
-              android:paddingTop="10dp" >
+              android:paddingTop="10dp">
 
     <View
         android:layout_width="match_parent"
@@ -19,64 +19,64 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/problem_input_hint"
-        app:met_baseColor="@color/colorPrimaryDark"
-        app:met_primaryColor="@color/darkGreen"
-        app:met_floatingLabel="normal"
-        android:inputType="text"
-        app:met_errorColor="@color/darkRed"
+        android:cursorVisible="true"
         android:gravity="center"
-        android:cursorVisible="true"/>
+        android:hint="@string/problem_input_hint"
+        android:inputType="text"
+        app:met_baseColor="@color/colorPrimaryDark"
+        app:met_errorColor="@color/darkRed"
+        app:met_floatingLabel="normal"
+        app:met_primaryColor="@color/darkGreen"/>
 
     <!-- First Row -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="13dp">
+        android:layout_marginStart="13dp"
+        android:orientation="horizontal">
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -87,31 +87,31 @@
             android:id="@+id/btn_var_w"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:paddingLeft="8.5dp"
             android:paddingRight="8.5dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_var_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -122,41 +122,41 @@
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_power"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_backspace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
             android:minWidth="30dp"
+            android:paddingBottom="12dp"
             android:paddingTop="12dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
     </LinearLayout>
 
@@ -165,50 +165,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="13dp">
+        android:layout_marginStart="13dp"
+        android:orientation="horizontal">
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_four"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_five"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_six"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -219,29 +219,29 @@
             android:id="@+id/btn_var_x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_var_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -252,40 +252,40 @@
             android:id="@+id/btn_subtract"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_decimal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
     </LinearLayout>
 
@@ -294,50 +294,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="13dp">
+        android:layout_marginStart="13dp"
+        android:orientation="horizontal">
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_seven"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_eight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_nine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -348,29 +348,29 @@
             android:id="@+id/btn_var_y"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_var_c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -381,40 +381,40 @@
             android:id="@+id/btn_multiply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_open_parenthesis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_open_brace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
     </LinearLayout>
 
@@ -423,52 +423,52 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="13dp">
+        android:layout_marginStart="13dp"
+        android:orientation="horizontal">
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_left_shift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="30dp"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_zero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_right_shift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="30dp"
-            android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#006064"
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -479,29 +479,29 @@
             android:id="@+id/btn_var_z"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_var_d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#009688"
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="0dp"
@@ -512,48 +512,48 @@
             android:id="@+id/btn_divide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_closing_parenthesis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_closing_brace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="30dp"
             android:minHeight="30dp"
+            android:minWidth="30dp"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
-            app:fb_textColor="#FFFFFF"
-            app:fb_radius="5dp"/>
+            app:fb_radius="5dp"
+            app:fb_textColor="#FFFFFF"/>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
@@ -563,28 +563,27 @@
 
         <Button
             android:id="@+id/validate_problem_btn"
-            android:text="@string/validate_problem_btn_text"
-            android:textColor="@color/colorAccent"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textStyle="bold"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            android:text="@string/validate_problem_btn_text"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/cancel_input_problem_btn"
-            android:text="@string/cancel_input_problem_btn_text"
-            android:textColor="@color/colorPrimaryDark"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textStyle="bold"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            android:text="@string/cancel_input_problem_btn_text"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

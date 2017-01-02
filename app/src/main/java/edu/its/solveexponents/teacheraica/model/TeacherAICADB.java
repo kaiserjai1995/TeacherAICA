@@ -142,15 +142,15 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
         String create_tbl_problem_types = "CREATE TABLE IF NOT EXISTS " + TBL_PROBLEM_TYPES +
                 " (" +
                 TBL_PROBLEM_TYPES_PROBLEMTYPE + " VARCHAR PRIMARY KEY" +
                 ");";
-        try{
+        try {
             db.execSQL(create_tbl_problem_types);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_problems = "CREATE TABLE IF NOT EXISTS " + TBL_PROBLEMS +
@@ -164,10 +164,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_PROBLEMS_DATESTOPPED + " DATE, " +
                 "FOREIGN KEY (" + TBL_PROBLEMS_PROBLEMTYPE + ") REFERENCES " + TBL_PROBLEM_TYPES + " (" + TBL_PROBLEM_TYPES_PROBLEMTYPE + ")" +
                 ");";
-        try{
+        try {
             db.execSQL(create_tbl_problems);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_steps = "CREATE TABLE IF NOT EXISTS " + TBL_STEPS +
@@ -180,10 +180,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + TBL_STEPS_PROBLEMID + ") REFERENCES " + TBL_PROBLEMS + " (" + TBL_PROBLEMS_PROBLEMID + ")" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_steps);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_hint_types = "CREATE TABLE IF NOT EXISTS " + TBL_HINT_TYPES +
@@ -192,10 +192,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_HINT_TYPES_HINTDEFINITION + " VARCHAR" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_hint_types);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_hints_used = "CREATE TABLE IF NOT EXISTS " + TBL_HINTS_USED +
@@ -211,10 +211,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + TBL_HINTS_USED_STEPID + ") REFERENCES " + TBL_STEPS + " (" + TBL_STEPS_STEPID + ")" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_hints_used);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_errors = "CREATE TABLE IF NOT EXISTS " + TBL_ERRORS +
@@ -229,10 +229,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + TBL_ERRORS_STEPID + ") REFERENCES " + TBL_STEPS + " (" + TBL_STEPS_STEPID + ")" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_errors);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_levels = "CREATE TABLE IF NOT EXISTS " + TBL_LEVELS +
@@ -267,10 +267,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_LEVELS_4_7 + " INTEGER" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_levels);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_lectures_module_logs = "CREATE TABLE IF NOT EXISTS " + TBL_LECTURES_MODULE_LOGS +
@@ -281,10 +281,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_LECTURES_MODULE_LOGS_ELAPSED + " INT" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_lectures_module_logs);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         String create_tbl_system_errors = "CREATE TABLE IF NOT EXISTS " + TBL_SYSTEM_ERRORS +
@@ -293,10 +293,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_STEPS_TIMESTAMP + " DATE" +
                 ");";
 
-        try{
+        try {
             db.execSQL(create_tbl_system_errors);
         } catch (SQLException e) {
-            Log.e("TEACHERAICADB", ""+e);
+            Log.e("TEACHERAICADB", "" + e);
         }
 
         if (isTableEmpty(db, TBL_LEVELS)) {
@@ -390,7 +390,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
         values.put(TBL_PROBLEMS_TIMEELAPSED, getTimeElapsed(this.dateStopped, this.dateCreated));
         values.put(TBL_PROBLEMS_DATESTOPPED, this.dateFormat.format(this.dateStopped));
 
-        db.update(TBL_PROBLEMS, values, TBL_PROBLEMS_PROBLEMID + " = ?", new String[] {String.valueOf(this.problemID)});
+        db.update(TBL_PROBLEMS, values, TBL_PROBLEMS_PROBLEMID + " = ?", new String[]{String.valueOf(this.problemID)});
     }
 
     private int getTimeElapsed(Date end, Date start) {
@@ -441,7 +441,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     public ArrayList<Problem> getProblems() {
-        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " +TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED
                 + " FROM " + TBL_PROBLEMS
                 + " WHERE " + TBL_PROBLEMS_STATUS + " = 'solved'"
                 + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
@@ -503,7 +503,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
         String[] levels = {TBL_LEVELS_1_1, TBL_LEVELS_1_2, TBL_LEVELS_1_3, TBL_LEVELS_1_4, TBL_LEVELS_1_5, TBL_LEVELS_1_6, TBL_LEVELS_1_7,
                 TBL_LEVELS_2_1, TBL_LEVELS_2_2, TBL_LEVELS_2_3, TBL_LEVELS_2_4, TBL_LEVELS_2_5, TBL_LEVELS_2_6, TBL_LEVELS_2_7,
                 TBL_LEVELS_3_1, TBL_LEVELS_3_2, TBL_LEVELS_3_3, TBL_LEVELS_3_4, TBL_LEVELS_3_5, TBL_LEVELS_3_6, TBL_LEVELS_3_7,
-                TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3, TBL_LEVELS_4_4,  TBL_LEVELS_4_5,  TBL_LEVELS_4_6,  TBL_LEVELS_4_7};
+                TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3, TBL_LEVELS_4_4, TBL_LEVELS_4_5, TBL_LEVELS_4_6, TBL_LEVELS_4_7};
 
         int currentLevel = 4;
 
@@ -524,7 +524,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     public int getCurrentSublevel(int level) {
         ArrayList<String> sublevels = new ArrayList<>();
 
-        switch(level) {
+        switch (level) {
             case 1:
                 sublevels.add(TBL_LEVELS_1_1);
                 sublevels.add(TBL_LEVELS_1_2);

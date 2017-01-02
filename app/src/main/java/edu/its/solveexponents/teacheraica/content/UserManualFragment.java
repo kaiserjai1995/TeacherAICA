@@ -52,7 +52,7 @@ public class UserManualFragment extends Fragment {
         return rootView;
     }
 
-    private void initializeData(){
+    private void initializeData() {
         manual_topic = new ArrayList<>();
         manual_topic.add(new ManualTopic(getString(R.string.solve_exponents_user_manual_title),
                 getString(R.string.solve_exponents_user_manual_desc),
@@ -65,7 +65,7 @@ public class UserManualFragment extends Fragment {
                 R.drawable.ic_lectures));
     }
 
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         UserManualRVAdapter adapter = new UserManualRVAdapter(getContext(), manual_topic);
         rv_user_manual.setAdapter(adapter);
     }

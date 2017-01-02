@@ -52,7 +52,7 @@ public class LecturesFragment extends Fragment {
         return rootView;
     }
 
-    public void initializeData(){
+    public void initializeData() {
         lectures_topic = new ArrayList<>();
         lectures_topic.add(new LecturesTopic(getString(R.string.lecture_one_title),
                 getString(R.string.lecture_one_desc),
@@ -80,7 +80,7 @@ public class LecturesFragment extends Fragment {
                 R.drawable.ic_lectures));
     }
 
-    public void initializeAdapter(){
+    public void initializeAdapter() {
         LecturesRVAdapter adapter = new LecturesRVAdapter(getContext(), lectures_topic);
         rv_lectures.setAdapter(adapter);
     }

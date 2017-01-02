@@ -58,7 +58,7 @@ public class ChoosingOfModeFragment extends Fragment {
         mode_input.add(new ModeInput(getString(R.string.mode_input_two_title)));
     }
 
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         ChoosingOfModeRVAdapter adapter = new ChoosingOfModeRVAdapter(getContext(), mode_input);
         rv_mode_input.setAdapter(adapter);
     }

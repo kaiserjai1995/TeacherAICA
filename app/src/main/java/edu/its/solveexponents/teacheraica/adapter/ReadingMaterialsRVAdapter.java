@@ -28,7 +28,7 @@ import edu.its.solveexponents.teacheraica.model.ReadingMaterialsTopic;
  * Created by jairus on 8/1/16.
  */
 
-public class ReadingMaterialsRVAdapter extends RecyclerView.Adapter<ReadingMaterialsRVAdapter.ReadingMaterialsTopicViewHolder>  {
+public class ReadingMaterialsRVAdapter extends RecyclerView.Adapter<ReadingMaterialsRVAdapter.ReadingMaterialsTopicViewHolder> {
     public static class ReadingMaterialsTopicViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv_reading_materials;
@@ -38,17 +38,17 @@ public class ReadingMaterialsRVAdapter extends RecyclerView.Adapter<ReadingMater
 
         public ReadingMaterialsTopicViewHolder(View itemView) {
             super(itemView);
-            cv_reading_materials = (CardView)itemView.findViewById(R.id.cv_reading_materials);
-            reading_materials_topic_title = (TextView)itemView.findViewById(R.id.reading_materials_topic_title);
-            reading_materials_topic_desc = (TextView)itemView.findViewById(R.id.reading_materials_topic_desc);
-            reading_materials_topic_image = (ImageView)itemView.findViewById(R.id.reading_materials_topic_image);
+            cv_reading_materials = (CardView) itemView.findViewById(R.id.cv_reading_materials);
+            reading_materials_topic_title = (TextView) itemView.findViewById(R.id.reading_materials_topic_title);
+            reading_materials_topic_desc = (TextView) itemView.findViewById(R.id.reading_materials_topic_desc);
+            reading_materials_topic_image = (ImageView) itemView.findViewById(R.id.reading_materials_topic_image);
         }
     }
 
     List<ReadingMaterialsTopic> reading_materials_topic;
     private Context mContext;
 
-    public ReadingMaterialsRVAdapter(Context context, List<ReadingMaterialsTopic> reading_materials_topic){
+    public ReadingMaterialsRVAdapter(Context context, List<ReadingMaterialsTopic> reading_materials_topic) {
         this.reading_materials_topic = reading_materials_topic;
         this.mContext = context;
     }
@@ -110,7 +110,7 @@ public class ReadingMaterialsRVAdapter extends RecyclerView.Adapter<ReadingMater
                 }
 
                 // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });

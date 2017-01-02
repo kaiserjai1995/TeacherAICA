@@ -3,14 +3,14 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
               android:background="#1565C0"
+              android:orientation="vertical"
               tools:context="edu.its.solveexponents.teacheraica.content.ReadingMaterialsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_reading_materials"
-        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </LinearLayout>

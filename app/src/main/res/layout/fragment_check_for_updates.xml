@@ -3,34 +3,47 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="#607d8b"
               android:orientation="vertical"
               tools:context="edu.its.solveexponents.teacheraica.content.CheckForUpdatesFragment">
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="45sp"
-        android:text="CHECK FOR UPDATES SECTION"
-        tools:ignore="MissingPrefix"
-        fontPath="fonts/Raleway-Bold.ttf" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/card_background"
+        android:descendantFocusability="afterDescendants"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/sample"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/label"
+            fontPath="fonts/Raleway-Bold.ttf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:text="CHECK FOR UPDATES SECTION"
+            android:textSize="45sp"
+            tools:ignore="MissingPrefix"/>
 
-    <TextView
-        android:layout_below="@id/label"
-        android:layout_centerInParent="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="None at the moment" />
+        <TextView
+            android:id="@+id/sample"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="None at the moment"
+            android:textSize="12sp"/>
+    </LinearLayout>
 </LinearLayout>

@@ -5,7 +5,7 @@
               android:gravity="center"
               android:orientation="vertical"
               android:paddingBottom="10dp"
-              android:paddingTop="10dp" >
+              android:paddingTop="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,28 +14,27 @@
 
         <Button
             android:id="@+id/abort_problem_btn"
-            android:text="@string/abort_problem_btn_text"
-            android:textColor="@color/colorAccent"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textStyle="bold"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            android:text="@string/abort_problem_btn_text"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/resume_problem_btn"
-            android:text="@string/resume_problem_btn_text"
-            android:textColor="@color/colorPrimaryDark"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textStyle="bold"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            android:text="@string/resume_problem_btn_text"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"/>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

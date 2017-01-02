@@ -12,9 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 
@@ -44,13 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 .build()
         );
 
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        //We get width and height in pixels here
-        int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-
-        Toast.makeText(getApplicationContext(), width + "x" + height, Toast.LENGTH_LONG).show();
-
         Stetho.initializeWithDefaults(this);
 
         if (savedInstanceState == null) {
@@ -75,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -94,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass;
 
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_solve_exponents:
                 fragmentClass = ChoosingOfModeFragment.class;
                 break;

@@ -24,7 +24,7 @@ import edu.its.solveexponents.teacheraica.model.ManualTopic;
  * Created by jairus on 7/7/16.
  */
 
-public class UserManualRVAdapter extends RecyclerView.Adapter<UserManualRVAdapter.ManualTopicViewHolder>  {
+public class UserManualRVAdapter extends RecyclerView.Adapter<UserManualRVAdapter.ManualTopicViewHolder> {
     public static class ManualTopicViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv_user_manual;
@@ -34,17 +34,17 @@ public class UserManualRVAdapter extends RecyclerView.Adapter<UserManualRVAdapte
 
         public ManualTopicViewHolder(View itemView) {
             super(itemView);
-            cv_user_manual = (CardView)itemView.findViewById(R.id.cv_user_manual);
-            manual_topic_title = (TextView)itemView.findViewById(R.id.manual_topic_title);
-            manual_topic_desc = (TextView)itemView.findViewById(R.id.manual_topic_desc);
-            manual_topic_image = (ImageView)itemView.findViewById(R.id.manual_topic_image);
+            cv_user_manual = (CardView) itemView.findViewById(R.id.cv_user_manual);
+            manual_topic_title = (TextView) itemView.findViewById(R.id.manual_topic_title);
+            manual_topic_desc = (TextView) itemView.findViewById(R.id.manual_topic_desc);
+            manual_topic_image = (ImageView) itemView.findViewById(R.id.manual_topic_image);
         }
     }
 
     List<ManualTopic> manual_topic;
     private Context mContext;
 
-    public UserManualRVAdapter(Context context, List<ManualTopic> manual_topic){
+    public UserManualRVAdapter(Context context, List<ManualTopic> manual_topic) {
         this.manual_topic = manual_topic;
         this.mContext = context;
     }
@@ -94,7 +94,7 @@ public class UserManualRVAdapter extends RecyclerView.Adapter<UserManualRVAdapte
                 }
 
                 // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
             }
         });

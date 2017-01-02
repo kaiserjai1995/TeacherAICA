@@ -52,7 +52,7 @@ public class ReadingMaterialsFragment extends Fragment {
         return rootView;
     }
 
-    private void initializeData(){
+    private void initializeData() {
         reading_materials_topic = new ArrayList<>();
         reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_one_title),
                 getString(R.string.reading_materials_one_desc),
@@ -77,7 +77,7 @@ public class ReadingMaterialsFragment extends Fragment {
                 R.drawable.ic_reading_materials));
     }
 
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         ReadingMaterialsRVAdapter adapter = new ReadingMaterialsRVAdapter(getContext(), reading_materials_topic);
         rv_reading_materials.setAdapter(adapter);
     }
