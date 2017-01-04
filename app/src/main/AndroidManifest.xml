@@ -9,7 +9,6 @@
                       android:largeScreens="true"
                       android:xlargeScreens="true"
                       android:anyDensity="true"
-
                       android:resizeable="true"/>
 
     <application
@@ -34,7 +33,8 @@
         <activity
             android:name=".content.SolveProblemActivity"
             android:label="Solve Exponents"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:noHistory="true">
 
         </activity>
 

@@ -136,7 +136,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         Log.d("TEACHERAICADB", Environment.getExternalStorageDirectory().getPath());
 
-        maxNumberOfProblemsPerSublevel = 3;
+        maxNumberOfProblemsPerSublevel = 6;
         this.context = context;
         db = this.getWritableDatabase();
     }
@@ -316,6 +316,9 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         if (isTableEmpty(db, TBL_HINT_TYPES)) {
             values = new ContentValues();
+            values.put(TBL_HINT_TYPES_HINTCODE, "P");
+            values.put(TBL_HINT_TYPES_HINTDEFINITION, "Positive Integer Exponents");
+            db.insert(TBL_HINT_TYPES, null, values);
             values.put(TBL_HINT_TYPES_HINTCODE, "Z");
             values.put(TBL_HINT_TYPES_HINTDEFINITION, "Base Raised to Zero");
             db.insert(TBL_HINT_TYPES, null, values);
@@ -328,10 +331,8 @@ public class TeacherAICADB extends SQLiteOpenHelper {
             values.put(TBL_HINT_TYPES_HINTCODE, "ME");
             values.put(TBL_HINT_TYPES_HINTDEFINITION, "Multiplication of Exponents to Find the Power of a Power");
             db.insert(TBL_HINT_TYPES, null, values);
-            values.put(TBL_HINT_TYPES_HINTCODE, "DB");
-            values.put(TBL_HINT_TYPES_HINTDEFINITION, "Division of Bases with the Same Exponents");
             values.put(TBL_HINT_TYPES_HINTCODE, "SE");
-            values.put(TBL_HINT_TYPES_HINTDEFINITION, "Subtraction of Exponents with the Same Bases");
+            values.put(TBL_HINT_TYPES_HINTDEFINITION, "Subtraction of Exponents");
             db.insert(TBL_HINT_TYPES, null, values);
             values.put(TBL_HINT_TYPES_HINTCODE, "N");
             values.put(TBL_HINT_TYPES_HINTDEFINITION, "Negative Integer Exponents");
@@ -348,7 +349,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
+
     }
 
     private void initializeDateTimeFormat() {

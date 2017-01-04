@@ -18,8 +18,7 @@
         android:id="@+id/generated_problem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:engine="MathJax">
-    </io.github.kexanie.library.MathView>
+        app:engine="MathJax"/>
 
     <Space
         android:layout_width="0dp"

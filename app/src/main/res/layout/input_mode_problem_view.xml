@@ -23,9 +23,7 @@
             android:id="@+id/input_mode_problem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:engine="MathJax">
-
-        </io.github.kexanie.library.MathView>
+            app:engine="MathJax"/>
 
     </LinearLayout>
 

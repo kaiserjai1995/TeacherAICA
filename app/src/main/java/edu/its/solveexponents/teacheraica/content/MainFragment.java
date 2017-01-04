@@ -89,4 +89,8 @@ public class MainFragment extends Fragment {
                 .setMessage("In solving problems pertaining to the Laws of Exponents, it is always a good idea to write them legibly in paper first then analyze from there.")
                 .show();
     }
+
+    public interface OnBackPressedListener {
+        void onBackPressed();
+    }
 }

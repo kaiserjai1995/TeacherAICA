@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Learn Exponents</string>
 
+    <string name="action_settings">Settings</string>
+
     <!-- Navigation Drawer Application Title and Application Description -->
     <string name="application_title">Teacher AICA</string>
     <string name="application_desc">A Mobile-Assisted Exponent Solver and Learning Application</string>

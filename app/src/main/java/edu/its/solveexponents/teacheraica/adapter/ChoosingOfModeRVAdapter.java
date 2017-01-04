@@ -66,6 +66,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     List<ModeInput> mode_input;
     private Context mContext;
     String equation;
+    String hint, current_hint;
     int level, sublevel;
     MaterialEditText input_problem;
     MathView generated_problem;
@@ -132,10 +133,11 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
 //                        level = MainFragment.teacheraicadb.getCurrentLevel();
-                        level = 2;
 //                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
-                        sublevel = 4;
+                        level = 1;
+                        sublevel = 2;
                         equation = Randomizer.getRandomEquation(level, sublevel);
+                        hint = Randomizer.getHint(level, sublevel);
 
                         showGeneratedProblemView(equation);
                         break;
@@ -177,13 +179,20 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
 
                         StringWriter stw = new StringWriter();
-                        mathUtil.toMathML(equation, stw);
+                        mathUtil.toMathML(engine.parse(equation), stw);
 
                         System.out.println(stw.toString());
 
                         final_equation = stw.toString();
 
-                        equation_string = "<center><b><font size='+2'>" + final_equation + "</font></b></center>";
+                        equation_string = "<center><font size='+2'>" + final_equation + "</font></center>";
+
+                        generated_problem.config(
+                                "MathJax.Hub.Config({\n"+
+                                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
+                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
+                                        "         SVG: { linebreaks: { automatic: true } }\n"+
+                                        "});");
 
                         generated_problem.setText(equation_string);
                     }
@@ -195,7 +204,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                         util = new ExprEvaluator();
                         engine = util.getEvalEngine();
-                        engine.setStepListener(new StepListener());
                         result = util.evaluate(equation);
                         System.out.println("Result: " + result.toString());
 
@@ -209,6 +217,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         i.putExtra("result", result.toString());
                         i.putExtra("equation_string", equation_string);
                         i.putExtra("expr_result", result);
+                        i.putExtra("hint", hint);
                         mContext.startActivity(i);
                     }
                 })
@@ -275,8 +284,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
                         btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
 
-                        btn_one.setText("1");
-                        btn_one.setTextSize(20);
+//                        btn_one.setText("1");
+//                        btn_one.setTextSize(20);
                         btn_two.setText("2");
                         btn_two.setTextSize(20);
                         btn_three.setText("3");
@@ -591,7 +600,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                 @Override
                                                 public void configureView(View v) {
                                                     input_mode_problem = (MathView) v.findViewById(R.id.input_mode_problem);
-//                                                    input_mode_problem.setText("$$" + equation + "$$");
 
                                                     util = new ExprEvaluator();
                                                     engine = util.getEvalEngine();
@@ -599,9 +607,16 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                     MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
 
                                                     StringWriter stw = new StringWriter();
-                                                    mathUtil.toMathML(equation, stw);
+                                                    mathUtil.toMathML(engine.parse(equation), stw);
 
-                                                    equation_string = "<center><b><font size='+2'>" + stw.toString() + "</font></b></center>";
+                                                    equation_string = "<center><font size='+2'>" + stw.toString() + "</font></center>";
+
+                                                    input_mode_problem.config(
+                                                            "MathJax.Hub.Config({\n"+
+                                                                    "  CommonHTML: { linebreaks: { automatic: true } },\n"+
+                                                                    "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
+                                                                    "         SVG: { linebreaks: { automatic: true } }\n"+
+                                                                    "});");
 
                                                     input_mode_problem.setText(equation_string);
                                                 }

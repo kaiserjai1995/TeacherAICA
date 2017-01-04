@@ -23,6 +23,7 @@
         android:gravity="center"
         android:hint="@string/problem_input_hint"
         android:inputType="text"
+        android:longClickable="false"
         app:met_baseColor="@color/colorPrimaryDark"
         app:met_errorColor="@color/darkRed"
         app:met_floatingLabel="normal"
@@ -48,7 +49,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="1"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_two"
@@ -62,7 +65,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="2"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_three"
@@ -76,7 +81,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="3"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <Space
             android:layout_width="0dp"
@@ -97,7 +104,9 @@
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="w"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_var_a"
@@ -111,7 +120,9 @@
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="a"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <Space
             android:layout_width="0dp"
@@ -129,7 +140,9 @@
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="+"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_power"
@@ -142,7 +155,9 @@
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="^"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_backspace"
@@ -155,8 +170,10 @@
             app:fb_borderWidth="1dp"
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
+            app:fb_iconResource="@drawable/sym_keyboard_delete"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
     </LinearLayout>
 
@@ -180,7 +197,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="4"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_five"
@@ -194,7 +213,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="5"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_six"
@@ -208,7 +229,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="6"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <Space
             android:layout_width="0dp"
@@ -227,7 +250,9 @@
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="x"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_var_b"
@@ -241,7 +266,9 @@
             app:fb_focusColor="#26a69a"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="b"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <Space
             android:layout_width="0dp"
@@ -259,7 +286,9 @@
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="-"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_decimal"
@@ -272,7 +301,9 @@
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="."
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_clear"
@@ -285,7 +316,9 @@
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="C"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
     </LinearLayout>
 
@@ -309,7 +342,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="7"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_eight"
@@ -323,7 +358,9 @@
             app:fb_focusColor="#00bcd4"
             app:fb_iconPosition="left"
             app:fb_radius="5dp"
-            app:fb_textColor="#FFFFFF"/>
+            app:fb_text="8"
+            app:fb_textColor="#FFFFFF"
+            app:fb_textSize="18sp"/>
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_nine"
