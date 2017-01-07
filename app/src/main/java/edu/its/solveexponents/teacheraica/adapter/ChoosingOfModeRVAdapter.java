@@ -65,7 +65,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     List<ModeInput> mode_input;
     private Context mContext;
-    String equation;
     String hint, current_hint;
     int level, sublevel;
     MaterialEditText input_problem;
@@ -88,6 +87,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     Boolean match;
     String equation_string;
     String final_equation;
+    String equation;
 
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input) {
         this.mode_input = mode_input;
@@ -139,7 +139,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
 
-                        showGeneratedProblemView(equation);
+                        showGeneratedProblemView();
                         break;
                     case "Solve USER-INPUT Problems":
                         showInputProblemView();
@@ -155,7 +155,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         return mode_input.size();
     }
 
-    public void showGeneratedProblemView(final String equation) {
+    public void showGeneratedProblemView() {
         new LovelyCustomDialog(mContext)
                 .setView(R.layout.generated_mode_problem_view)
                 .setTopColorRes(R.color.darkRed)
@@ -197,7 +197,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         generated_problem.setText(equation_string);
                     }
                 })
-                .setListener(R.id.solve_problem_btn, true, new View.OnClickListener() {
+                .setListener(R.id.solve_problem_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         i = new Intent(mContext, SolveProblemActivity.class);
@@ -219,6 +219,35 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         i.putExtra("expr_result", result);
                         i.putExtra("hint", hint);
                         mContext.startActivity(i);
+                    }
+                })
+                .setListener(R.id.next_problem_btn, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        level = 1;
+                        sublevel = 2;
+                        equation = Randomizer.getRandomEquation(level, sublevel);
+                        hint = Randomizer.getHint(level, sublevel);
+
+                        Toast.makeText(mContext, "Level: " + level +
+                                "\nSublevel: " + sublevel +
+                                "\nEquation: " + equation, Toast.LENGTH_LONG).show();
+
+                        util = new ExprEvaluator();
+                        engine = util.getEvalEngine();
+
+                        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+
+                        StringWriter stw = new StringWriter();
+                        mathUtil.toMathML(engine.parse(equation), stw);
+
+                        System.out.println(stw.toString());
+
+                        final_equation = stw.toString();
+
+                        equation_string = "<center><font size='+2'>" + final_equation + "</font></center>";
+
+                        generated_problem.setText(equation_string);
                     }
                 })
                 .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
@@ -283,71 +312,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         btn_var_b = (FancyButton) v.findViewById(R.id.btn_var_b);
                         btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
                         btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
-
-//                        btn_one.setText("1");
-//                        btn_one.setTextSize(20);
-                        btn_two.setText("2");
-                        btn_two.setTextSize(20);
-                        btn_three.setText("3");
-                        btn_three.setTextSize(20);
-                        btn_four.setText("4");
-                        btn_four.setTextSize(20);
-                        btn_five.setText("5");
-                        btn_five.setTextSize(20);
-                        btn_six.setText("6");
-                        btn_six.setTextSize(20);
-                        btn_seven.setText("7");
-                        btn_seven.setTextSize(20);
-                        btn_eight.setText("8");
-                        btn_eight.setTextSize(20);
-                        btn_nine.setText("9");
-                        btn_nine.setTextSize(20);
-                        btn_zero.setText("0");
-                        btn_zero.setTextSize(20);
-                        btn_left_shift.setText("←");
-                        btn_left_shift.setTextSize(20);
-                        btn_right_shift.setText("→");
-                        btn_right_shift.setTextSize(20);
-                        btn_add.setText("+");
-                        btn_add.setTextSize(20);
-                        btn_subtract.setText("-");
-                        btn_subtract.setTextSize(20);
-                        btn_multiply.setText("*");
-                        btn_multiply.setTextSize(20);
-                        btn_divide.setText("/");
-                        btn_divide.setTextSize(20);
-                        btn_power.setText("^");
-                        btn_power.setTextSize(20);
-                        btn_decimal.setText(".");
-                        btn_decimal.setTextSize(20);
-                        btn_open_parenthesis.setText("(");
-                        btn_open_parenthesis.setTextSize(20);
-                        btn_closing_parenthesis.setText(")");
-                        btn_closing_parenthesis.setTextSize(20);
-                        btn_open_brace.setText("{");
-                        btn_open_brace.setTextSize(20);
-                        btn_closing_brace.setText("}");
-                        btn_closing_brace.setTextSize(20);
-                        btn_backspace.setIconResource(R.drawable.sym_keyboard_delete);
-                        btn_backspace.setTextSize(20);
-                        btn_clear.setText("C");
-                        btn_clear.setTextSize(20);
-                        btn_var_w.setText("w");
-                        btn_var_w.setTextSize(20);
-                        btn_var_x.setText("x");
-                        btn_var_x.setTextSize(20);
-                        btn_var_y.setText("y");
-                        btn_var_y.setTextSize(20);
-                        btn_var_z.setText("z");
-                        btn_var_z.setTextSize(20);
-                        btn_var_a.setText("a");
-                        btn_var_a.setTextSize(20);
-                        btn_var_b.setText("b");
-                        btn_var_b.setTextSize(20);
-                        btn_var_c.setText("c");
-                        btn_var_c.setTextSize(20);
-                        btn_var_d.setText("d");
-                        btn_var_d.setTextSize(20);
 
                         validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
 
@@ -609,7 +573,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                     StringWriter stw = new StringWriter();
                                                     mathUtil.toMathML(engine.parse(equation), stw);
 
-                                                    equation_string = "<center><font size='+2'>" + stw.toString() + "</font></center>";
+                                                    equation_string = "<center><font size='+2'>" + stw.toString().replace("&#x2062;", "*") + "</font></center>";
 
                                                     input_mode_problem.config(
                                                             "MathJax.Hub.Config({\n"+

@@ -58,51 +58,45 @@
     <string name="solve_problem_equation">3x*6x</string>
 
     <!-- Lectures Section Text -->
-    <string name="lecture_one_title">Prelude</string>
-    <string name="lecture_one_desc">Discussion of Teacher AICA\'s Role</string>
+    <string name="lecture_introduction_title">Introduction</string>
+    <string name="lecture_introduction_desc">Lecture Objectives, What to Gain from these Lessons</string>
 
-    <string name="lecture_two_title">Positive Integer Exponents</string>
-    <string name="lecture_two_desc">Discussion of Positive Integer Exponents Concepts</string>
+    <string name="lecture_base_raised_to_zero_title">Base Raised to Zero</string>
+    <string name="lecture_base_raised_to_zero_desc">Discussion of Base Raised to Zero Concepts</string>
 
-    <string name="lecture_three_title">Base Raised to Zero</string>
-    <string name="lecture_three_desc">Discussion of Base Raised to Zero Concepts</string>
+    <string name="lecture_addition_of_exponents_with_the_same_bases_title">Addition of Exponents with the Same Bases</string>
+    <string name="lecture_addition_of_exponents_with_the_same_bases_desc">Discussion of Addition of Exponents with the Same Bases Concepts</string>
 
-    <string name="lecture_four_title">Addition of Exponents with the Same Bases</string>
-    <string name="lecture_four_desc">Discussion of Addition of Exponents with the Same Bases Concepts</string>
+    <string name="lecture_multiplication_of_bases_with_the_same_exponents_title">Multiplication of Bases with the Same Exponents</string>
+    <string name="lecture_multiplication_of_bases_with_the_same_exponents_desc">Discussion of Multiplication of Bases with the Same Exponents Concepts</string>
 
-    <string name="lecture_five_title">Multiplication of Bases with the Same Exponents</string>
-    <string name="lecture_five_desc">Discussion of Multiplication of Bases with the Same Exponents Concepts</string>
+    <string name="lecture_multiplication_of_exponents_to_find_the_power_of_a_power_title">Multiplication of Exponents to Find the Power of a Power</string>
+    <string name="lecture_multiplication_of_exponents_to_find_the_power_of_a_power_desc">Discussion of Multiplication of Exponents to Find the Power of a Power Concepts</string>
 
-    <string name="lecture_six_title">Multiplication of Exponents to Find the Power of a Power</string>
-    <string name="lecture_six_desc">Discussion of Multiplication of Exponents to Find the Power of a Power Concepts</string>
+    <string name="lecture_subtraction_of_exponents_title">Subtraction of Exponents</string>
+    <string name="lecture_subtraction_of_exponents_desc">Discussion of Subtraction of Exponents Concepts</string>
 
-    <string name="lecture_seven_title">Subtraction of Exponents</string>
-    <string name="lecture_seven_desc">Discussion of Subtraction of Exponents Concepts</string>
-
-    <string name="lecture_eight_title">Negative Integer Exponents</string>
-    <string name="lecture_eight_desc">Discussion of Negative Integer Exponents Concepts</string>
+    <string name="lecture_negative_integer_exponents_title">Negative Integer Exponents</string>
+    <string name="lecture_negative_integer_exponents_desc">Discussion of Negative Integer Exponents Concepts</string>
 
     <!-- Reading Materials Section Text -->
-    <string name="reading_materials_one_title">Positive Integer Exponents</string>
-    <string name="reading_materials_one_desc">Concepts and Examples regarding Positive Integer Exponents</string>
+    <string name="reading_materials_base_raised_to_zero_title">Base Raised to Zero</string>
+    <string name="reading_materials_base_raised_to_zero_desc">Concepts and Examples regarding Exponents with Base Raised to Zero</string>
 
-    <string name="reading_materials_two_title">Base Raised to Zero</string>
-    <string name="reading_materials_two_desc">Concepts and Examples regarding Exponents with Base Raised to Zero</string>
+    <string name="reading_materials_addition_of_exponents_with_the_same_bases_title">Addition of Exponents with Same Bases</string>
+    <string name="reading_materials_addition_of_exponents_with_the_same_bases_desc">Concepts and Examples regarding Addition of Exponents with Same Bases</string>
 
-    <string name="reading_materials_three_title">Addition of Exponents with Same Bases</string>
-    <string name="reading_materials_three_desc">Concepts and Examples regarding Addition of Exponents with Same Bases</string>
+    <string name="reading_materials_multiplication_of_bases_with_the_same_exponents_title">Multiplication of Bases with the Same Exponents</string>
+    <string name="reading_materials_multiplication_of_bases_with_the_same_exponents_desc">Concepts and Examples regarding Multiplication of Bases with the Same Exponents</string>
 
-    <string name="reading_materials_four_title">Multiplication of Bases with the Same Exponents</string>
-    <string name="reading_materials_four_desc">Concepts and Examples regarding Multiplication of Bases with the Same Exponents</string>
+    <string name="reading_materials_multiplication_of_exponents_to_find_the_power_of_a_power_title">Multiplication of Exponents to Find the Power of a Power</string>
+    <string name="reading_materials_multiplication_of_exponents_to_find_the_power_of_a_power_desc">Concepts and Examples regarding Multiplication of Exponents to Find the Power of a Power</string>
 
-    <string name="reading_materials_five_title">Multiplication of Exponents to Find the Power of a Power</string>
-    <string name="reading_materials_five_desc">Concepts and Examples regarding Multiplication of Exponents to Find the Power of a Power</string>
+    <string name="reading_materials_subtraction_of_exponents_title">Subtraction of Exponents</string>
+    <string name="reading_materials_subtraction_of_exponents_desc">Concepts and Examples regarding Subtraction of Exponents</string>
 
-    <string name="reading_materials_six_title">Subtraction of Exponents</string>
-    <string name="reading_materials_six_desc">Concepts and Examples regarding Subtraction of Exponents</string>
-
-    <string name="reading_materials_seven_title">Negative Integer Exponents</string>
-    <string name="reading_materials_seven_desc">Concepts and Examples regarding Negative Integer Exponents</string>
+    <string name="reading_materials_negative_integer_exponents_title">Negative Integer Exponents</string>
+    <string name="reading_materials_negative_integer_exponents_desc">Concepts and Examples regarding Negative Integer Exponents</string>
 
     <!-- User Manual Section Text -->
     <string name="solve_exponents_user_manual_title">Solve Exponents Section Manual</string>

@@ -16,9 +16,9 @@ import edu.its.solveexponents.teacheraica.R;
  * Created by jairus on 8/1/16.
  */
 
-public class LectureSevenFragment extends Fragment {
+public class LectureBaseRaisedToZeroFragment extends Fragment {
 
-    public LectureSevenFragment() {
+    public LectureBaseRaisedToZeroFragment() {
         // Required empty public constructor
     }
 
@@ -30,16 +30,16 @@ public class LectureSevenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lecture_seven, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lecture_base_raised_to_zero, container, false);
 
-        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_lecture_seven);
+        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_lecture_base_raised_to_zero);
 
         webvw.getSettings().setJavaScriptEnabled(true);
         webvw.getSettings().setDomStorageEnabled(true);
 
         webvw.setWebViewClient(new WebViewClient());
 
-        String path = Uri.parse("file:///android_asset/lectures/lecture_seven.html").toString();
+        String path = Uri.parse("file:///android_asset/lectures/base_raised_to_zero.html").toString();
         webvw.loadUrl(path);
         webvw.setBackgroundColor(0x00000000);
 

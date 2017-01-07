@@ -54,29 +54,26 @@ public class LecturesFragment extends Fragment {
 
     public void initializeData() {
         lectures_topic = new ArrayList<>();
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_one_title),
-                getString(R.string.lecture_one_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_introduction_title),
+                getString(R.string.lecture_introduction_desc),
                 R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_two_title),
-                getString(R.string.lecture_two_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_base_raised_to_zero_title),
+                getString(R.string.lecture_base_raised_to_zero_desc),
                 R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_three_title),
-                getString(R.string.lecture_three_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_addition_of_exponents_with_the_same_bases_title),
+                getString(R.string.lecture_addition_of_exponents_with_the_same_bases_desc),
                 R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_four_title),
-                getString(R.string.lecture_four_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_multiplication_of_bases_with_the_same_exponents_title),
+                getString(R.string.lecture_multiplication_of_bases_with_the_same_exponents_desc),
                 R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_five_title),
-                getString(R.string.lecture_five_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_multiplication_of_exponents_to_find_the_power_of_a_power_title),
+                getString(R.string.lecture_multiplication_of_exponents_to_find_the_power_of_a_power_desc),
                 R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_six_title),
-                getString(R.string.lecture_six_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_subtraction_of_exponents_title),
+                getString(R.string.lecture_subtraction_of_exponents_desc),
                 R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_seven_title),
-                getString(R.string.lecture_seven_desc),
-                R.drawable.ic_lectures));
-        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_eight_title),
-                getString(R.string.lecture_eight_desc),
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_negative_integer_exponents_title),
+                getString(R.string.lecture_negative_integer_exponents_desc),
                 R.drawable.ic_lectures));
     }
 

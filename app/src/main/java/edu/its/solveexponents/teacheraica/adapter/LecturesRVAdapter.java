@@ -14,14 +14,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.its.solveexponents.teacheraica.content.lectures.LectureSixFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureThreeFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureTwoFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureSevenFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureOneFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureFiveFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureFourFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureEightFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureSubtractionOfExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureAdditionOfExponentsWithTheSameBasesFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureBaseRaisedToZeroFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureNegativeIntegerExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureIntroductionFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureMultiplicationOfExponentsToFindThePowerOfAPowerFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureMultiplicationOfBasesWithTheSameExponentsFragment;
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.model.LecturesTopic;
 
@@ -79,32 +78,29 @@ public class LecturesRVAdapter extends RecyclerView.Adapter<LecturesRVAdapter.Le
                 Class fragmentClass;
 
                 switch (lectures_topic.get(i).lectures_topic_title) {
-                    case "Prelude":
-                        fragmentClass = LectureOneFragment.class;
-                        break;
-                    case "Positive Integer Exponents":
-                        fragmentClass = LectureTwoFragment.class;
+                    case "Introduction":
+                        fragmentClass = LectureIntroductionFragment.class;
                         break;
                     case "Base Raised to Zero":
-                        fragmentClass = LectureThreeFragment.class;
+                        fragmentClass = LectureBaseRaisedToZeroFragment.class;
                         break;
                     case "Addition of Exponents with the Same Bases":
-                        fragmentClass = LectureFourFragment.class;
+                        fragmentClass = LectureAdditionOfExponentsWithTheSameBasesFragment.class;
                         break;
                     case "Multiplication of Bases with the Same Exponents":
-                        fragmentClass = LectureFiveFragment.class;
+                        fragmentClass = LectureMultiplicationOfBasesWithTheSameExponentsFragment.class;
                         break;
                     case "Multiplication of Exponents to Find the Power of a Power":
-                        fragmentClass = LectureSixFragment.class;
+                        fragmentClass = LectureMultiplicationOfExponentsToFindThePowerOfAPowerFragment.class;
                         break;
                     case "Subtraction of Exponents":
-                        fragmentClass = LectureSevenFragment.class;
+                        fragmentClass = LectureSubtractionOfExponentsFragment.class;
                         break;
                     case "Negative Integer Exponents":
-                        fragmentClass = LectureEightFragment.class;
+                        fragmentClass = LectureNegativeIntegerExponentsFragment.class;
                         break;
                     default:
-                        fragmentClass = LectureOneFragment.class;
+                        fragmentClass = LectureIntroductionFragment.class;
                 }
 
                 try {

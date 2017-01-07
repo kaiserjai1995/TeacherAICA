@@ -16,9 +16,9 @@ import edu.its.solveexponents.teacheraica.R;
  * Created by jairus on 8/1/16.
  */
 
-public class ReadingMaterialThreeFragment extends Fragment {
+public class ReadingMaterialMultiplicationOfExponentsToFindThePowerOfAPowerFragment extends Fragment {
 
-    public ReadingMaterialThreeFragment() {
+    public ReadingMaterialMultiplicationOfExponentsToFindThePowerOfAPowerFragment() {
         // Required empty public constructor
     }
 
@@ -30,16 +30,16 @@ public class ReadingMaterialThreeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reading_material_three, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_reading_material_multiplication_of_exponents_to_find_the_power_of_a_power, container, false);
 
-        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_reading_material_three);
+        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_reading_material_multiplication_of_exponents_to_find_the_power_of_a_power);
 
         webvw.getSettings().setJavaScriptEnabled(true);
         webvw.getSettings().setDomStorageEnabled(true);
 
         webvw.setWebViewClient(new WebViewClient());
 
-        String path = Uri.parse("file:///android_asset/reading_materials/reading_material_three.html").toString();
+        String path = Uri.parse("file:///android_asset/reading_materials/multiplication_of_exponents_to_find_the_power_of_a_power.html").toString();
         webvw.loadUrl(path);
         webvw.setBackgroundColor(0x00000000);
 

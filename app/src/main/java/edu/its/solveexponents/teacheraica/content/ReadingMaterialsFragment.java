@@ -54,26 +54,23 @@ public class ReadingMaterialsFragment extends Fragment {
 
     private void initializeData() {
         reading_materials_topic = new ArrayList<>();
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_one_title),
-                getString(R.string.reading_materials_one_desc),
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_base_raised_to_zero_title),
+                getString(R.string.reading_materials_base_raised_to_zero_desc),
                 R.drawable.ic_reading_materials));
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_two_title),
-                getString(R.string.reading_materials_two_desc),
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_addition_of_exponents_with_the_same_bases_title),
+                getString(R.string.reading_materials_addition_of_exponents_with_the_same_bases_desc),
                 R.drawable.ic_reading_materials));
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_three_title),
-                getString(R.string.reading_materials_three_desc),
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_multiplication_of_bases_with_the_same_exponents_title),
+                getString(R.string.reading_materials_multiplication_of_bases_with_the_same_exponents_desc),
                 R.drawable.ic_reading_materials));
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_four_title),
-                getString(R.string.reading_materials_four_desc),
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_multiplication_of_exponents_to_find_the_power_of_a_power_title),
+                getString(R.string.reading_materials_multiplication_of_exponents_to_find_the_power_of_a_power_desc),
                 R.drawable.ic_reading_materials));
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_five_title),
-                getString(R.string.reading_materials_five_desc),
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_subtraction_of_exponents_title),
+                getString(R.string.reading_materials_subtraction_of_exponents_desc),
                 R.drawable.ic_reading_materials));
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_six_title),
-                getString(R.string.reading_materials_six_desc),
-                R.drawable.ic_reading_materials));
-        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_seven_title),
-                getString(R.string.reading_materials_seven_desc),
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_negative_integer_exponents_title),
+                getString(R.string.reading_materials_negative_integer_exponents_desc),
                 R.drawable.ic_reading_materials));
     }
 

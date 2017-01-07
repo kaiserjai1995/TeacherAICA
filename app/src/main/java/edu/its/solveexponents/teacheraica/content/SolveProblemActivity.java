@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,23 +25,27 @@ import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
 import org.matheclipse.core.eval.MathMLUtilities;
 import org.matheclipse.core.interfaces.AbstractEvalStepListener;
 import org.matheclipse.core.interfaces.IExpr;
+import org.matheclipse.parser.client.SyntaxError;
+import org.matheclipse.parser.client.math.MathException;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.algo.Randomizer;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 import static io.github.kexanie.library.R.id.MathJax;
-import static org.matheclipse.core.expression.F.v;
+import static org.matheclipse.core.integrate.rubi45.UtilityFunctionCtors.S;
 
 /**
  * Created by jairus on 12/8/16.
@@ -57,17 +62,13 @@ public class SolveProblemActivity extends AppCompatActivity {
     private int errorsCommited;
     boolean solved;
 
-    //FOR HINTING
-    int solutionNumber;
-    int hintType;
-    int stepNumber;
-
     String hint;
 
     public static View parentView;
     public static View solutionScrollView;
 
     MathView math_equation, solution_preview, abort_problem_final_answer, abort_problem_equation;
+    MathView generated_problem;
     String equation_string;
 
     FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
@@ -92,11 +93,25 @@ public class SolveProblemActivity extends AppCompatActivity {
     String step_by_step;
     StringWriter stw_step_by_step;
     Intent i;
-    ArrayList<String> step_list = new ArrayList<String>();
+    ArrayList<String> step_list = new ArrayList<>();
     FancyButton btn_hint;
-    ArrayList<String> read_url = new ArrayList<String>();
-    MathView show_final_answer;
-    MathView show_final_answer_equation;
+    ArrayList<String> read_url = new ArrayList<>();
+    String final_equation;
+    IExpr result;
+    int current_level;
+    int current_sublevel;
+    MaterialEditText input_problem;
+    InputMethodManager inputMethodManager;
+    Button validate_problem_btn;
+    MathView input_mode_problem;
+    String resultString;
+    Boolean match;
+    int number_of_steps;
+    int step_number;
+    int solution_error_number;
+    ArrayList<String> solutions_list;
+    ArrayList<String> solution_errors_list;
+
 
     public class StepListener extends AbstractEvalStepListener {
         /**
@@ -156,6 +171,16 @@ public class SolveProblemActivity extends AppCompatActivity {
             //TODO Analyze equation string for determining hint type
             final_answer = getIntent().getExtras().getString("result");
             math_equation.setText(final_equation_string);
+
+            System.out.println("EQUATION TO ANALYZE: " + equation);
+
+            ArrayList<Character> equation_token = new ArrayList<Character>();
+
+            for (int i = 0; i < equation.length(); i++) {
+                equation_token.add(equation.charAt(i));
+                System.out.println("Token: " + equation_token.get(i).toString());
+            }
+
             this.equationType = "custom";
         }
 
@@ -204,71 +229,6 @@ public class SolveProblemActivity extends AppCompatActivity {
         btn_var_c = (FancyButton) findViewById(R.id.btn_var_c);
         btn_var_d = (FancyButton) findViewById(R.id.btn_var_d);
 
-        btn_one.setText("1");
-        btn_one.setTextSize(20);
-        btn_two.setText("2");
-        btn_two.setTextSize(20);
-        btn_three.setText("3");
-        btn_three.setTextSize(20);
-        btn_four.setText("4");
-        btn_four.setTextSize(20);
-        btn_five.setText("5");
-        btn_five.setTextSize(20);
-        btn_six.setText("6");
-        btn_six.setTextSize(20);
-        btn_seven.setText("7");
-        btn_seven.setTextSize(20);
-        btn_eight.setText("8");
-        btn_eight.setTextSize(20);
-        btn_nine.setText("9");
-        btn_nine.setTextSize(20);
-        btn_zero.setText("0");
-        btn_zero.setTextSize(20);
-        btn_left_shift.setText("←");
-        btn_left_shift.setTextSize(20);
-        btn_right_shift.setText("→");
-        btn_right_shift.setTextSize(20);
-        btn_add.setText("+");
-        btn_add.setTextSize(20);
-        btn_subtract.setText("-");
-        btn_subtract.setTextSize(20);
-        btn_multiply.setText("*");
-        btn_multiply.setTextSize(20);
-        btn_divide.setText("/");
-        btn_divide.setTextSize(20);
-        btn_power.setText("^");
-        btn_power.setTextSize(20);
-        btn_decimal.setText(".");
-        btn_decimal.setTextSize(20);
-        btn_open_parenthesis.setText("(");
-        btn_open_parenthesis.setTextSize(20);
-        btn_closing_parenthesis.setText(")");
-        btn_closing_parenthesis.setTextSize(20);
-        btn_open_brace.setText("{");
-        btn_open_brace.setTextSize(20);
-        btn_closing_brace.setText("}");
-        btn_closing_brace.setTextSize(20);
-        btn_backspace.setIconResource(R.drawable.sym_keyboard_delete);
-        btn_backspace.setTextSize(20);
-        btn_clear.setText("C");
-        btn_clear.setTextSize(20);
-        btn_var_w.setText("w");
-        btn_var_w.setTextSize(20);
-        btn_var_x.setText("x");
-        btn_var_x.setTextSize(20);
-        btn_var_y.setText("y");
-        btn_var_y.setTextSize(20);
-        btn_var_z.setText("z");
-        btn_var_z.setTextSize(20);
-        btn_var_a.setText("a");
-        btn_var_a.setTextSize(20);
-        btn_var_b.setText("b");
-        btn_var_b.setTextSize(20);
-        btn_var_c.setText("c");
-        btn_var_c.setTextSize(20);
-        btn_var_d.setText("d");
-        btn_var_d.setTextSize(20);
-
         solution_step_1 = (MaterialEditText) findViewById(R.id.solution_step_1);
         solution_step_2 = (MaterialEditText) findViewById(R.id.solution_step_2);
         solution_step_3 = (MaterialEditText) findViewById(R.id.solution_step_3);
@@ -289,9 +249,14 @@ public class SolveProblemActivity extends AppCompatActivity {
         solution_step_8_view = (LinearLayout) findViewById(R.id.solution_step_8_view);
         solution_step_9_view = (LinearLayout) findViewById(R.id.solution_step_9_view);
 
+        solution_errors_list = new ArrayList<>();
+        solutions_list = new ArrayList<>();
+
+        step_number = 0;
+        number_of_steps = 0;
+
         errorsCommited = 0;
-        solutionNumber = 0;
-        stepNumber = 0;
+        solution_error_number = 0;
 
         solution_step_1.requestFocus();
 
@@ -636,7 +601,6 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         new LovelyCustomDialog(this)
                 .setView(R.layout.abort_problem_view)
                 .setTopColorRes(R.color.darkDeepOrange)
@@ -649,79 +613,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .setListener(R.id.abort_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new LovelyCustomDialog(SolveProblemActivity.this)
-                                .setIcon(R.drawable.aica)
-                                .setTopColorRes(R.color.darkDeepOrange)
-                                .setTitle("ANSWER TO THE EQUATION PROBLEM")
-                                .setMessage("You could've answered this, though. Still, nice try though and I know you'll do better next time you encounter this type of problem. The final answer to the problem is:")
-                                .setCancelable(false)
-                                .setMessageGravity(1)
-                                .setTitleGravity(1)
-                                .setView(R.layout.abort_problem_show_answer)
-                                .configureView(new LovelyCustomDialog.ViewConfigurator() {
-                                    @Override
-                                    public void configureView(View v) {
-                                        abort_problem_final_answer = (MathView) v.findViewById(R.id.abort_problem_final_answer);
-                                        abort_problem_equation = (MathView) v.findViewById(R.id.abort_problem_equation);
-
-                                        util = new ExprEvaluator();
-                                        engine = util.getEvalEngine();
-                                        engine.setStepListener(new StepListener());
-                                        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
-                                        StringWriter stw = new StringWriter();
-                                        mathUtil.toMathML(final_answer, stw);
-
-                                        IExpr abort_final_ans = util.evaluate(equation);
-
-                                        abort_problem_final_answer_string = "<center><b><font size='+2'>" + stw.toString().replace("&#x2062;", "*") + "</font></b></center>";
-
-                                        abort_problem_final_answer.config(
-                                                "MathJax.Hub.Config({\n" +
-                                                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
-                                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
-                                                        "         SVG: { linebreaks: { automatic: true } }\n" +
-                                                        "});");
-
-                                        abort_problem_final_answer.setText(abort_problem_final_answer_string);
-
-                                        StringWriter stw1 = new StringWriter();
-                                        mathUtil.toMathML(equation, stw1);
-
-                                        abort_problem_equation.config(
-                                                "MathJax.Hub.Config({\n" +
-                                                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
-                                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
-                                                        "         SVG: { linebreaks: { automatic: true } }\n" +
-                                                        "});");
-
-                                        abort_problem_equation.setText("<center><b><font size='+2'>" + stw1.toString().replace("&#x2062;", "*") + "</font></b></center>");
-
-                                        LinearLayout abort_answers_view = (LinearLayout) v.findViewById(R.id.abort_answers_view);
-                                        for (int i = 0; i < step_list.size(); i++) {
-                                            MathView abort_problem_solution = new MathView(SolveProblemActivity.this, null);
-                                            abort_problem_solution.setEngine(MathJax);
-
-                                            abort_problem_solution.config(
-                                                    "MathJax.Hub.Config({\n" +
-                                                            "  CommonHTML: { linebreaks: { automatic: true } },\n" +
-                                                            "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
-                                                            "         SVG: { linebreaks: { automatic: true } }\n" +
-                                                            "});");
-
-                                            abort_problem_solution.setText("$$" + step_list.get(i) + "$$");
-                                            abort_answers_view.addView(abort_problem_solution);
-                                        }
-
-                                    }
-                                })
-                                .setListener(R.id.ok_btn, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        i = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(i);
-                                    }
-                                })
-                                .show();
+                        show_answer();
                     }
                 })
                 .setListener(R.id.resume_problem_btn, true, new View.OnClickListener() {
@@ -1047,23 +939,592 @@ public class SolveProblemActivity extends AppCompatActivity {
             new LovelyCustomDialog(this)
                     .setIcon(R.drawable.aica)
                     .setTopColorRes(R.color.darkRed)
-                    .setCancelable(true)
+                    .setCancelable(false)
                     .setTitle("YOU'VE GOT THE CORRECT ANSWER! GOOD JOB!")
                     .setMessage("Congratulations! Do you want to solve another equation?")
                     .setMessageGravity(1)
                     .setTitleGravity(1)
                     .setView(R.layout.generated_problem_try_again)
+                    .setListener(R.id.solve_another_input_problem, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new LovelyCustomDialog(SolveProblemActivity.this)
+                                    .setView(R.layout.generated_mode_problem_view)
+                                    .setTopColorRes(R.color.darkRed)
+                                    .setTitle(R.string.generated_problem_title)
+                                    .setIcon(R.drawable.aica)
+                                    .setTitleGravity(1)
+                                    .setMessageGravity(1)
+                                    .setCancelable(false)
+                                    .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                                        @Override
+                                        public void configureView(View v) {
+                                            Button cancel_problem_btn = (Button) v.findViewById(R.id.cancel_problem_btn);
+                                            cancel_problem_btn.setVisibility(View.GONE);
+
+                                            level = 1;
+                                            sublevel = 2;
+                                            equation = Randomizer.getRandomEquation(level, sublevel);
+                                            hint = Randomizer.getHint(level, sublevel);
+
+                                            generated_problem = (MathView) v.findViewById(R.id.generated_problem);
+
+                                            Toast.makeText(getApplicationContext(), "Level: " + level +
+                                                    "\nSublevel: " + sublevel +
+                                                    "\nEquation: " + equation, Toast.LENGTH_LONG).show();
+
+                                            util = new ExprEvaluator();
+                                            engine = util.getEvalEngine();
+
+                                            MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+
+                                            StringWriter stw = new StringWriter();
+                                            mathUtil.toMathML(engine.parse(equation), stw);
+
+                                            System.out.println(stw.toString());
+
+                                            final_equation = stw.toString();
+
+                                            equation_string = "<center><font size='+2'>" + final_equation + "</font></center>";
+
+                                            generated_problem.config(
+                                                    "MathJax.Hub.Config({\n" +
+                                                            "  CommonHTML: { linebreaks: { automatic: true } },\n" +
+                                                            "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
+                                                            "         SVG: { linebreaks: { automatic: true } }\n" +
+                                                            "});");
+
+                                            generated_problem.setText(equation_string);
+                                        }
+                                    })
+                                    .setListener(R.id.solve_problem_btn, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            i = new Intent(SolveProblemActivity.this, SolveProblemActivity.class);
+
+                                            util = new ExprEvaluator();
+                                            engine = util.getEvalEngine();
+                                            result = util.evaluate(equation);
+                                            System.out.println("Result: " + result.toString());
+
+                                            current_level = MainFragment.teacheraicadb.getCurrentLevel();
+                                            current_sublevel = MainFragment.teacheraicadb.getCurrentSublevel(current_level);
+
+                                            i.putExtra("generated", true);
+                                            i.putExtra("level", current_level);
+                                            i.putExtra("sublevel", current_sublevel);
+                                            i.putExtra("equation", equation);
+                                            i.putExtra("result", result.toString());
+                                            i.putExtra("equation_string", equation_string);
+                                            i.putExtra("expr_result", result);
+                                            i.putExtra("hint", hint);
+                                            startActivity(i);
+                                        }
+                                    })
+                                    .setListener(R.id.next_problem_btn, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            level = 1;
+                                            sublevel = 2;
+                                            equation = Randomizer.getRandomEquation(level, sublevel);
+                                            hint = Randomizer.getHint(level, sublevel);
+
+                                            Toast.makeText(SolveProblemActivity.this, "Level: " + level +
+                                                    "\nSublevel: " + sublevel +
+                                                    "\nEquation: " + equation, Toast.LENGTH_LONG).show();
+
+                                            util = new ExprEvaluator();
+                                            engine = util.getEvalEngine();
+
+                                            MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+
+                                            StringWriter stw = new StringWriter();
+                                            mathUtil.toMathML(engine.parse(equation), stw);
+
+                                            System.out.println(stw.toString());
+
+                                            final_equation = stw.toString();
+
+                                            equation_string = "<center><font size='+2'>" + final_equation + "</font></center>";
+
+                                            generated_problem.setText(equation_string);
+                                        }
+                                    })
+                                    .show();
+                        }
+                    })
+                    .setListener(R.id.back_to_main, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            i = new Intent(SolveProblemActivity.this, MainActivity.class);
+                            startActivity(i);
+                        }
+                    })
                     .show();
         } else if (problem_type.equals("custom")) {
             new LovelyCustomDialog(this)
                     .setIcon(R.drawable.aica)
                     .setTopColorRes(R.color.darkGreen)
-                    .setCancelable(true)
+                    .setCancelable(false)
                     .setMessageGravity(1)
                     .setTitleGravity(1)
                     .setTitle("YOU'VE GOT THE CORRECT ANSWER! GOOD JOB!")
                     .setMessage("Congratulations! Do you want to solve another equation?")
                     .setView(R.layout.input_problem_try_again)
+                    .setListener(R.id.solve_another_input_problem, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new LovelyCustomDialog(SolveProblemActivity.this)
+                                    .setTitle(R.string.input_problem_title)
+                                    .setIcon(R.drawable.aica)
+                                    .setTitleGravity(1)
+                                    .setTopColorRes(R.color.darkGreen)
+                                    .setCancelable(false)
+                                    .setView(R.layout.input_equation)
+                                    .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                                        @Override
+                                        public void configureView(View v) {
+                                            input_problem = (MaterialEditText) v.findViewById(R.id.input_problem);
+
+                                            input_problem.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                                }
+                                            });
+
+                                            btn_one = (FancyButton) v.findViewById(R.id.btn_one);
+                                            btn_two = (FancyButton) v.findViewById(R.id.btn_two);
+                                            btn_three = (FancyButton) v.findViewById(R.id.btn_three);
+                                            btn_four = (FancyButton) v.findViewById(R.id.btn_four);
+                                            btn_five = (FancyButton) v.findViewById(R.id.btn_five);
+                                            btn_six = (FancyButton) v.findViewById(R.id.btn_six);
+                                            btn_seven = (FancyButton) v.findViewById(R.id.btn_seven);
+                                            btn_eight = (FancyButton) v.findViewById(R.id.btn_eight);
+                                            btn_nine = (FancyButton) v.findViewById(R.id.btn_nine);
+                                            btn_zero = (FancyButton) v.findViewById(R.id.btn_zero);
+                                            btn_left_shift = (FancyButton) v.findViewById(R.id.btn_left_shift);
+                                            btn_right_shift = (FancyButton) v.findViewById(R.id.btn_right_shift);
+                                            btn_add = (FancyButton) v.findViewById(R.id.btn_add);
+                                            btn_subtract = (FancyButton) v.findViewById(R.id.btn_subtract);
+                                            btn_multiply = (FancyButton) v.findViewById(R.id.btn_multiply);
+                                            btn_divide = (FancyButton) v.findViewById(R.id.btn_divide);
+                                            btn_power = (FancyButton) v.findViewById(R.id.btn_power);
+                                            btn_decimal = (FancyButton) v.findViewById(R.id.btn_decimal);
+                                            btn_open_parenthesis = (FancyButton) v.findViewById(R.id.btn_open_parenthesis);
+                                            btn_closing_parenthesis = (FancyButton) v.findViewById(R.id.btn_closing_parenthesis);
+                                            btn_open_brace = (FancyButton) v.findViewById(R.id.btn_open_brace);
+                                            btn_closing_brace = (FancyButton) v.findViewById(R.id.btn_closing_brace);
+                                            btn_backspace = (FancyButton) v.findViewById(R.id.btn_backspace);
+                                            btn_clear = (FancyButton) v.findViewById(R.id.btn_clear);
+                                            btn_var_w = (FancyButton) v.findViewById(R.id.btn_var_w);
+                                            btn_var_x = (FancyButton) v.findViewById(R.id.btn_var_x);
+                                            btn_var_y = (FancyButton) v.findViewById(R.id.btn_var_y);
+                                            btn_var_z = (FancyButton) v.findViewById(R.id.btn_var_z);
+                                            btn_var_a = (FancyButton) v.findViewById(R.id.btn_var_a);
+                                            btn_var_b = (FancyButton) v.findViewById(R.id.btn_var_b);
+                                            btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
+                                            btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
+
+                                            btn_one.setText("1");
+                                            btn_one.setTextSize(20);
+                                            btn_two.setText("2");
+                                            btn_two.setTextSize(20);
+                                            btn_three.setText("3");
+                                            btn_three.setTextSize(20);
+                                            btn_four.setText("4");
+                                            btn_four.setTextSize(20);
+                                            btn_five.setText("5");
+                                            btn_five.setTextSize(20);
+                                            btn_six.setText("6");
+                                            btn_six.setTextSize(20);
+                                            btn_seven.setText("7");
+                                            btn_seven.setTextSize(20);
+                                            btn_eight.setText("8");
+                                            btn_eight.setTextSize(20);
+                                            btn_nine.setText("9");
+                                            btn_nine.setTextSize(20);
+                                            btn_zero.setText("0");
+                                            btn_zero.setTextSize(20);
+                                            btn_left_shift.setText("←");
+                                            btn_left_shift.setTextSize(20);
+                                            btn_right_shift.setText("→");
+                                            btn_right_shift.setTextSize(20);
+                                            btn_add.setText("+");
+                                            btn_add.setTextSize(20);
+                                            btn_subtract.setText("-");
+                                            btn_subtract.setTextSize(20);
+                                            btn_multiply.setText("*");
+                                            btn_multiply.setTextSize(20);
+                                            btn_divide.setText("/");
+                                            btn_divide.setTextSize(20);
+                                            btn_power.setText("^");
+                                            btn_power.setTextSize(20);
+                                            btn_decimal.setText(".");
+                                            btn_decimal.setTextSize(20);
+                                            btn_open_parenthesis.setText("(");
+                                            btn_open_parenthesis.setTextSize(20);
+                                            btn_closing_parenthesis.setText(")");
+                                            btn_closing_parenthesis.setTextSize(20);
+                                            btn_open_brace.setText("{");
+                                            btn_open_brace.setTextSize(20);
+                                            btn_closing_brace.setText("}");
+                                            btn_closing_brace.setTextSize(20);
+                                            btn_backspace.setIconResource(R.drawable.sym_keyboard_delete);
+                                            btn_backspace.setTextSize(20);
+                                            btn_clear.setText("C");
+                                            btn_clear.setTextSize(20);
+                                            btn_var_w.setText("w");
+                                            btn_var_w.setTextSize(20);
+                                            btn_var_x.setText("x");
+                                            btn_var_x.setTextSize(20);
+                                            btn_var_y.setText("y");
+                                            btn_var_y.setTextSize(20);
+                                            btn_var_z.setText("z");
+                                            btn_var_z.setTextSize(20);
+                                            btn_var_a.setText("a");
+                                            btn_var_a.setTextSize(20);
+                                            btn_var_b.setText("b");
+                                            btn_var_b.setTextSize(20);
+                                            btn_var_c.setText("c");
+                                            btn_var_c.setTextSize(20);
+                                            btn_var_d.setText("d");
+                                            btn_var_d.setTextSize(20);
+
+                                            validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
+
+                                            btn_one.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_one.getText().toString());
+                                                }
+                                            });
+
+                                            btn_two.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_two.getText().toString());
+                                                }
+                                            });
+
+                                            btn_three.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_three.getText().toString());
+                                                }
+                                            });
+
+                                            btn_four.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_four.getText().toString());
+                                                }
+                                            });
+
+                                            btn_five.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_five.getText().toString());
+                                                }
+                                            });
+
+                                            btn_six.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_six.getText().toString());
+                                                }
+                                            });
+
+                                            btn_seven.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_seven.getText().toString());
+                                                }
+                                            });
+
+                                            btn_eight.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_eight.getText().toString());
+                                                }
+                                            });
+
+                                            btn_nine.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_nine.getText().toString());
+                                                }
+                                            });
+
+                                            btn_zero.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_zero.getText().toString());
+                                                }
+                                            });
+
+                                            btn_left_shift.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    left_shift_input();
+                                                }
+                                            });
+
+                                            btn_right_shift.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    right_shift_input();
+                                                }
+                                            });
+
+                                            btn_var_w.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_w.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_x.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_x.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_y.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_y.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_z.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_z.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_a.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_a.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_b.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_b.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_c.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_c.getText().toString());
+                                                }
+                                            });
+
+                                            btn_var_d.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_var_d.getText().toString());
+                                                }
+                                            });
+
+                                            btn_add.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_add.getText().toString());
+                                                }
+                                            });
+
+                                            btn_subtract.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_subtract.getText().toString());
+                                                }
+                                            });
+
+                                            btn_multiply.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_multiply.getText().toString());
+                                                }
+                                            });
+
+                                            btn_divide.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_divide.getText().toString());
+                                                }
+                                            });
+
+                                            btn_power.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_power.getText().toString());
+                                                }
+                                            });
+
+                                            btn_decimal.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_decimal.getText().toString());
+                                                }
+                                            });
+
+                                            btn_open_parenthesis.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_open_parenthesis.getText().toString());
+                                                }
+                                            });
+
+                                            btn_closing_parenthesis.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_closing_parenthesis.getText().toString());
+                                                }
+                                            });
+
+                                            btn_backspace.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    backspace_input();
+                                                }
+                                            });
+
+                                            btn_backspace.setOnLongClickListener(new View.OnLongClickListener() {
+                                                @Override
+                                                public boolean onLongClick(View view) {
+                                                    clear_equation_input();
+                                                    return false;
+                                                }
+                                            });
+
+                                            btn_clear.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    clear_equation_input();
+                                                }
+                                            });
+
+                                            btn_open_brace.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_open_brace.getText().toString());
+                                                }
+                                            });
+
+                                            btn_closing_brace.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    process_btn_chars_input(btn_closing_brace.getText().toString());
+                                                }
+                                            });
+
+                                            validate_problem_btn.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    equation = input_problem.getText().toString();
+
+                                                    if (check_input(equation)) {
+                                                        new LovelyCustomDialog(SolveProblemActivity.this)
+                                                                .setIcon(R.drawable.aica)
+                                                                .setTitle(R.string.validate_problem_title)
+                                                                .setView(R.layout.input_mode_problem_view)
+                                                                .setTitleGravity(1)
+                                                                .setTopColorRes(R.color.darkGreen)
+                                                                .setCancelable(false)
+                                                                .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                                                                    @Override
+                                                                    public void configureView(View v) {
+                                                                        input_mode_problem = (MathView) v.findViewById(R.id.input_mode_problem);
+
+                                                                        util = new ExprEvaluator();
+                                                                        engine = util.getEvalEngine();
+
+                                                                        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+
+                                                                        StringWriter stw = new StringWriter();
+                                                                        mathUtil.toMathML(engine.parse(equation), stw);
+
+                                                                        equation_string = "<center><font size='+2'>" + stw.toString().replace("&#x2062;", "*") + "</font></center>";
+
+                                                                        input_mode_problem.config(
+                                                                                "MathJax.Hub.Config({\n" +
+                                                                                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
+                                                                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
+                                                                                        "         SVG: { linebreaks: { automatic: true } }\n" +
+                                                                                        "});");
+
+                                                                        input_mode_problem.setText(equation_string);
+                                                                    }
+                                                                })
+                                                                .setListener(R.id.submit_problem_btn, true, new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        i = new Intent(SolveProblemActivity.this, SolveProblemActivity.class);
+
+                                                                        util = new ExprEvaluator();
+                                                                        engine = util.getEvalEngine();
+                                                                        engine.setStepListener(new SolveProblemActivity.StepListener());
+                                                                        result = util.evaluate(equation);
+
+                                                                        if (result.toString().contains("{") && result.toString().contains("}")) {
+                                                                            resultString = result.toString().substring(1, result.toString().length() - 1);
+                                                                        } else {
+                                                                            resultString = result.toString();
+                                                                        }
+
+                                                                        System.out.println("Result: " + resultString);
+
+                                                                        i.putExtra("generated", false);
+                                                                        i.putExtra("equation", equation);
+                                                                        i.putExtra("result", resultString);
+                                                                        i.putExtra("equation_string", equation_string);
+                                                                        i.putExtra("expr_result", result);
+
+                                                                        startActivity(i);
+                                                                    }
+                                                                })
+                                                                .setListener(R.id.cancel_input_problem_btn, true, new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+
+                                                                    }
+                                                                })
+                                                                .show();
+                                                    } else {
+                                                        input_problem.setError("Invalid input! Please check your input and try again.");
+                                                    }
+
+                                                }
+                                            });
+
+                                        }
+                                    })
+                                    .setListener(R.id.cancel_input_problem_btn, true, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+
+                                        }
+                                    })
+                                    .show();
+
+                        }
+
+                    })
+                    .setListener(R.id.back_to_main, true, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            i = new Intent(SolveProblemActivity.this, MainActivity.class);
+                            startActivity(i);
+                        }
+                    })
                     .show();
         }
     }
@@ -1129,6 +1590,16 @@ public class SolveProblemActivity extends AppCompatActivity {
                     || (Arrays.equals(current_answer_tokens, final_answer_tokens)
                     && current_answer_tokens.length == final_answer_tokens.length)) {
                 Toast.makeText(getApplicationContext(), "Final Answer has been reached!", Toast.LENGTH_LONG).show();
+                step_number++;
+                number_of_steps++;
+                solutions_list.add(current_solution);
+
+                for (int i = 0; i < solutions_list.size(); i++) {
+                    Toast.makeText(getApplicationContext(),
+                            "Number of Steps Made: " + number_of_steps + "\n" +
+                                    "Solutions Made: " + solutions_list.get(i), Toast.LENGTH_LONG).show();
+                }
+
                 solved = true;
 
                 if (equationType.equals("generated")) {
@@ -1138,6 +1609,13 @@ public class SolveProblemActivity extends AppCompatActivity {
                 } // Add for quizzes coming from Lecture
             } else if (current_result.toString().equals(final_answer)) {
                 Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
+                step_number++;
+                number_of_steps++;
+                solutions_list.add(current_solution);
+
+                Toast.makeText(getApplicationContext(),
+                        "Number of Steps Made: " + number_of_steps + "\n" +
+                                "Solutions Made: " + solutions_list, Toast.LENGTH_LONG).show();
 
                 current_solution_step.setEnabled(false);
                 next_solution_step_view.setVisibility(View.VISIBLE);
@@ -1146,11 +1624,34 @@ public class SolveProblemActivity extends AppCompatActivity {
                 next_solution_step.requestFocus();
                 focus_settings();
             } else {
+                // TODO Store in ArrayList Solution Errors
+
+                solution_error_number = 1;
                 errorsCommited++;
+                solution_errors_list.add(current_solution);
+
+                get_solution_step_number(current_solution_step);
+
+                Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
+                        "Erring Solutions: " + solution_errors_list + "\n" +
+                        "Error Number: " + solution_error_number + "\n" +
+                        "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
+
                 current_solution_step.setError("Wrong solution!");
             }
         } else {
+            // TODO Store in ArrayList Solution Errors
             errorsCommited++;
+            solution_error_number = 2;
+            solution_errors_list.add(current_solution);
+
+            get_solution_step_number(current_solution_step);
+
+            Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
+                    "Erring Solutions: " + solution_errors_list + "\n" +
+                    "Error Number: " + solution_error_number + "\n" +
+                    "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
+
             current_solution_step.setError("Input should not be blank!");
         }
 
@@ -1184,10 +1685,6 @@ public class SolveProblemActivity extends AppCompatActivity {
 
                                             for (int i = 0; i < hint_choices.length; i++) {
                                                 switch (hint_choices[i]) {
-                                                    case "P":
-                                                        hint_choices[i] = "Positive Integer Exponents";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_one.html");
-                                                        break;
                                                     case "Z":
                                                         hint_choices[i] = "Base Raised to Zero";
                                                         read_url.add("file:///android_asset/reading_materials/reading_material_two.html");
@@ -1335,14 +1832,21 @@ public class SolveProblemActivity extends AppCompatActivity {
                     })
                     .show();
         } else if (errorsCommited == 9) {
-            new LovelyCustomDialog(SolveProblemActivity.this)
+            new LovelyStandardDialog(SolveProblemActivity.this)
                     .setTitle("I'M SORRY")
-                    .setMessage("I think its time to let go of this problem and solve a new one.")
+                    .setMessage("I think its time to let go of this problem and solve a new one. Nice try, though.")
                     .setTitleGravity(1)
                     .setMessageGravity(1)
                     .setTopColorRes(R.color.darkDeepOrange)
                     .setIcon(R.drawable.aica)
                     .setCancelable(false)
+                    .setPositiveButtonColorRes(R.color.colorAccent)
+                    .setPositiveButton("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            show_answer();
+                        }
+                    })
                     .show();
         }
 
@@ -1475,6 +1979,188 @@ public class SolveProblemActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    public void show_answer() {
+        new LovelyCustomDialog(SolveProblemActivity.this)
+                .setIcon(R.drawable.aica)
+                .setTopColorRes(R.color.darkDeepOrange)
+                .setTitle("ANSWER TO THE EQUATION PROBLEM")
+                .setMessage("You could've answered this, though. Still, nice try though and I know you'll do better next time you encounter this type of problem. The final answer to the problem is:")
+                .setCancelable(false)
+                .setMessageGravity(1)
+                .setTitleGravity(1)
+                .setView(R.layout.abort_problem_show_answer)
+                .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                    @Override
+                    public void configureView(View v) {
+                        abort_problem_final_answer = (MathView) v.findViewById(R.id.abort_problem_final_answer);
+                        abort_problem_equation = (MathView) v.findViewById(R.id.abort_problem_equation);
+
+                        util = new ExprEvaluator();
+                        engine = util.getEvalEngine();
+                        engine.setStepListener(new StepListener());
+                        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+                        StringWriter stw = new StringWriter();
+                        mathUtil.toMathML(final_answer, stw);
+
+                        IExpr abort_final_ans = util.evaluate(equation);
+
+                        abort_problem_final_answer_string = "<center><b><font size='+2'>" + stw.toString().replace("&#x2062;", "*") + "</font></b></center>";
+
+                        abort_problem_final_answer.config(
+                                "MathJax.Hub.Config({\n" +
+                                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
+                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
+                                        "         SVG: { linebreaks: { automatic: true } }\n" +
+                                        "});");
+
+                        abort_problem_final_answer.setText(abort_problem_final_answer_string);
+
+                        StringWriter stw1 = new StringWriter();
+                        mathUtil.toMathML(equation, stw1);
+
+                        abort_problem_equation.config(
+                                "MathJax.Hub.Config({\n" +
+                                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
+                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
+                                        "         SVG: { linebreaks: { automatic: true } }\n" +
+                                        "});");
+
+                        abort_problem_equation.setText("<center><b><font size='+2'>" + stw1.toString().replace("&#x2062;", "*") + "</font></b></center>");
+
+                        LinearLayout abort_answers_view = (LinearLayout) v.findViewById(R.id.abort_answers_view);
+                        for (int i = 0; i < step_list.size(); i++) {
+                            MathView abort_problem_solution = new MathView(SolveProblemActivity.this, null);
+                            abort_problem_solution.setEngine(MathJax);
+
+                            abort_problem_solution.config(
+                                    "MathJax.Hub.Config({\n" +
+                                            "  CommonHTML: { linebreaks: { automatic: true } },\n" +
+                                            "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
+                                            "         SVG: { linebreaks: { automatic: true } }\n" +
+                                            "});");
+
+                            abort_problem_solution.setText("$$" + step_list.get(i) + "$$");
+                            abort_answers_view.addView(abort_problem_solution);
+                        }
+
+                    }
+                })
+                .setListener(R.id.ok_btn, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                    }
+                })
+                .show();
+    }
+
+    /*
+        Input Mode Problem Methods
+     */
+
+    public boolean check_input(String equation) {
+        try {
+            match = true;
+
+            if (equation.matches("^-?\\d+$")) {
+                match = false;
+            }
+            if (equation.matches("(\\w+)")) {
+                match = false;
+            }
+
+            util = new ExprEvaluator();
+            engine = util.getEvalEngine();
+            engine.setStepListener(new StepListener());
+            result = util.evaluate(equation);
+
+            System.out.println("Result: " + result.toString());
+
+            if (result.isAST()) {
+                match = true;
+            }
+            if (result.isIndeterminate()) {
+                match = false;
+            }
+            if (result.toString().equals("{}")) {
+                match = false;
+            }
+
+            // disable trace mode if the step listener isn't necessary anymore
+            engine.setTraceMode(false);
+
+        } catch (SyntaxError e) {
+            // catch Symja parser errors here
+            System.out.println(e.getMessage());
+            match = false;
+        } catch (MathException me) {
+            // catch Symja math errors here
+            System.out.println(me.getMessage());
+            match = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            match = false;
+        }
+
+        return match;
+    }
+
+    public void process_btn_chars_input(String chars) {
+        input_problem.getText().insert(input_problem.getSelectionStart(), chars);
+        input_problem.setSelection(input_problem.getSelectionStart());
+    }
+
+    public void left_shift_input() {
+        if (input_problem.getSelectionStart() == 0) {
+            input_problem.setSelection(0);
+        } else {
+            input_problem.setSelection(input_problem.getSelectionEnd() - 1);
+        }
+    }
+
+    public void right_shift_input() {
+        if (input_problem.getSelectionEnd() == input_problem.length()) {
+            input_problem.setSelection(input_problem.length());
+        } else {
+            input_problem.setSelection(input_problem.getSelectionEnd() + 1);
+        }
+    }
+
+    public void backspace_input() {
+        int cursorPosition = input_problem.getSelectionStart();
+        if (cursorPosition > 0) {
+            input_problem.setText(input_problem.getText().delete(cursorPosition - 1, cursorPosition));
+            input_problem.setSelection(cursorPosition - 1);
+        }
+    }
+
+    public void clear_equation_input() {
+        input_problem.setText("");
+    }
+
+    public void get_solution_step_number(EditText current_solution_step) {
+        if (current_solution_step.equals(solution_step_1)) {
+            step_number = 1;
+        } else if (current_solution_step.equals(solution_step_2)) {
+            step_number = 2;
+        } else if (current_solution_step.equals(solution_step_3)) {
+            step_number = 3;
+        } else if (current_solution_step.equals(solution_step_4)) {
+            step_number = 4;
+        } else if (current_solution_step.equals(solution_step_5)) {
+            step_number = 5;
+        } else if (current_solution_step.equals(solution_step_6)) {
+            step_number = 6;
+        } else if (current_solution_step.equals(solution_step_7)) {
+            step_number = 7;
+        } else if (current_solution_step.equals(solution_step_8)) {
+            step_number = 8;
+        } else if (current_solution_step.equals(solution_step_9)) {
+            step_number = 9;
         }
     }
 

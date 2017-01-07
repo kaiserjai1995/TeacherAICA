@@ -16,9 +16,9 @@ import edu.its.solveexponents.teacheraica.R;
  * Created by jairus on 8/1/16.
  */
 
-public class ReadingMaterialTwoFragment extends Fragment {
+public class ReadingMaterialNegativeIntegerExponentsFragment extends Fragment {
 
-    public ReadingMaterialTwoFragment() {
+    public ReadingMaterialNegativeIntegerExponentsFragment() {
         // Required empty public constructor
     }
 
@@ -30,16 +30,16 @@ public class ReadingMaterialTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reading_material_two, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_reading_material_negative_integer_exponents, container, false);
 
-        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_reading_material_two);
+        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_reading_material_negative_integer_of_exponents);
 
         webvw.getSettings().setJavaScriptEnabled(true);
         webvw.getSettings().setDomStorageEnabled(true);
 
         webvw.setWebViewClient(new WebViewClient());
 
-        String path = Uri.parse("file:///android_asset/reading_materials/reading_material_two.html").toString();
+        String path = Uri.parse("file:///android_asset/reading_materials/negative_integer_exponents.html").toString();
         webvw.loadUrl(path);
         webvw.setBackgroundColor(0x00000000);
 

@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:background="@color/teal"
               android:orientation="vertical"
-              tools:context="edu.its.solveexponents.teacheraica.content.lectures.LectureThreeFragment">
+              tools:context="edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialNegativeIntegerExponentsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,11 +30,12 @@
                 android:orientation="vertical">
 
                 <WebView
-                    android:id="@+id/webvw_lecture_three"
+                    android:id="@+id/webvw_reading_material_negative_integer_of_exponents"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
             </LinearLayout>
         </ScrollView>
+
     </LinearLayout>
 </LinearLayout>

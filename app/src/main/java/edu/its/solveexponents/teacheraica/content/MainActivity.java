@@ -178,12 +178,12 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        finish();
+//        finish();
     }
 
     @Override
     protected void onDestroy() {
-        android.os.Process.killProcess(android.os.Process.myPid());
+//        android.os.Process.killProcess(android.os.Process.myPid());
         super.onDestroy();
     }
 }

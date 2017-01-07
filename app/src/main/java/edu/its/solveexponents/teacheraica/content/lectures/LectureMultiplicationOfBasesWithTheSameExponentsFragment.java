@@ -1,4 +1,4 @@
-package edu.its.solveexponents.teacheraica.content.reading_materials;
+package edu.its.solveexponents.teacheraica.content.lectures;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -16,9 +16,9 @@ import edu.its.solveexponents.teacheraica.R;
  * Created by jairus on 8/1/16.
  */
 
-public class ReadingMaterialSevenFragment extends Fragment {
+public class LectureMultiplicationOfBasesWithTheSameExponentsFragment extends Fragment {
 
-    public ReadingMaterialSevenFragment() {
+    public LectureMultiplicationOfBasesWithTheSameExponentsFragment() {
         // Required empty public constructor
     }
 
@@ -30,16 +30,16 @@ public class ReadingMaterialSevenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reading_material_seven, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lecture_multiplication_of_bases_with_the_same_exponents, container, false);
 
-        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_reading_material_seven);
+        WebView webvw = (WebView) rootView.findViewById(R.id.webvw_lecture_multiplication_of_bases_with_the_same_exponents);
 
         webvw.getSettings().setJavaScriptEnabled(true);
         webvw.getSettings().setDomStorageEnabled(true);
 
         webvw.setWebViewClient(new WebViewClient());
 
-        String path = Uri.parse("file:///android_asset/reading_materials/reading_material_seven.html").toString();
+        String path = Uri.parse("file:///android_asset/lectures/multiplication_of_bases_with_the_same_exponents.html").toString();
         webvw.loadUrl(path);
         webvw.setBackgroundColor(0x00000000);
 

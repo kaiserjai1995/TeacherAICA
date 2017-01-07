@@ -15,13 +15,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialFiveFragment;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialFourFragment;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialOneFragment;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialSevenFragment;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialSixFragment;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialThreeFragment;
-import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialTwoFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialMultiplicationOfExponentsToFindThePowerOfAPowerFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialMultiplicationOfBasesWithTheSameExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialNegativeIntegerExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialSubtractionOfExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialAdditionOfExponentsWithTheSameBasesFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialBaseRaisedToZeroFragment;
 import edu.its.solveexponents.teacheraica.model.ReadingMaterialsTopic;
 
 /**
@@ -78,29 +77,26 @@ public class ReadingMaterialsRVAdapter extends RecyclerView.Adapter<ReadingMater
                 Class fragmentClass;
 
                 switch (reading_materials_topic.get(i).reading_materials_topic_title) {
-                    case "Positive Integer Exponents":
-                        fragmentClass = ReadingMaterialOneFragment.class;
-                        break;
                     case "Base Raised to Zero":
-                        fragmentClass = ReadingMaterialTwoFragment.class;
+                        fragmentClass = ReadingMaterialBaseRaisedToZeroFragment.class;
                         break;
                     case "Addition of Exponents with Same Bases":
-                        fragmentClass = ReadingMaterialThreeFragment.class;
+                        fragmentClass = ReadingMaterialAdditionOfExponentsWithTheSameBasesFragment.class;
                         break;
                     case "Multiplication of Bases with the Same Exponents":
-                        fragmentClass = ReadingMaterialFourFragment.class;
+                        fragmentClass = ReadingMaterialMultiplicationOfBasesWithTheSameExponentsFragment.class;
                         break;
                     case "Multiplication of Exponents to Find the Power of a Power":
-                        fragmentClass = ReadingMaterialFiveFragment.class;
+                        fragmentClass = ReadingMaterialMultiplicationOfExponentsToFindThePowerOfAPowerFragment.class;
                         break;
                     case "Subtraction of Exponents":
-                        fragmentClass = ReadingMaterialSixFragment.class;
+                        fragmentClass = ReadingMaterialSubtractionOfExponentsFragment.class;
                         break;
                     case "Negative Integer Exponents":
-                        fragmentClass = ReadingMaterialSevenFragment.class;
+                        fragmentClass = ReadingMaterialNegativeIntegerExponentsFragment.class;
                         break;
                     default:
-                        fragmentClass = ReadingMaterialOneFragment.class;
+                        fragmentClass = ReadingMaterialBaseRaisedToZeroFragment.class;
                 }
 
                 try {
