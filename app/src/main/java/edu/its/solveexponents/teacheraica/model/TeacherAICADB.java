@@ -83,7 +83,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_LEVELS_1_4 = "level1_4";
     private final String TBL_LEVELS_1_5 = "level1_5";
     private final String TBL_LEVELS_1_6 = "level1_6";
-    private final String TBL_LEVELS_1_7 = "level1_7";
 
     private final String TBL_LEVELS_2_1 = "level2_1";
     private final String TBL_LEVELS_2_2 = "level2_2";
@@ -91,7 +90,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_LEVELS_2_4 = "level2_4";
     private final String TBL_LEVELS_2_5 = "level2_5";
     private final String TBL_LEVELS_2_6 = "level2_6";
-    private final String TBL_LEVELS_2_7 = "level2_7";
 
     private final String TBL_LEVELS_3_1 = "level3_1";
     private final String TBL_LEVELS_3_2 = "level3_2";
@@ -99,7 +97,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_LEVELS_3_4 = "level3_4";
     private final String TBL_LEVELS_3_5 = "level3_5";
     private final String TBL_LEVELS_3_6 = "level3_6";
-    private final String TBL_LEVELS_3_7 = "level3_7";
 
     private final String TBL_LEVELS_4_1 = "level4_1";
     private final String TBL_LEVELS_4_2 = "level4_2";
@@ -107,7 +104,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_LEVELS_4_4 = "level4_4";
     private final String TBL_LEVELS_4_5 = "level4_5";
     private final String TBL_LEVELS_4_6 = "level4_6";
-    private final String TBL_LEVELS_4_7 = "level4_7";
 
     private final String TBL_LECTURES_MODULE_LOGS = "tbl_lectures_module_logs";
     private final String TBL_LECTURES_MODULE_LOGS_PAGE = "page";
@@ -136,7 +132,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         Log.d("TEACHERAICADB", Environment.getExternalStorageDirectory().getPath());
 
-        maxNumberOfProblemsPerSublevel = 6;
+        maxNumberOfProblemsPerSublevel = 5;
         this.context = context;
         db = this.getWritableDatabase();
     }
@@ -243,28 +239,24 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_LEVELS_1_4 + " INTEGER, " +
                 TBL_LEVELS_1_5 + " INTEGER, " +
                 TBL_LEVELS_1_6 + " INTEGER, " +
-                TBL_LEVELS_1_7 + " INTEGER, " +
                 TBL_LEVELS_2_1 + " INTEGER, " +
                 TBL_LEVELS_2_2 + " INTEGER, " +
                 TBL_LEVELS_2_3 + " INTEGER, " +
                 TBL_LEVELS_2_4 + " INTEGER, " +
                 TBL_LEVELS_2_5 + " INTEGER, " +
                 TBL_LEVELS_2_6 + " INTEGER, " +
-                TBL_LEVELS_2_7 + " INTEGER, " +
                 TBL_LEVELS_3_1 + " INTEGER, " +
                 TBL_LEVELS_3_2 + " INTEGER, " +
                 TBL_LEVELS_3_3 + " INTEGER, " +
                 TBL_LEVELS_3_4 + " INTEGER, " +
                 TBL_LEVELS_3_5 + " INTEGER, " +
                 TBL_LEVELS_3_6 + " INTEGER, " +
-                TBL_LEVELS_3_7 + " INTEGER, " +
                 TBL_LEVELS_4_1 + " INTEGER, " +
                 TBL_LEVELS_4_2 + " INTEGER, " +
                 TBL_LEVELS_4_3 + " INTEGER, " +
                 TBL_LEVELS_4_4 + " INTEGER, " +
                 TBL_LEVELS_4_5 + " INTEGER, " +
-                TBL_LEVELS_4_6 + " INTEGER, " +
-                TBL_LEVELS_4_7 + " INTEGER" +
+                TBL_LEVELS_4_6 + " INTEGER " +
                 ");";
 
         try {
@@ -301,7 +293,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         if (isTableEmpty(db, TBL_LEVELS)) {
             String initializeLevelsValues = "INSERT INTO " + TBL_LEVELS +
-                    " VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);";
+                    " VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);";
             db.execSQL(initializeLevelsValues);
         }
 
@@ -316,9 +308,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         if (isTableEmpty(db, TBL_HINT_TYPES)) {
             values = new ContentValues();
-            values.put(TBL_HINT_TYPES_HINTCODE, "P");
-            values.put(TBL_HINT_TYPES_HINTDEFINITION, "Positive Integer Exponents");
-            db.insert(TBL_HINT_TYPES, null, values);
             values.put(TBL_HINT_TYPES_HINTCODE, "Z");
             values.put(TBL_HINT_TYPES_HINTDEFINITION, "Base Raised to Zero");
             db.insert(TBL_HINT_TYPES, null, values);
@@ -501,12 +490,12 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     public int getCurrentLevel() {
-        String[] levels = {TBL_LEVELS_1_1, TBL_LEVELS_1_2, TBL_LEVELS_1_3, TBL_LEVELS_1_4, TBL_LEVELS_1_5, TBL_LEVELS_1_6, TBL_LEVELS_1_7,
-                TBL_LEVELS_2_1, TBL_LEVELS_2_2, TBL_LEVELS_2_3, TBL_LEVELS_2_4, TBL_LEVELS_2_5, TBL_LEVELS_2_6, TBL_LEVELS_2_7,
-                TBL_LEVELS_3_1, TBL_LEVELS_3_2, TBL_LEVELS_3_3, TBL_LEVELS_3_4, TBL_LEVELS_3_5, TBL_LEVELS_3_6, TBL_LEVELS_3_7,
-                TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3, TBL_LEVELS_4_4, TBL_LEVELS_4_5, TBL_LEVELS_4_6, TBL_LEVELS_4_7};
+        String[] levels = {TBL_LEVELS_1_1, TBL_LEVELS_1_2, TBL_LEVELS_1_3, TBL_LEVELS_1_4, TBL_LEVELS_1_5, TBL_LEVELS_1_6,
+                TBL_LEVELS_2_1, TBL_LEVELS_2_2, TBL_LEVELS_2_3, TBL_LEVELS_2_4, TBL_LEVELS_2_5, TBL_LEVELS_2_6,
+                TBL_LEVELS_3_1, TBL_LEVELS_3_2, TBL_LEVELS_3_3, TBL_LEVELS_3_4, TBL_LEVELS_3_5, TBL_LEVELS_3_6,
+                TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3, TBL_LEVELS_4_4, TBL_LEVELS_4_5, TBL_LEVELS_4_6};
 
-        int currentLevel = 4;
+        int currentLevel = 1;
 
         for (String level : levels) {
             String sql = "SELECT " + level + " FROM " + TBL_LEVELS;
@@ -533,7 +522,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 sublevels.add(TBL_LEVELS_1_4);
                 sublevels.add(TBL_LEVELS_1_5);
                 sublevels.add(TBL_LEVELS_1_6);
-                sublevels.add(TBL_LEVELS_1_7);
                 break;
             case 2:
                 sublevels.add(TBL_LEVELS_2_1);
@@ -542,7 +530,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 sublevels.add(TBL_LEVELS_2_4);
                 sublevels.add(TBL_LEVELS_2_5);
                 sublevels.add(TBL_LEVELS_2_6);
-                sublevels.add(TBL_LEVELS_2_7);
                 break;
             case 3:
                 sublevels.add(TBL_LEVELS_3_1);
@@ -551,7 +538,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 sublevels.add(TBL_LEVELS_3_4);
                 sublevels.add(TBL_LEVELS_3_5);
                 sublevels.add(TBL_LEVELS_3_6);
-                sublevels.add(TBL_LEVELS_3_7);
                 break;
             case 4:
                 sublevels.add(TBL_LEVELS_4_1);
@@ -560,7 +546,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 sublevels.add(TBL_LEVELS_4_4);
                 sublevels.add(TBL_LEVELS_4_5);
                 sublevels.add(TBL_LEVELS_4_6);
-                sublevels.add(TBL_LEVELS_4_7);
                 break;
         }
 
@@ -573,6 +558,31 @@ public class TeacherAICADB extends SQLiteOpenHelper {
             int value = cursor.getInt(0);
 
             Log.d("TEACHERAICADB", "sublevel value:" + value);
+
+            System.out.println("SUBLEVEL: " + sublevels.get(i).substring(5));
+
+            if (sublevels.get(i).substring(5).equals("1_1")) {
+                maxNumberOfProblemsPerSublevel = 2;
+            } else {
+                maxNumberOfProblemsPerSublevel = 5;
+            }
+
+//            if (currentSublevel == 1) maxNumberOfProblemsPerSublevel = 1;
+
+//            if (currentSublevel == 2 && getCurrentLevel() == 1 || getCurrentLevel() == 2) maxNumberOfProblemsPerSublevel = 3;
+//            if (currentSublevel == 2 && getCurrentLevel() == 3 || getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
+//
+//            if (currentSublevel == 3 && getCurrentLevel() == 1 || getCurrentLevel() == 2) maxNumberOfProblemsPerSublevel = 3;
+//            if (currentSublevel == 3 && getCurrentLevel() == 3 || getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
+//
+//            if (currentSublevel == 4 && getCurrentLevel() == 1 || getCurrentLevel() == 2) maxNumberOfProblemsPerSublevel = 3;
+//            if (currentSublevel == 4 && getCurrentLevel() == 3 || getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
+//
+//            if (currentSublevel == 5 && getCurrentLevel() == 1 || getCurrentLevel() == 2 || getCurrentLevel() == 3) maxNumberOfProblemsPerSublevel = 3;
+//            if (currentSublevel == 5 && getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
+//
+//            if (currentSublevel == 6 && getCurrentLevel() == 1 || getCurrentLevel() == 2 || getCurrentLevel() == 3) maxNumberOfProblemsPerSublevel = 3;
+//            if (currentSublevel == 6 && getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
 
             if (value < maxNumberOfProblemsPerSublevel) {
                 currentSublevel = Integer.parseInt(sublevels.get(i).substring(7));

@@ -906,7 +906,7 @@
                     fancy:fb_defaultColor="#3b5998"
                     fancy:fb_focusColor="#5474b8"
                     fancy:fb_radius="5dp"
-                    fancy:fb_text="-"
+                    fancy:fb_text="."
                     fancy:fb_textColor="#FFFFFF"
                     fancy:fb_textSize="20sp"/>
 

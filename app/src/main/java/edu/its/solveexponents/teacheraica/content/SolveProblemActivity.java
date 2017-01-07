@@ -44,8 +44,9 @@ import edu.its.solveexponents.teacheraica.algo.Randomizer;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
 
+import static android.R.attr.max;
 import static io.github.kexanie.library.R.id.MathJax;
-import static org.matheclipse.core.integrate.rubi45.UtilityFunctionCtors.S;
+import static org.matheclipse.core.expression.F.v;
 
 /**
  * Created by jairus on 12/8/16.
@@ -111,7 +112,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     int solution_error_number;
     ArrayList<String> solutions_list;
     ArrayList<String> solution_errors_list;
-
+    boolean hinted;
 
     public class StepListener extends AbstractEvalStepListener {
         /**
@@ -167,6 +168,7 @@ public class SolveProblemActivity extends AppCompatActivity {
             math_equation.setText(final_equation_string);
 
             this.equationType = "generated";
+            MainFragment.teacheraicadb.addProblem(equation, equationType);
         } else {
             //TODO Analyze equation string for determining hint type
             final_answer = getIntent().getExtras().getString("result");
@@ -182,6 +184,7 @@ public class SolveProblemActivity extends AppCompatActivity {
             }
 
             this.equationType = "custom";
+            MainFragment.teacheraicadb.addProblem(equation, equationType);
         }
 
         Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
@@ -701,7 +704,6 @@ public class SolveProblemActivity extends AppCompatActivity {
             });
         }
 
-
     }
 
     public void process_btn_chars(String chars) {
@@ -962,8 +964,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             Button cancel_problem_btn = (Button) v.findViewById(R.id.cancel_problem_btn);
                                             cancel_problem_btn.setVisibility(View.GONE);
 
-                                            level = 1;
-                                            sublevel = 2;
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
 
@@ -1024,8 +1024,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            level = 1;
-                                            sublevel = 2;
+                                            MainFragment.teacheraicadb.updateProblemStatus("skipped");
+
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
 
@@ -1126,71 +1126,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             btn_var_b = (FancyButton) v.findViewById(R.id.btn_var_b);
                                             btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
                                             btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
-
-                                            btn_one.setText("1");
-                                            btn_one.setTextSize(20);
-                                            btn_two.setText("2");
-                                            btn_two.setTextSize(20);
-                                            btn_three.setText("3");
-                                            btn_three.setTextSize(20);
-                                            btn_four.setText("4");
-                                            btn_four.setTextSize(20);
-                                            btn_five.setText("5");
-                                            btn_five.setTextSize(20);
-                                            btn_six.setText("6");
-                                            btn_six.setTextSize(20);
-                                            btn_seven.setText("7");
-                                            btn_seven.setTextSize(20);
-                                            btn_eight.setText("8");
-                                            btn_eight.setTextSize(20);
-                                            btn_nine.setText("9");
-                                            btn_nine.setTextSize(20);
-                                            btn_zero.setText("0");
-                                            btn_zero.setTextSize(20);
-                                            btn_left_shift.setText("←");
-                                            btn_left_shift.setTextSize(20);
-                                            btn_right_shift.setText("→");
-                                            btn_right_shift.setTextSize(20);
-                                            btn_add.setText("+");
-                                            btn_add.setTextSize(20);
-                                            btn_subtract.setText("-");
-                                            btn_subtract.setTextSize(20);
-                                            btn_multiply.setText("*");
-                                            btn_multiply.setTextSize(20);
-                                            btn_divide.setText("/");
-                                            btn_divide.setTextSize(20);
-                                            btn_power.setText("^");
-                                            btn_power.setTextSize(20);
-                                            btn_decimal.setText(".");
-                                            btn_decimal.setTextSize(20);
-                                            btn_open_parenthesis.setText("(");
-                                            btn_open_parenthesis.setTextSize(20);
-                                            btn_closing_parenthesis.setText(")");
-                                            btn_closing_parenthesis.setTextSize(20);
-                                            btn_open_brace.setText("{");
-                                            btn_open_brace.setTextSize(20);
-                                            btn_closing_brace.setText("}");
-                                            btn_closing_brace.setTextSize(20);
-                                            btn_backspace.setIconResource(R.drawable.sym_keyboard_delete);
-                                            btn_backspace.setTextSize(20);
-                                            btn_clear.setText("C");
-                                            btn_clear.setTextSize(20);
-                                            btn_var_w.setText("w");
-                                            btn_var_w.setTextSize(20);
-                                            btn_var_x.setText("x");
-                                            btn_var_x.setTextSize(20);
-                                            btn_var_y.setText("y");
-                                            btn_var_y.setTextSize(20);
-                                            btn_var_z.setText("z");
-                                            btn_var_z.setTextSize(20);
-                                            btn_var_a.setText("a");
-                                            btn_var_a.setTextSize(20);
-                                            btn_var_b.setText("b");
-                                            btn_var_b.setTextSize(20);
-                                            btn_var_c.setText("c");
-                                            btn_var_c.setTextSize(20);
-                                            btn_var_d.setText("d");
-                                            btn_var_d.setTextSize(20);
 
                                             validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
 
@@ -1575,10 +1510,10 @@ public class SolveProblemActivity extends AppCompatActivity {
             String[] final_answer_with_asterisk_tokens = final_answer.replace("*", "").split("(?<=[-+*/])|(?=[-+*/])");
             String[] current_answer_with_asterisk_tokens = current_solution.replace("*", "").replace("(", "").replace(")", "").split("(?<=[-+*/])|(?=[-+*/])");
 
-            Arrays.sort(current_answer_tokens);
-            Arrays.sort(final_answer_tokens);
-            Arrays.sort(final_answer_with_asterisk_tokens);
-            Arrays.sort(current_answer_with_asterisk_tokens);
+//            Arrays.sort(current_answer_tokens);
+//            Arrays.sort(final_answer_tokens);
+//            Arrays.sort(final_answer_with_asterisk_tokens);
+//            Arrays.sort(current_answer_with_asterisk_tokens);
 
             System.out.println(Arrays.toString(current_answer_tokens));
             System.out.println(Arrays.toString(final_answer_tokens));
@@ -1599,10 +1534,26 @@ public class SolveProblemActivity extends AppCompatActivity {
                             "Number of Steps Made: " + number_of_steps + "\n" +
                                     "Solutions Made: " + solutions_list.get(i), Toast.LENGTH_LONG).show();
                 }
-
                 solved = true;
 
+                if (hinted) {
+                    MainFragment.teacheraicadb.updateProblemStatus("hinted and solved");
+                } else {
+                    MainFragment.teacheraicadb.updateProblemStatus("solved");
+                }
+
                 if (equationType.equals("generated")) {
+
+                    int increment = 0;
+                    if (level == 1 && errorsCommited < 3 ||
+                            level == 2 && errorsCommited < 3 ||
+                            level == 3 && errorsCommited < 3 ||
+                            level == 4 && errorsCommited < 3) {
+                        increment = 1;
+                    }
+
+                    MainFragment.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
+
                     next_problem_prompt("generated");
                 } else if (equationType.equals("custom")) {
                     next_problem_prompt("custom");
@@ -1624,10 +1575,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                 next_solution_step.requestFocus();
                 focus_settings();
             } else {
-                // TODO Store in ArrayList Solution Errors
-
-                solution_error_number = 1;
                 errorsCommited++;
+                solution_error_number = 1;
                 solution_errors_list.add(current_solution);
 
                 get_solution_step_number(current_solution_step);
@@ -1640,7 +1589,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                 current_solution_step.setError("Wrong solution!");
             }
         } else {
-            // TODO Store in ArrayList Solution Errors
             errorsCommited++;
             solution_error_number = 2;
             solution_errors_list.add(current_solution);
@@ -1655,7 +1603,8 @@ public class SolveProblemActivity extends AppCompatActivity {
             current_solution_step.setError("Input should not be blank!");
         }
 
-        if (errorsCommited == 3) {
+        //TODO Fix errorsCommitted Bug
+        if (solution_errors_list.size() == 3) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("UH OH...")
                     .setMessage("It seems that you are having a difficulty solving this problem. Want to take a hint?")
@@ -1667,6 +1616,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setListener(R.id.take_hint, true, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            hinted = true;
+
                             new LovelyCustomDialog(SolveProblemActivity.this)
                                     .setTitle("AVAILABLE HINTS")
                                     .setMessage("These are the hints that you can view at your disposal. Tapping one of them will take you to the Reading Materials associated with that hint you have chosen.")
@@ -1685,29 +1636,23 @@ public class SolveProblemActivity extends AppCompatActivity {
 
                                             for (int i = 0; i < hint_choices.length; i++) {
                                                 switch (hint_choices[i]) {
-                                                    case "Z":
-                                                        hint_choices[i] = "Base Raised to Zero";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_two.html");
+                                                    case "Base Raised to Zero":
+                                                        read_url.add("file:///android_asset/reading_materials/base_raised_to_zero.html");
                                                         break;
-                                                    case "AE":
-                                                        hint_choices[i] = "Addition of Exponents with Same Bases";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_three.html");
+                                                    case "Addition of Exponents with the Same Bases":
+                                                        read_url.add("file:///android_asset/reading_materials/addition_of_exponents_with_the_same_bases.html");
                                                         break;
-                                                    case "MB":
-                                                        hint_choices[i] = "Multiplication of Bases with the Same Exponents";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_four.html");
+                                                    case "Multiplication of Bases with the Same Exponents":
+                                                        read_url.add("file:///android_asset/reading_materials/multiplication_of_bases_with_the_same_exponents.html");
                                                         break;
-                                                    case "ME":
-                                                        hint_choices[i] = "Multiplication of Exponents to Find the Power of a Power";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_five.html");
+                                                    case "Multiplication of Exponents to Find the Power of a Power":
+                                                        read_url.add("file:///android_asset/reading_materials/multiplication_of_exponents_to_find_the_power_of_a_power.html");
                                                         break;
-                                                    case "SE":
-                                                        hint_choices[i] = "Subtraction of Exponents";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_six.html");
+                                                    case "Subtraction of Exponents":
+                                                        read_url.add("file:///android_asset/reading_materials/subtraction_of_exponents.html");
                                                         break;
-                                                    case "N":
-                                                        hint_choices[i] = "Negative Integer Exponents";
-                                                        read_url.add("file:///android_asset/reading_materials/reading_material_seven.html");
+                                                    case "Negative Integer Exponents":
+                                                        read_url.add("file:///android_asset/reading_materials/negative_integer_exponents.html");
                                                         break;
                                                 }
 
@@ -1782,7 +1727,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                 .setListener(R.id.solve_expo_back, true, new View.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(View view) {
-
+                                                                        errorsCommited = 3;
                                                                     }
                                                                 })
                                                                 .show();
@@ -1808,7 +1753,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                         }
                     })
                     .show();
-        } else if (errorsCommited == 5) {
+        } else if (errorsCommited == 6) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("IS THE PROBLEM VERY DIFFICULT?")
                     .setMessage("It seems that this equation is giving you a hard time. I can provide you the answer to this equation if you want, however, you have to quit solving this problem. Is that all right?")
@@ -1983,6 +1928,8 @@ public class SolveProblemActivity extends AppCompatActivity {
     }
 
     public void show_answer() {
+        MainFragment.teacheraicadb.updateProblemStatus("abort");
+
         new LovelyCustomDialog(SolveProblemActivity.this)
                 .setIcon(R.drawable.aica)
                 .setTopColorRes(R.color.darkDeepOrange)
@@ -2057,10 +2004,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                 })
                 .show();
     }
-
-    /*
-        Input Mode Problem Methods
-     */
 
     public boolean check_input(String equation) {
         try {
@@ -2164,4 +2107,22 @@ public class SolveProblemActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //TODO Make onPause and pressing of home key render problem as "left"
+
+        if (hinted) {
+            MainFragment.teacheraicadb.updateProblemStatus("hinted and left");
+        }
+//        else {
+//            MainFragment.teacheraicadb.updateProblemStatus("left");
+//        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

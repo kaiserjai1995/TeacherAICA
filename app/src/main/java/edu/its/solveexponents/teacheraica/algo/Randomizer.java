@@ -7,7 +7,7 @@ import java.util.Random;
  */
 
 public class Randomizer {
-
+    //TODO Not Raising a Level Bug Fix
     /*
     Each skill set will be having 12 equations overall in 4 levels of difficulty, having 3 equations each level
         1. Base Raised to Zero:
@@ -92,8 +92,8 @@ public class Randomizer {
                 //Addition of Exponents with Same Bases
                 //AE
                 equation = "([v1]^[e1]) * ([v1]^[e2])";
-                e1 = random_integer(false, 2, 3);
-                e2 = random_integer(false, 2, 3);
+                e1 = random_integer(false, 2, 9);
+                e2 = random_integer(false, 2, 9);
                 break;
             case 3:
                 //Multiplication of Bases with the Same Exponents
@@ -124,7 +124,7 @@ public class Randomizer {
                 //Negative Integer Exponents
                 //N
                 equation = "[a]^(-[e1])";
-                a = random_integer(false, 1, 3);
+                a = random_integer(false, 1, 4);
                 e1 = random_integer(false, 2, 2);
                 break;
         }
@@ -512,39 +512,28 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
-                //Positive Integer Exponents
-                //P
-                hint = "P";
+                //Base Raised to Zero
+                hint = "Base Raised to Zero";
                 break;
             case 2:
-                //Base Raised to Zero
-                //Z
-                hint = "Z";
+                //Addition of Exponents with the Same Bases
+                hint = "Addition of Exponents with the Same Bases";
                 break;
             case 3:
-                //Addition of Exponents with Same Bases
-                //AE
-                hint = "AE";
+                //Multiplication of Bases with the Same Exponents
+                hint = "Multiplication of Bases with the Same Exponents";
                 break;
             case 4:
-                //Multiplication of Bases with the Same Exponents
-                //MB
-                hint = "MB";
+                //Multiplication of Exponents to Find the Power of a Power
+                hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 5:
-                //Multiplication of Exponents to Find the Power of a Power
-                //ME
-                hint = "ME";
+                //Subtraction of Exponents
+                hint = "Subtraction of Exponents";
                 break;
             case 6:
-                //Subtraction of Exponents
-                //SE
-                hint = "SE";
-                break;
-            case 7:
                 //Negative Integer Exponents
-                //N
-                hint = "N";
+                hint = "Negative Integer Exponents";
                 break;
         }
 
@@ -556,39 +545,28 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
-                //Positive Integer Exponents
-                //P
-                hint = "P";
+                //Base Raised to Zero
+                hint = "Base Raised to Zero";
                 break;
             case 2:
-                //Base Raised to Zero
-                //Z
-                hint = "Z";
+                //Addition of Exponents with the Same Bases
+                hint = "Addition of Exponents with the Same Bases";
                 break;
             case 3:
-                //Addition of Exponents with Same Bases
-                //AE
-                hint = "AE";
+                //Multiplication of Bases with the Same Exponents
+                hint = "Multiplication of Bases with the Same Exponents, Addition of Exponents with the Same Bases";
                 break;
             case 4:
-                //Multiplication of Bases with the Same Exponents
-                //MB, AE
-                hint = "MB, AE";
+                //Multiplication of Exponents to Find the Power of a Power
+                hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 5:
-                //Multiplication of Exponents to Find the Power of a Power
-                //ME
-                hint = "ME";
+                //Subtraction of Exponents
+                hint = "Subtraction of Exponents";
                 break;
             case 6:
-                //Subtraction of Exponents
-                //SE
-                hint = "SE";
-                break;
-            case 7:
                 //Negative Integer Exponents
-                //N
-                hint = "N";
+                hint = "Negative Integer Exponents";
                 break;
         }
 
@@ -600,39 +578,28 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
-                //Positive Integer Exponents
-                //P
-                hint = "P";
+                //Base Raised to Zero
+                hint = "Base Raised to Zero";
                 break;
             case 2:
-                //Base Raised to Zero
-                //Z
-                hint = "Z";
+                //Addition of Exponents with the Same Bases
+                hint = "Addition of Exponents with the Same Bases";
                 break;
             case 3:
-                //Addition of Exponents with Same Bases
-                //AE
-                hint = "AE";
+                //Multiplication of Bases with the Same Exponents
+                hint = "Multiplication of Bases with the Same Exponents, Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 4:
-                //Multiplication of Bases with the Same Exponents
-                //MB, ME
-                hint = "MB, ME";
+                //Multiplication of Exponents to Find the Power of a Power
+                hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 5:
-                //Multiplication of Exponents to Find the Power of a Power
-                //ME
-                hint = "ME";
+                //Subtraction of Exponents
+                hint = "Subtraction of Exponents";
                 break;
             case 6:
-                //Subtraction of Exponents
-                //SE
-                hint = "SE";
-                break;
-            case 7:
                 //Negative Integer Exponents
-                //N
-                hint = "N";
+                hint = "Negative Integer Exponents";
                 break;
         }
 
@@ -644,39 +611,28 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
-                //Positive Integer Exponents
-                //P, ME
-                hint = "P, ME";
+                //Base Raised to Zero
+                hint = "Base Raised to Zero, Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 2:
-                //Base Raised to Zero
-                //Z, ME
-                hint = "Z, ME";
+                //Addition of Exponents with the Same Bases
+                hint = "Addition of Exponents with the Same Bases, Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 3:
-                //Addition of Exponents with Same Bases
-                //AE, ME
-                hint = "AE, ME";
+                //Multiplication of Bases with the Same Exponents
+                hint = "Multiplication of Bases with the Same Exponents, Addition of Exponents with the Same Bases";
                 break;
             case 4:
-                //Multiplication of Bases with the Same Exponents
-                //MB, AE
-                hint = "MB, AE";
+                //Multiplication of Exponents to Find the Power of a Power
+                hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 5:
-                //Multiplication of Exponents to Find the Power of a Power
-                //ME
-                hint = "ME";
+                //Subtraction of Exponents
+                hint = "Subtraction of Exponents, Multiplication of Exponents to Find the Power of a Power";
                 break;
             case 6:
-                //Subtraction of Exponents
-                //SE, ME
-                hint = "SE, ME";
-                break;
-            case 7:
                 //Negative Integer Exponents
-                //N, ME
-                hint = "N, ME";
+                hint = "Negative Integer Exponents, Multiplication of Exponents to Find the Power of a Power";
                 break;
         }
 

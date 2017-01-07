@@ -89,6 +89,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     String final_equation;
     String equation;
 
+    int maxNumberOfProblemsPerSubLevel;
+
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input) {
         this.mode_input = mode_input;
         this.mContext = context;
@@ -132,10 +134,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
-//                        level = MainFragment.teacheraicadb.getCurrentLevel();
-//                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
-                        level = 1;
-                        sublevel = 2;
+                        level = MainFragment.teacheraicadb.getCurrentLevel();
+                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
 
@@ -207,12 +207,9 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         result = util.evaluate(equation);
                         System.out.println("Result: " + result.toString());
 
-                        current_level = MainFragment.teacheraicadb.getCurrentLevel();
-                        current_sublevel = MainFragment.teacheraicadb.getCurrentSublevel(current_level);
-
                         i.putExtra("generated", true);
-                        i.putExtra("level", current_level);
-                        i.putExtra("sublevel", current_sublevel);
+                        i.putExtra("level", level);
+                        i.putExtra("sublevel", sublevel);
                         i.putExtra("equation", equation);
                         i.putExtra("result", result.toString());
                         i.putExtra("equation_string", equation_string);
@@ -224,8 +221,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        level = 1;
-                        sublevel = 2;
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
 
