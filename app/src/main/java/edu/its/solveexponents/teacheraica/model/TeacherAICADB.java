@@ -495,7 +495,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 TBL_LEVELS_3_1, TBL_LEVELS_3_2, TBL_LEVELS_3_3, TBL_LEVELS_3_4, TBL_LEVELS_3_5, TBL_LEVELS_3_6,
                 TBL_LEVELS_4_1, TBL_LEVELS_4_2, TBL_LEVELS_4_3, TBL_LEVELS_4_4, TBL_LEVELS_4_5, TBL_LEVELS_4_6};
 
-        int currentLevel = 1;
+        int currentLevel = 4;
 
         for (String level : levels) {
             String sql = "SELECT " + level + " FROM " + TBL_LEVELS;
@@ -503,8 +503,22 @@ public class TeacherAICADB extends SQLiteOpenHelper {
             cursor.moveToFirst();
             int value = cursor.getInt(0);
 
+            if (level.substring(7).equals("1")) {
+                maxNumberOfProblemsPerSublevel = 2;
+            } else {
+                maxNumberOfProblemsPerSublevel = 5;
+            }
+
             if (value < maxNumberOfProblemsPerSublevel) {
                 currentLevel = Integer.parseInt(level.substring(5, 6)); //get current level from string
+
+                int currentSublevel = Integer.parseInt(level.substring(7));
+
+                System.out.println("Inside getCurrentLevel" + "\n" +
+                        "Level String: " + level + "\n" +
+                        "Level: " + currentLevel + "\n" +
+                        "Sublevel: " + currentSublevel);
+
                 break;
             }
         }
@@ -559,40 +573,33 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
             Log.d("TEACHERAICADB", "sublevel value:" + value);
 
-            System.out.println("SUBLEVEL: " + sublevels.get(i).substring(5));
-
-            if (sublevels.get(i).substring(5).equals("1_1")) {
+            if (sublevels.get(i).substring(6).equals("_1")) {
                 maxNumberOfProblemsPerSublevel = 2;
             } else {
                 maxNumberOfProblemsPerSublevel = 5;
             }
 
-//            if (currentSublevel == 1) maxNumberOfProblemsPerSublevel = 1;
-
-//            if (currentSublevel == 2 && getCurrentLevel() == 1 || getCurrentLevel() == 2) maxNumberOfProblemsPerSublevel = 3;
-//            if (currentSublevel == 2 && getCurrentLevel() == 3 || getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
-//
-//            if (currentSublevel == 3 && getCurrentLevel() == 1 || getCurrentLevel() == 2) maxNumberOfProblemsPerSublevel = 3;
-//            if (currentSublevel == 3 && getCurrentLevel() == 3 || getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
-//
-//            if (currentSublevel == 4 && getCurrentLevel() == 1 || getCurrentLevel() == 2) maxNumberOfProblemsPerSublevel = 3;
-//            if (currentSublevel == 4 && getCurrentLevel() == 3 || getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
-//
-//            if (currentSublevel == 5 && getCurrentLevel() == 1 || getCurrentLevel() == 2 || getCurrentLevel() == 3) maxNumberOfProblemsPerSublevel = 3;
-//            if (currentSublevel == 5 && getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
-//
-//            if (currentSublevel == 6 && getCurrentLevel() == 1 || getCurrentLevel() == 2 || getCurrentLevel() == 3) maxNumberOfProblemsPerSublevel = 3;
-//            if (currentSublevel == 6 && getCurrentLevel() == 4) maxNumberOfProblemsPerSublevel = 4;
-
             if (value < maxNumberOfProblemsPerSublevel) {
                 currentSublevel = Integer.parseInt(sublevels.get(i).substring(7));
+
+                System.out.println("Value < " + maxNumberOfProblemsPerSublevel + "\n" +
+                        "i Value: " + i + "\n" +
+                        "SUBLEVEL: " + currentSublevel + "\n" +
+                        "Value: " + value);
+
                 break;
             }
 
             if ((i + 1) == sublevels.size()) {
                 currentSublevel = i + 1;
+
+                System.out.println("Value > " + maxNumberOfProblemsPerSublevel + "\n" +
+                        "i Value: " + i + "\n" +
+                        "SUBLEVEL: " + currentSublevel + "\n" +
+                        "Value: " + value);
                 break;
             }
+
         }
         return currentSublevel;
     }

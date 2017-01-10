@@ -44,9 +44,8 @@ import edu.its.solveexponents.teacheraica.algo.Randomizer;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-import static android.R.attr.max;
 import static io.github.kexanie.library.R.id.MathJax;
-import static org.matheclipse.core.expression.F.v;
+import static org.matheclipse.core.expression.F.f;
 
 /**
  * Created by jairus on 12/8/16.
@@ -112,7 +111,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     int solution_error_number;
     ArrayList<String> solutions_list;
     ArrayList<String> solution_errors_list;
-    boolean hinted;
+    boolean hinted, solving, five_errors, nine_errors;
 
     public class StepListener extends AbstractEvalStepListener {
         /**
@@ -616,6 +615,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .setListener(R.id.abort_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        MainFragment.teacheraicadb.updateProblemStatus("aborted");
                         show_answer();
                     }
                 })
@@ -964,6 +964,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             Button cancel_problem_btn = (Button) v.findViewById(R.id.cancel_problem_btn);
                                             cancel_problem_btn.setVisibility(View.GONE);
 
+                                            level = MainFragment.teacheraicadb.getCurrentLevel();
+                                            sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
 
@@ -1000,6 +1002,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .setListener(R.id.solve_problem_btn, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
+                                            solving = true;
                                             i = new Intent(SolveProblemActivity.this, SolveProblemActivity.class);
 
                                             util = new ExprEvaluator();
@@ -1024,6 +1027,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
+                                            MainFragment.teacheraicadb.addProblem(equation, equationType);
                                             MainFragment.teacheraicadb.updateProblemStatus("skipped");
 
                                             equation = Randomizer.getRandomEquation(level, sublevel);
@@ -1056,6 +1060,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setListener(R.id.back_to_main, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            solving = true;
                             i = new Intent(SolveProblemActivity.this, MainActivity.class);
                             startActivity(i);
                         }
@@ -1500,83 +1505,104 @@ public class SolveProblemActivity extends AppCompatActivity {
     public void evaluate_solution(String current_solution, EditText current_solution_step, LinearLayout next_solution_step_view, FancyButton submit_current_solution_step, EditText next_solution_step) {
         Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
 
-        if (!current_solution.isEmpty()) {
-            util = new ExprEvaluator();
-            current_result = util.evaluate(current_solution);
+        try {
+            if (!current_solution.isEmpty()) {
+                util = new ExprEvaluator();
+                current_result = util.evaluate(current_solution);
 
-            String[] current_answer_tokens = current_solution.split("(?<=[-+*/])|(?=[-+*/])");
-            String[] final_answer_tokens = final_answer.split("(?<=[-+*/])|(?=[-+*/])");
+                String[] current_answer_tokens = current_solution.split("(?<=[-+*/])|(?=[-+*/])");
+                String[] final_answer_tokens = final_answer.split("(?<=[-+*/])|(?=[-+*/])");
 
-            String[] final_answer_with_asterisk_tokens = final_answer.replace("*", "").split("(?<=[-+*/])|(?=[-+*/])");
-            String[] current_answer_with_asterisk_tokens = current_solution.replace("*", "").replace("(", "").replace(")", "").split("(?<=[-+*/])|(?=[-+*/])");
+                String[] final_answer_with_asterisk_tokens = final_answer.replace("*", "").replace("(", "").replace(")", "").replace("+-", "-").split("(?<=[-+*/])|(?=[-+*/])");
+                String[] current_answer_with_asterisk_tokens = current_solution.replace("*", "").replace("(", "").replace(")", "").replace("+-", "-").split("(?<=[-+*/])|(?=[-+*/])");
 
-//            Arrays.sort(current_answer_tokens);
-//            Arrays.sort(final_answer_tokens);
-//            Arrays.sort(final_answer_with_asterisk_tokens);
-//            Arrays.sort(current_answer_with_asterisk_tokens);
-
-            System.out.println(Arrays.toString(current_answer_tokens));
-            System.out.println(Arrays.toString(final_answer_tokens));
-            System.out.println(Arrays.toString(current_answer_with_asterisk_tokens));
-            System.out.println(Arrays.toString(final_answer_with_asterisk_tokens));
-
-            if ((Arrays.equals(current_answer_with_asterisk_tokens, final_answer_with_asterisk_tokens)
-                    && current_answer_with_asterisk_tokens.length == final_answer_with_asterisk_tokens.length)
-                    || (Arrays.equals(current_answer_tokens, final_answer_tokens)
-                    && current_answer_tokens.length == final_answer_tokens.length)) {
-                Toast.makeText(getApplicationContext(), "Final Answer has been reached!", Toast.LENGTH_LONG).show();
-                step_number++;
-                number_of_steps++;
-                solutions_list.add(current_solution);
-
-                for (int i = 0; i < solutions_list.size(); i++) {
-                    Toast.makeText(getApplicationContext(),
-                            "Number of Steps Made: " + number_of_steps + "\n" +
-                                    "Solutions Made: " + solutions_list.get(i), Toast.LENGTH_LONG).show();
-                }
-                solved = true;
-
-                if (hinted) {
-                    MainFragment.teacheraicadb.updateProblemStatus("hinted and solved");
-                } else {
-                    MainFragment.teacheraicadb.updateProblemStatus("solved");
+                if (Arrays.toString(final_answer_tokens).contains("+")
+                        || Arrays.toString(final_answer_tokens).contains("-")
+                        || Arrays.toString(final_answer_with_asterisk_tokens).contains("+")
+                        || Arrays.toString(final_answer_with_asterisk_tokens).contains("-")) {
+                    System.out.println("Has + or - Sign");
+                    Arrays.sort(final_answer_tokens);
+                    Arrays.sort(final_answer_with_asterisk_tokens);
+                    Arrays.sort(current_answer_tokens);
+                    Arrays.sort(current_answer_with_asterisk_tokens);
                 }
 
-                if (equationType.equals("generated")) {
+                System.out.println(Arrays.toString(current_answer_tokens));
+                System.out.println(Arrays.toString(final_answer_tokens));
+                System.out.println(Arrays.toString(current_answer_with_asterisk_tokens));
+                System.out.println(Arrays.toString(final_answer_with_asterisk_tokens));
 
-                    int increment = 0;
-                    if (level == 1 && errorsCommited < 3 ||
-                            level == 2 && errorsCommited < 3 ||
-                            level == 3 && errorsCommited < 3 ||
-                            level == 4 && errorsCommited < 3) {
-                        increment = 1;
+                if ((Arrays.equals(current_answer_with_asterisk_tokens, final_answer_with_asterisk_tokens)
+                        && current_answer_with_asterisk_tokens.length == final_answer_with_asterisk_tokens.length)
+                        || (Arrays.equals(current_answer_tokens, final_answer_tokens)
+                        && current_answer_tokens.length == final_answer_tokens.length)) {
+                    Toast.makeText(getApplicationContext(), "Final Answer has been reached!", Toast.LENGTH_LONG).show();
+                    step_number++;
+                    number_of_steps++;
+                    solutions_list.add(current_solution);
+
+                    for (int i = 0; i < solutions_list.size(); i++) {
+                        Toast.makeText(getApplicationContext(),
+                                "Number of Steps Made: " + number_of_steps + "\n" +
+                                        "Solutions Made: " + solutions_list.get(i), Toast.LENGTH_LONG).show();
+                    }
+                    solved = true;
+
+                    if (hinted) {
+                        MainFragment.teacheraicadb.updateProblemStatus("hinted and solved");
+                    } else {
+                        MainFragment.teacheraicadb.updateProblemStatus("solved");
                     }
 
-                    MainFragment.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
+                    if (equationType.equals("generated")) {
 
-                    next_problem_prompt("generated");
-                } else if (equationType.equals("custom")) {
-                    next_problem_prompt("custom");
-                } // Add for quizzes coming from Lecture
-            } else if (current_result.toString().equals(final_answer)) {
-                Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
-                step_number++;
-                number_of_steps++;
-                solutions_list.add(current_solution);
+                        int increment = 0;
+                        if (level == 1 && errorsCommited < 3 ||
+                                level == 2 && errorsCommited < 3 ||
+                                level == 3 && errorsCommited < 3 ||
+                                level == 4 && errorsCommited < 3) {
+                            increment = 1;
+                        }
 
-                Toast.makeText(getApplicationContext(),
-                        "Number of Steps Made: " + number_of_steps + "\n" +
-                                "Solutions Made: " + solutions_list, Toast.LENGTH_LONG).show();
+                        MainFragment.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
 
-                current_solution_step.setEnabled(false);
-                next_solution_step_view.setVisibility(View.VISIBLE);
-                submit_current_solution_step.setGhost(true);
-                submit_current_solution_step.setEnabled(false);
-                next_solution_step.requestFocus();
-                focus_settings();
+                        next_problem_prompt("generated");
+                    } else if (equationType.equals("custom")) {
+                        next_problem_prompt("custom");
+                    } // Add for quizzes coming from Lecture
+                } else if (current_result.toString().equals(final_answer)) {
+                    Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
+                    step_number++;
+                    number_of_steps++;
+                    solutions_list.add(current_solution);
+
+                    Toast.makeText(getApplicationContext(),
+                            "Number of Steps Made: " + number_of_steps + "\n" +
+                                    "Solutions Made: " + solutions_list, Toast.LENGTH_LONG).show();
+
+                    current_solution_step.setEnabled(false);
+                    next_solution_step_view.setVisibility(View.VISIBLE);
+                    submit_current_solution_step.setGhost(true);
+                    submit_current_solution_step.setEnabled(false);
+                    next_solution_step.requestFocus();
+                    focus_settings();
+                } else {
+                    errorsCommited++;
+                    solution_error_number = 1;
+                    solution_errors_list.add(current_solution);
+
+                    get_solution_step_number(current_solution_step);
+
+                    Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
+                            "Erring Solutions: " + solution_errors_list + "\n" +
+                            "Error Number: " + solution_error_number + "\n" +
+                            "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
+
+                    current_solution_step.setError("Wrong solution!");
+                }
             } else {
                 errorsCommited++;
-                solution_error_number = 1;
+                solution_error_number = 2;
                 solution_errors_list.add(current_solution);
 
                 get_solution_step_number(current_solution_step);
@@ -1586,24 +1612,16 @@ public class SolveProblemActivity extends AppCompatActivity {
                         "Error Number: " + solution_error_number + "\n" +
                         "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
 
-                current_solution_step.setError("Wrong solution!");
+                current_solution_step.setError("Input should not be blank!");
             }
-        } else {
-            errorsCommited++;
-            solution_error_number = 2;
-            solution_errors_list.add(current_solution);
-
-            get_solution_step_number(current_solution_step);
-
-            Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
-                    "Erring Solutions: " + solution_errors_list + "\n" +
-                    "Error Number: " + solution_error_number + "\n" +
-                    "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
-
-            current_solution_step.setError("Input should not be blank!");
+        } catch (SyntaxError e) {
+            current_solution_step.setError("Invalid input");
+        } catch (MathException e) {
+            current_solution_step.setError("Invalid input");
+        } catch (Exception e) {
+            current_solution_step.setError("Invalid input");
         }
 
-        //TODO Fix errorsCommitted Bug
         if (solution_errors_list.size() == 3) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("UH OH...")
@@ -1630,6 +1648,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .configureView(new LovelyCustomDialog.ViewConfigurator() {
                                         @Override
                                         public void configureView(View v) {
+                                            solving = true;
                                             String[] hint_choices = hint.split(", ");
 
                                             LinearLayout available_hints_view = (LinearLayout) v.findViewById(R.id.available_hints_view);
@@ -1740,7 +1759,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .setListener(R.id.back_to_solve, true, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-
+                                            solving = true;
                                         }
                                     })
                                     .show();
@@ -1749,11 +1768,11 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setListener(R.id.ignore_hint, true, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            solving = true;
                         }
                     })
                     .show();
-        } else if (errorsCommited == 6) {
+        } else if (errorsCommited == 5) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("IS THE PROBLEM VERY DIFFICULT?")
                     .setMessage("It seems that this equation is giving you a hard time. I can provide you the answer to this equation if you want, however, you have to quit solving this problem. Is that all right?")
@@ -1766,6 +1785,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setListener(R.id.answer_problem_btn, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            five_errors = true;
+                            MainFragment.teacheraicadb.updateProblemStatus("Errors 5x and Aborted");
                             onBackPressed();
                         }
                     })
@@ -1789,6 +1810,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setPositiveButton("OK", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            nine_errors = true;
                             show_answer();
                         }
                     })
@@ -2052,6 +2074,52 @@ public class SolveProblemActivity extends AppCompatActivity {
         return match;
     }
 
+    public boolean check_solution_input(String equation) {
+        try {
+            match = true;
+
+            if (equation.matches("^-?\\d+$")) {
+                match = false;
+            }
+            if (equation.matches("(\\w+)")) {
+                match = false;
+            }
+
+//            util = new ExprEvaluator();
+//            engine = util.getEvalEngine();
+//            engine.setStepListener(new StepListener());
+//            result = util.evaluate(equation);
+//
+//            System.out.println("Result: " + result.toString());
+//
+//            if (result.isAST()) {
+//                match = true;
+//            }
+//
+//            if (result.toString().equals("{}")) {
+//                match = false;
+//            }
+
+            // disable trace mode if the step listener isn't necessary anymore
+//            engine.setTraceMode(false);
+
+        } catch (SyntaxError e) {
+            // catch Symja parser errors here
+            System.out.println(e.getMessage());
+            match = false;
+        } catch (MathException me) {
+            // catch Symja math errors here
+            System.out.println(me.getMessage());
+            match = false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            match = false;
+        }
+
+        return match;
+    }
+
+
     public void process_btn_chars_input(String chars) {
         input_problem.getText().insert(input_problem.getSelectionStart(), chars);
         input_problem.setSelection(input_problem.getSelectionStart());
@@ -2110,15 +2178,27 @@ public class SolveProblemActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        //TODO Make onPause and pressing of home key render problem as "left"
-
         if (hinted) {
+            i = new Intent(this, MainActivity.class);
             MainFragment.teacheraicadb.updateProblemStatus("hinted and left");
+            finish();
+            startActivity(i);
         }
-//        else {
-//            MainFragment.teacheraicadb.updateProblemStatus("left");
-//        }
+
+        if (!solving) {
+            i = new Intent(this, MainActivity.class);
+            MainFragment.teacheraicadb.updateProblemStatus("left");
+            finish();
+            startActivity(i);
+        }
+
+        if (five_errors) {
+            MainFragment.teacheraicadb.updateProblemStatus("Errors 5x and Left");
+        }
+
+        if (nine_errors) {
+            MainFragment.teacheraicadb.updateProblemStatus("Errors 9x");
+        }
     }
 
     @Override

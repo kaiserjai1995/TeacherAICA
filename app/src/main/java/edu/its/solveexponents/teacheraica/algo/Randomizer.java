@@ -7,7 +7,6 @@ import java.util.Random;
  */
 
 public class Randomizer {
-    //TODO Not Raising a Level Bug Fix
     /*
     Each skill set will be having 12 equations overall in 4 levels of difficulty, having 3 equations each level
         1. Base Raised to Zero:
@@ -101,15 +100,15 @@ public class Randomizer {
                 equation = "([s1][a]^[e1]) * ([s3][b]^[e1])";
                 a = random_integer(false, 1, 3);
                 b = random_integer(false, 1, 3);
-                e1 = random_integer(false, 1, 3);
+                e1 = random_integer(false, 1, 2);
                 break;
             case 4:
                 //Multiplication of Exponents to Find the Power of a Power
                 //ME
                 equation = "([a]^[e1])^[e2]";
                 a = random_integer(false, 1, 3);
-                e1 = random_integer(false, 1, 3);
-                e2 = random_integer(false, 1, 3);
+                e1 = random_integer(false, 1, 2);
+                e2 = random_integer(false, 1, 2);
                 break;
             case 5:
                 //Subtraction of Exponents
@@ -235,7 +234,7 @@ public class Randomizer {
         String s1 = random_plus_minus_sign(false);
         String s2 = random_all_sign();
         String s3 = random_plus_minus_sign(false);
-        String s4 = random_plus_minus_sign(true);
+        String s4 = random_times_divide_sign();
 
         switch (sublevel) {
             case 1:
@@ -286,7 +285,7 @@ public class Randomizer {
             case 6:
                 //Negative Integer Exponents
                 //N
-                equation = "(([s1][a][v1])^(-[e1])) [s4] (([s3][b][v1])^(-[e2]))";
+                equation = "(([a][v1])^(-[e1])) [s4] (([b][v1])^(-[e2]))";
                 a = random_integer(false, 2, 3);
                 b = random_integer(false, 2, 3);
                 e1 = random_integer(false, 2, 2);
@@ -369,7 +368,7 @@ public class Randomizer {
             case 4:
                 //Multiplication of Exponents to Find the Power of a Power
                 //ME
-                equation = "(([s1][a][v1]^[e1])^[e2]) [s2] (([s3][b][v1]^[e3])^[e4])";
+                equation = "(([a][v1]^[e1])^[e2]) [s6] (([b][v1]^[e3])^[e4])";
                 a = random_integer(false, 1, 3);
                 b = random_integer(false, 1, 3);
                 e1 = random_integer(false, 2, 2);

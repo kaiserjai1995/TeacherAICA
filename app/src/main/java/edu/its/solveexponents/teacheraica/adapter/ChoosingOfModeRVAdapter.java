@@ -88,8 +88,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
     String equation_string;
     String final_equation;
     String equation;
-
-    int maxNumberOfProblemsPerSubLevel;
+    String equationType;
 
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input) {
         this.mode_input = mode_input;
@@ -138,8 +137,9 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
+                        equationType = "generated"
 
-                        showGeneratedProblemView();
+                        showGeneratedProblemView(level, sublevel);
                         break;
                     case "Solve USER-INPUT Problems":
                         showInputProblemView();
@@ -155,7 +155,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         return mode_input.size();
     }
 
-    public void showGeneratedProblemView() {
+    public void showGeneratedProblemView(final int level, final int sublevel) {
         new LovelyCustomDialog(mContext)
                 .setView(R.layout.generated_mode_problem_view)
                 .setTopColorRes(R.color.darkRed)
@@ -180,8 +180,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                         StringWriter stw = new StringWriter();
                         mathUtil.toMathML(engine.parse(equation), stw);
-
-                        System.out.println(stw.toString());
 
                         final_equation = stw.toString();
 
@@ -221,6 +219,9 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        MainFragment.teacheraicadb.addProblem(equation, equationType);
+                        MainFragment.teacheraicadb.updateProblemStatus("skipped");
+
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
 
@@ -248,7 +249,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        MainFragment.teacheraicadb.addProblem(equation, equationType);
+                        MainFragment.teacheraicadb.updateProblemStatus("skipped");
                     }
                 })
                 .show();
