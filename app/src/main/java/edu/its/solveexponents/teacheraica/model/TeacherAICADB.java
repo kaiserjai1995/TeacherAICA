@@ -19,6 +19,8 @@ import java.util.TimeZone;
  * Created by jairus on 8/7/16.
  */
 
+//TODO View History
+
 public class TeacherAICADB extends SQLiteOpenHelper {
     private static TeacherAICADB sInstance;
 
@@ -418,6 +420,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     public void addError(String problem, String error) {
+        if (error.isEmpty()) {
+            error = "<empty input>";
+        }
+
         initializeDateTimeFormat();
 
         ContentValues values = new ContentValues();
@@ -609,28 +615,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
         String sql = "UPDATE " + TBL_LEVELS +
                 " SET " + levelAndSublevel + " = (" + levelAndSublevel + " + " + increment + ")";
         db.execSQL(sql);
-    }
-
-    public int determineHintType() {
-        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + " FROM " + TBL_PROBLEMS +
-                " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.getCount() >= 12) {
-            int errorCount = 0;
-            cursor.moveToFirst();
-            for (int i = 0; i <= 5; ++i) {
-                String sqlGetErrorCount = "SELECT * FROM " + TBL_ERRORS +
-                        " WHERE " + TBL_ERRORS_PROBLEMID + " = " + cursor.getInt(0);
-                Cursor errorCursor = db.rawQuery(sqlGetErrorCount, null);
-
-                errorCount += errorCursor.getCount();
-                cursor.moveToNext();
-            }
-            if (errorCount <= 8) {
-                return 0;
-            }
-        }
-        return 1;
     }
 
     public void logLectureModuleView(String module, Date out, Date in) {

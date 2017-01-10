@@ -137,7 +137,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
-                        equationType = "generated"
+                        equationType = "generated";
 
                         showGeneratedProblemView(level, sublevel);
                         break;

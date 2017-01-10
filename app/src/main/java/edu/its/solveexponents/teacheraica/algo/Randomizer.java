@@ -393,10 +393,10 @@ public class Randomizer {
                 equation = "((([s1][a][v1])^([s7][e1]))^([s8][e3])) [s6] ((([s3][b][v1])^([s9][e2]))^([s10][e4]))";
                 a = random_integer(false, 1, 3);
                 b = random_integer(false, 1, 3);
-                e1 = random_integer(false, 0, 3);
-                e2 = random_integer(false, 0, 3);
-                e3 = random_integer(false, 0, 3);
-                e4 = random_integer(false, 0, 3);
+                e1 = random_integer(false, 1, 3);
+                e2 = random_integer(false, 1, 3);
+                e3 = random_integer(false, 1, 3);
+                e4 = random_integer(false, 1, 3);
                 break;
         }
 

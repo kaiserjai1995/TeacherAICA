@@ -46,6 +46,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 import static io.github.kexanie.library.R.id.MathJax;
 import static org.matheclipse.core.expression.F.f;
+import static org.matheclipse.core.expression.F.z;
 
 /**
  * Created by jairus on 12/8/16.
@@ -112,6 +113,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     ArrayList<String> solutions_list;
     ArrayList<String> solution_errors_list;
     boolean hinted, solving, five_errors, nine_errors;
+    String hint_code;
 
     public class StepListener extends AbstractEvalStepListener {
         /**
@@ -1369,6 +1371,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             validate_problem_btn.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
+                                                    solving = true;
+
                                                     equation = input_problem.getText().toString();
 
                                                     if (check_input(equation)) {
@@ -1461,6 +1465,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setListener(R.id.back_to_main, true, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            solving = true;
                             i = new Intent(SolveProblemActivity.this, MainActivity.class);
                             startActivity(i);
                         }
@@ -1540,6 +1545,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     step_number++;
                     number_of_steps++;
                     solutions_list.add(current_solution);
+                    MainFragment.teacheraicadb.addStep(current_solution);
 
                     for (int i = 0; i < solutions_list.size(); i++) {
                         Toast.makeText(getApplicationContext(),
@@ -1575,6 +1581,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     step_number++;
                     number_of_steps++;
                     solutions_list.add(current_solution);
+                    MainFragment.teacheraicadb.addStep(current_solution);
 
                     Toast.makeText(getApplicationContext(),
                             "Number of Steps Made: " + number_of_steps + "\n" +
@@ -1593,6 +1600,8 @@ public class SolveProblemActivity extends AppCompatActivity {
 
                     get_solution_step_number(current_solution_step);
 
+                    MainFragment.teacheraicadb.addError(equation, current_solution);
+
                     Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
                             "Erring Solutions: " + solution_errors_list + "\n" +
                             "Error Number: " + solution_error_number + "\n" +
@@ -1607,6 +1616,8 @@ public class SolveProblemActivity extends AppCompatActivity {
 
                 get_solution_step_number(current_solution_step);
 
+                MainFragment.teacheraicadb.addError(equation, current_solution);
+
                 Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
                         "Erring Solutions: " + solution_errors_list + "\n" +
                         "Error Number: " + solution_error_number + "\n" +
@@ -1616,10 +1627,13 @@ public class SolveProblemActivity extends AppCompatActivity {
             }
         } catch (SyntaxError e) {
             current_solution_step.setError("Invalid input");
+            MainFragment.teacheraicadb.addError(equation, current_solution);
         } catch (MathException e) {
             current_solution_step.setError("Invalid input");
+            MainFragment.teacheraicadb.addError(equation, current_solution);
         } catch (Exception e) {
             current_solution_step.setError("Invalid input");
+            MainFragment.teacheraicadb.addError(equation, current_solution);
         }
 
         if (solution_errors_list.size() == 3) {
@@ -1632,147 +1646,234 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setIcon(R.drawable.aica)
                     .setView(R.layout.hint)
                     .setListener(R.id.take_hint, true, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            hinted = true;
+                                @Override
+                                public void onClick(View view) {
+                                    hinted = true;
 
-                            new LovelyCustomDialog(SolveProblemActivity.this)
-                                    .setTitle("AVAILABLE HINTS")
-                                    .setMessage("These are the hints that you can view at your disposal. Tapping one of them will take you to the Reading Materials associated with that hint you have chosen.")
-                                    .setTitleGravity(1)
-                                    .setMessageGravity(1)
-                                    .setTopColorRes(R.color.darkDeepOrange)
-                                    .setIcon(R.drawable.aica)
-                                    .setView(R.layout.available_hints)
-                                    .setCancelable(false)
-                                    .configureView(new LovelyCustomDialog.ViewConfigurator() {
-                                        @Override
-                                        public void configureView(View v) {
-                                            solving = true;
-                                            String[] hint_choices = hint.split(", ");
+                                    new LovelyCustomDialog(SolveProblemActivity.this)
+                                            .setTitle("AVAILABLE HINTS")
+                                            .setMessage("These are the hints that you can view at your disposal. Tapping one of them will take you to the Reading Materials associated with that hint you have chosen.")
+                                            .setTitleGravity(1)
+                                            .setMessageGravity(1)
+                                            .setTopColorRes(R.color.darkDeepOrange)
+                                            .setIcon(R.drawable.aica)
+                                            .setView(R.layout.available_hints)
+                                            .setCancelable(false)
+                                            .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                                                               @Override
+                                                               public void configureView(View v) {
+                                                                   solving = true;
+                                                                   final String[] hint_choices = hint.split(", ");
 
-                                            LinearLayout available_hints_view = (LinearLayout) v.findViewById(R.id.available_hints_view);
+                                                                   LinearLayout available_hints_view = (LinearLayout) v.findViewById(R.id.available_hints_view);
 
-                                            for (int i = 0; i < hint_choices.length; i++) {
-                                                switch (hint_choices[i]) {
-                                                    case "Base Raised to Zero":
-                                                        read_url.add("file:///android_asset/reading_materials/base_raised_to_zero.html");
-                                                        break;
-                                                    case "Addition of Exponents with the Same Bases":
-                                                        read_url.add("file:///android_asset/reading_materials/addition_of_exponents_with_the_same_bases.html");
-                                                        break;
-                                                    case "Multiplication of Bases with the Same Exponents":
-                                                        read_url.add("file:///android_asset/reading_materials/multiplication_of_bases_with_the_same_exponents.html");
-                                                        break;
-                                                    case "Multiplication of Exponents to Find the Power of a Power":
-                                                        read_url.add("file:///android_asset/reading_materials/multiplication_of_exponents_to_find_the_power_of_a_power.html");
-                                                        break;
-                                                    case "Subtraction of Exponents":
-                                                        read_url.add("file:///android_asset/reading_materials/subtraction_of_exponents.html");
-                                                        break;
-                                                    case "Negative Integer Exponents":
-                                                        read_url.add("file:///android_asset/reading_materials/negative_integer_exponents.html");
-                                                        break;
-                                                }
+                                                                   for (int i = 0; i < hint_choices.length; i++) {
+                                                                       switch (hint_choices[i]) {
+                                                                           case "Base Raised to Zero":
+                                                                               hint_code = "Z";
+                                                                               read_url.add("file:///android_asset/reading_materials/base_raised_to_zero.html");
+                                                                               break;
+                                                                           case "Addition of Exponents with the Same Bases":
+                                                                               hint_code = "AE";
+                                                                               read_url.add("file:///android_asset/reading_materials/addition_of_exponents_with_the_same_bases.html");
+                                                                               break;
+                                                                           case "Multiplication of Bases with the Same Exponents":
+                                                                               hint_code = "MB";
+                                                                               read_url.add("file:///android_asset/reading_materials/multiplication_of_bases_with_the_same_exponents.html");
+                                                                               break;
+                                                                           case "Multiplication of Exponents to Find the Power of a Power":
+                                                                               hint_code = "ME";
+                                                                               read_url.add("file:///android_asset/reading_materials/multiplication_of_exponents_to_find_the_power_of_a_power.html");
+                                                                               break;
+                                                                           case "Subtraction of Exponents":
+                                                                               hint_code = "SE";
+                                                                               read_url.add("file:///android_asset/reading_materials/subtraction_of_exponents.html");
+                                                                               break;
+                                                                           case "Negative Integer Exponents":
+                                                                               hint_code = "N";
+                                                                               read_url.add("file:///android_asset/reading_materials/negative_integer_exponents.html");
+                                                                               break;
+                                                                       }
 
-                                                btn_hint = new FancyButton(SolveProblemActivity.this);
-                                                btn_hint.setId(i + 1);
-                                                btn_hint.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                                                btn_hint.setGravity(1);
-                                                btn_hint.setPadding(20, 10, 20, 10);
-                                                btn_hint.setBorderColor(R.color.white);
-                                                btn_hint.setBorderWidth(1);
-                                                btn_hint.setRadius(20);
-                                                btn_hint.setIconPosition(0);
-                                                btn_hint.setTextSize(15);
-                                                btn_hint.setBottom(20);
-                                                btn_hint.setIconPosition(FancyButton.POSITION_LEFT);
-                                                btn_hint.setIconResource(R.drawable.ic_white_lecture);
-                                                btn_hint.setBackgroundColor(getResources().getColor(R.color.fb_primary_color));
-                                                btn_hint.setFocusBackgroundColor(getResources().getColor(R.color.fb_focus_color));
-                                                btn_hint.setText(hint_choices[i]);
+                                                                       btn_hint = new FancyButton(SolveProblemActivity.this);
+                                                                       btn_hint.setId(i + 1);
+                                                                       btn_hint.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                                                                       btn_hint.setGravity(1);
+                                                                       btn_hint.setPadding(20, 10, 20, 10);
+                                                                       btn_hint.setBorderColor(R.color.white);
+                                                                       btn_hint.setBorderWidth(1);
+                                                                       btn_hint.setRadius(20);
+                                                                       btn_hint.setIconPosition(0);
+                                                                       btn_hint.setTextSize(15);
+                                                                       btn_hint.setBottom(20);
+                                                                       btn_hint.setIconPosition(FancyButton.POSITION_LEFT);
+                                                                       btn_hint.setIconResource(R.drawable.ic_white_lecture);
+                                                                       btn_hint.setBackgroundColor(getResources().getColor(R.color.fb_primary_color));
+                                                                       btn_hint.setFocusBackgroundColor(getResources().getColor(R.color.fb_focus_color));
+                                                                       btn_hint.setText(hint_choices[i]);
 
-                                                Toast.makeText(getApplicationContext(), hint_choices[i].toString(), Toast.LENGTH_LONG).show();
+                                                                       Toast.makeText(getApplicationContext(), hint_choices[i].toString(), Toast.LENGTH_LONG).show();
 
-                                                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                                                layoutParams.setMargins(10, 10, 10, 10);
+                                                                       LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                                                       layoutParams.setMargins(10, 10, 10, 10);
 
-                                                available_hints_view.addView(btn_hint, layoutParams);
+                                                                       available_hints_view.addView(btn_hint, layoutParams);
 
-                                                btn_hint.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(final View view) {
-                                                        new LovelyCustomDialog(SolveProblemActivity.this)
-                                                                .setTopColorRes(R.color.darkDeepOrange)
-                                                                .setCancelable(false)
-                                                                .setIcon(R.drawable.aica)
-                                                                .setView(R.layout.hint_view)
-                                                                .configureView(new LovelyCustomDialog.ViewConfigurator() {
-                                                                    @Override
-                                                                    public void configureView(View v) {
-                                                                        LinearLayout chosen_hint_view = (LinearLayout) v.findViewById(R.id.chosen_hint_view);
+                                                                       btn_hint.setOnClickListener(new View.OnClickListener() {
+                                                                                                       @Override
+                                                                                                       public void onClick(final View view) {
+                                                                                                           new LovelyCustomDialog(SolveProblemActivity.this)
+                                                                                                                   .setTopColorRes(R.color.darkDeepOrange)
+                                                                                                                   .setCancelable(false)
+                                                                                                                   .setIcon(R.drawable.aica)
+                                                                                                                   .setView(R.layout.hint_view)
+                                                                                                                   .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                                                                                                                                      @Override
+                                                                                                                                      public void configureView(View v) {
+                                                                                                                                          LinearLayout chosen_hint_view = (LinearLayout) v.findViewById(R.id.chosen_hint_view);
 
-                                                                        if (view.getId() == 1) {
-                                                                            WebView hint_webview1 = new WebView(SolveProblemActivity.this);
-                                                                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                                                                                                                          if (view.getId() == 1) {
+                                                                                                                                              switch (hint_choices[0]) {
+                                                                                                                                                  case "Base Raised to Zero":
+                                                                                                                                                      hint_code = "Z";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Addition of Exponents with the Same Bases":
+                                                                                                                                                      hint_code = "AE";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Multiplication of Bases with the Same Exponents":
+                                                                                                                                                      hint_code = "MB";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Multiplication of Exponents to Find the Power of a Power":
+                                                                                                                                                      hint_code = "ME";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Subtraction of Exponents":
+                                                                                                                                                      hint_code = "SE";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Negative Integer Exponents":
+                                                                                                                                                      hint_code = "N";
+                                                                                                                                                      break;
+                                                                                                                                              }
 
-                                                                            hint_webview1.getSettings().setJavaScriptEnabled(true);
-                                                                            hint_webview1.getSettings().setDomStorageEnabled(true);
+                                                                                                                                              System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
+                                                                                                                                                      "Hint Code: " + hint_code);
 
-                                                                            hint_webview1.setWebViewClient(new WebViewClient());
+                                                                                                                                              MainFragment.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[0]);
 
-                                                                            String path = Uri.parse(read_url.get(0)).toString();
-                                                                            hint_webview1.loadUrl(path);
-                                                                            hint_webview1.setBackgroundColor(0x00000000);
-                                                                            chosen_hint_view.addView(hint_webview1, layoutParams);
+                                                                                                                                              WebView hint_webview1 = new WebView(SolveProblemActivity.this);
+                                                                                                                                              LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-                                                                        } else {
-                                                                            WebView hint_webview2 = new WebView(SolveProblemActivity.this);
-                                                                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                                                                                                                              hint_webview1.getSettings().setJavaScriptEnabled(true);
+                                                                                                                                              hint_webview1.getSettings().setDomStorageEnabled(true);
 
-                                                                            hint_webview2.getSettings().setJavaScriptEnabled(true);
-                                                                            hint_webview2.getSettings().setDomStorageEnabled(true);
+                                                                                                                                              hint_webview1.setWebViewClient(new WebViewClient());
 
-                                                                            hint_webview2.setWebViewClient(new WebViewClient());
+                                                                                                                                              String path = Uri.parse(read_url.get(0)).toString();
+                                                                                                                                              hint_webview1.loadUrl(path);
+                                                                                                                                              hint_webview1.setBackgroundColor(0x00000000);
+                                                                                                                                              chosen_hint_view.addView(hint_webview1, layoutParams);
 
-                                                                            String path = Uri.parse(read_url.get(1)).toString();
-                                                                            hint_webview2.loadUrl(path);
-                                                                            hint_webview2.setBackgroundColor(0x00000000);
-                                                                            chosen_hint_view.addView(hint_webview2, layoutParams);
-                                                                        }
+                                                                                                                                          } else {
+                                                                                                                                              switch (hint_choices[1]) {
+                                                                                                                                                  case "Base Raised to Zero":
+                                                                                                                                                      hint_code = "Z";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Addition of Exponents with the Same Bases":
+                                                                                                                                                      hint_code = "AE";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Multiplication of Bases with the Same Exponents":
+                                                                                                                                                      hint_code = "MB";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Multiplication of Exponents to Find the Power of a Power":
+                                                                                                                                                      hint_code = "ME";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Subtraction of Exponents":
+                                                                                                                                                      hint_code = "SE";
+                                                                                                                                                      break;
+                                                                                                                                                  case "Negative Integer Exponents":
+                                                                                                                                                      hint_code = "N";
+                                                                                                                                                      break;
+                                                                                                                                              }
 
-                                                                    }
-                                                                })
-                                                                .setListener(R.id.solve_expo_back, true, new View.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(View view) {
-                                                                        errorsCommited = 3;
-                                                                    }
-                                                                })
-                                                                .show();
-                                                    }
-                                                });
-                                            }
+                                                                                                                                              System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
+                                                                                                                                                      "Hint Code: " + hint_code);
 
-                                        }
-                                    })
-                                    .setListener(R.id.back_to_solve, true, new View.OnClickListener() {
+                                                                                                                                              MainFragment.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[1]);
+
+                                                                                                                                              WebView hint_webview2 = new WebView(SolveProblemActivity.this);
+                                                                                                                                              LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                                                                                                                                              hint_webview2.getSettings().setJavaScriptEnabled(true);
+                                                                                                                                              hint_webview2.getSettings().setDomStorageEnabled(true);
+
+                                                                                                                                              hint_webview2.setWebViewClient(new WebViewClient());
+
+                                                                                                                                              String path = Uri.parse(read_url.get(1)).toString();
+                                                                                                                                              hint_webview2.loadUrl(path);
+                                                                                                                                              hint_webview2.setBackgroundColor(0x00000000);
+                                                                                                                                              chosen_hint_view.addView(hint_webview2, layoutParams);
+                                                                                                                                          }
+
+                                                                                                                                      }
+                                                                                                                                  }
+
+                                                                                                                   )
+                                                                                                                   .
+
+                                                                                                                           setListener(R.id.solve_expo_back, true, new View.OnClickListener() {
+                                                                                                                                       @Override
+                                                                                                                                       public void onClick(View
+                                                                                                                                                                   view) {
+                                                                                                                                           errorsCommited = 3;
+                                                                                                                                       }
+                                                                                                                                   }
+
+                                                                                                                           )
+                                                                                                                   .
+
+                                                                                                                           show();
+                                                                                                       }
+                                                                                                   }
+
+                                                                       );
+                                                                   }
+
+                                                               }
+                                                           }
+
+                                            )
+                                            .
+
+                                                    setListener(R.id.back_to_solve, true, new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    solving = true;
+                                                                }
+                                                            }
+
+                                                    )
+                                            .
+
+                                                    show();
+                                }
+                            }
+
+                    )
+                    .
+
+                            setListener(R.id.ignore_hint, true, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             solving = true;
                                         }
-                                    })
-                                    .show();
-                        }
-                    })
-                    .setListener(R.id.ignore_hint, true, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            solving = true;
-                        }
-                    })
-                    .show();
-        } else if (errorsCommited == 5) {
+                                    }
+
+                            )
+                    .
+
+                            show();
+        } else if (errorsCommited == 5)
+
+        {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("IS THE PROBLEM VERY DIFFICULT?")
                     .setMessage("It seems that this equation is giving you a hard time. I can provide you the answer to this equation if you want, however, you have to quit solving this problem. Is that all right?")
@@ -1797,7 +1898,9 @@ public class SolveProblemActivity extends AppCompatActivity {
                         }
                     })
                     .show();
-        } else if (errorsCommited == 9) {
+        } else if (errorsCommited == 9)
+
+        {
             new LovelyStandardDialog(SolveProblemActivity.this)
                     .setTitle("I'M SORRY")
                     .setMessage("I think its time to let go of this problem and solve a new one. Nice try, though.")
