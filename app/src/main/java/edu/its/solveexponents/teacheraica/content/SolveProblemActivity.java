@@ -45,8 +45,6 @@ import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 import static io.github.kexanie.library.R.id.MathJax;
-import static org.matheclipse.core.expression.F.f;
-import static org.matheclipse.core.expression.F.z;
 
 /**
  * Created by jairus on 12/8/16.

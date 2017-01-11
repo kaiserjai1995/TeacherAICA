@@ -3,44 +3,306 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#1565C0"
+              android:clipChildren="false"
+              android:clipToPadding="false"
               android:orientation="vertical"
+              android:background="@color/colorPrimaryDark"
               tools:context="edu.its.solveexponents.teacheraica.content.ViewHistoryFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/card_background"
-        android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/label"
-            fontPath="fonts/Raleway-Bold.ttf"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="100dp"
-            android:gravity="center_horizontal"
-            android:text="VIEW HISTORY SECTION"
-            android:textSize="45dp"
-            tools:ignore="MissingPrefix"/>
+        <LinearLayout
+            android:id="@+id/view_history_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="None at the moment"
-            android:textSize="12dp"/>
+            <com.ramotion.foldingcell.FoldingCell
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/folding_cell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/card_background">
 
-    </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/cell_content_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="7dp"
+                        android:descendantFocusability="afterDescendants"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/solve_problem_question_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/incorrect"/>
+
+                        <TextView
+                            android:id="@+id/solve_problem_problem_title"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/solve_problem_question_image"
+                            android:text="Equation"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            android:id="@+id/equation"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/solve_problem_problem_title"
+                            android:layout_toEndOf="@+id/solve_problem_question_image"
+                            android:text="3x*5x"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            android:id="@+id/date_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="-5dp"
+                            android:layout_marginRight="-1dp"
+                            android:text="12/12/12 1:00 AM"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Not Solved"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_toEndOf="@+id/solve_problem_question_image"
+                            android:layout_below="@+id/equation"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/cell_title_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:descendantFocusability="afterDescendants"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/solve_problem_question_image_outside"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/incorrect"/>
+
+                        <TextView
+                            android:id="@+id/solve_problem_problem_title_outside"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="7dp"
+                            android:layout_toEndOf="@+id/solve_problem_question_image_outside"
+                            android:text="Equation"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/solve_problem_problem_title_outside"
+                            android:layout_toEndOf="@+id/solve_problem_question_image_outside"
+                            android:text="3x*5x"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            android:id="@+id/date_time_outside"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="-5dp"
+                            android:layout_marginRight="-1dp"
+                            android:text="12/12/12 1:00 AM"/>
+
+                    </RelativeLayout>
+                </FrameLayout>
+
+            </com.ramotion.foldingcell.FoldingCell>
+
+            <!-- Another FoldingCell Layout -->
+
+            <com.ramotion.foldingcell.FoldingCell
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/folding_cell2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/card_background">
+
+                <FrameLayout
+                    android:id="@+id/cell_content_view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="7dp"
+                        android:descendantFocusability="afterDescendants"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/solve_problem_question_image2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/correct"/>
+
+                        <TextView
+                            android:id="@+id/solve_problem_problem_title2"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/solve_problem_question_image2"
+                            android:text="Equation"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            android:id="@+id/equation2"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/solve_problem_problem_title2"
+                            android:layout_toEndOf="@+id/solve_problem_question_image2"
+                            android:text="3x*5x"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            android:id="@+id/date_time2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="-5dp"
+                            android:layout_marginRight="-1dp"
+                            android:text="12/12/12 1:00 AM"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Not Solved"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_toEndOf="@+id/solve_problem_question_image2"
+                            android:layout_below="@+id/equation2"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/cell_title_view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:background="@drawable/card_background"
+                        android:descendantFocusability="afterDescendants"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/solve_problem_question_image_outside2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/correct"/>
+
+                        <TextView
+                            android:id="@+id/solve_problem_problem_title_outside2"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="7dp"
+                            android:layout_toEndOf="@+id/solve_problem_question_image_outside2"
+                            android:text="Equation"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/solve_problem_problem_title_outside2"
+                            android:layout_toEndOf="@+id/solve_problem_question_image_outside2"
+                            android:text="3x*5x"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
+
+                        <TextView
+                            android:id="@+id/date_time_outside2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="-5dp"
+                            android:layout_marginRight="-1dp"
+                            android:text="12/12/12 1:00 AM"/>
+
+                    </RelativeLayout>
+                </FrameLayout>
+
+            </com.ramotion.foldingcell.FoldingCell>
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
