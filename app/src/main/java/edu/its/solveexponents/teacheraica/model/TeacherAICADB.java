@@ -19,8 +19,6 @@ import java.util.TimeZone;
  * Created by jairus on 8/7/16.
  */
 
-//TODO View History
-
 public class TeacherAICADB extends SQLiteOpenHelper {
     private static TeacherAICADB sInstance;
 
@@ -344,7 +342,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     private void initializeDateTimeFormat() {
-        this.dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+        this.dateFormat = new SimpleDateFormat("MM/dd/yy hh:mm:ss a");
         this.dateFormat.setTimeZone(TimeZone.getDefault());
     }
 
@@ -437,10 +435,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     public ArrayList<Problem> getProblems() {
-        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS
                 + " FROM " + TBL_PROBLEMS
-                + " WHERE " + TBL_PROBLEMS_STATUS + " = 'solved'"
                 + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
+
         Cursor cursor = db.rawQuery(sql, null);
 
         ArrayList<Problem> problems = new ArrayList<>();
@@ -450,10 +448,24 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 problem.setproblemID(cursor.getInt(0));
                 problem.setProblem(cursor.getString(1));
                 String date = (cursor.getString(2) == null) ? "" : cursor.getString(2);
+                String time_created = "";
+                String time_stopped = (cursor.getString(3) == null) ? "" : cursor.getString(3);
+
                 if (!date.equals("")) {
                     date = date.substring(0, date.indexOf(" "));
+                    time_created = cursor.getString(2).substring(cursor.getString(2).indexOf(" "));
                 }
+
+                if (!time_stopped.equals("")) {
+                    time_stopped = time_stopped.substring(time_stopped.indexOf(" "));
+                }
+
                 problem.setDate(date);
+                problem.setTime_created(time_created);
+                problem.setTime_stopped(time_stopped);
+
+                String status = (cursor.getString(4) == null) ? "" : cursor.getString(4);
+                problem.setStatus(status);
 
                 {
                     ArrayList<String> solution = new ArrayList<>();

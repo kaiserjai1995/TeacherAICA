@@ -42,7 +42,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile project(':symjalib-release-2016-04-25')
     compile 'io.github.kexanie.library:MathView:0.0.6'
-    compile 'com.ramotion.foldingcell:folding-cell:1.0.1'
+    compile 'net.cachapa.expandablelayout:expandablelayout:2.6'
 }
 
 repositories {

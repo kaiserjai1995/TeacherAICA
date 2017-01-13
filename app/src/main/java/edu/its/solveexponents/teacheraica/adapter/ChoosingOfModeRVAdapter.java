@@ -220,7 +220,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     @Override
                     public void onClick(View view) {
                         MainFragment.teacheraicadb.addProblem(equation, equationType);
-                        MainFragment.teacheraicadb.updateProblemStatus("skipped");
+                        MainFragment.teacheraicadb.updateProblemStatus("Skipped");
 
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
@@ -250,7 +250,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     @Override
                     public void onClick(View v) {
                         MainFragment.teacheraicadb.addProblem(equation, equationType);
-                        MainFragment.teacheraicadb.updateProblemStatus("skipped");
+                        MainFragment.teacheraicadb.updateProblemStatus("Skipped");
                     }
                 })
                 .show();

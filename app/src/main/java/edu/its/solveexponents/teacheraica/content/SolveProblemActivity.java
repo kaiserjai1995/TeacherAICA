@@ -108,9 +108,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     int number_of_steps;
     int step_number;
     int solution_error_number;
-    ArrayList<String> solutions_list;
-    ArrayList<String> solution_errors_list;
-    boolean hinted, solving, five_errors, nine_errors;
+    boolean hinted_and_left, hinted_and_solved, solving, five_errors, nine_errors;
     String hint_code;
 
     public class StepListener extends AbstractEvalStepListener {
@@ -250,9 +248,6 @@ public class SolveProblemActivity extends AppCompatActivity {
         solution_step_7_view = (LinearLayout) findViewById(R.id.solution_step_7_view);
         solution_step_8_view = (LinearLayout) findViewById(R.id.solution_step_8_view);
         solution_step_9_view = (LinearLayout) findViewById(R.id.solution_step_9_view);
-
-        solution_errors_list = new ArrayList<>();
-        solutions_list = new ArrayList<>();
 
         step_number = 0;
         number_of_steps = 0;
@@ -626,6 +621,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+        hinted_and_left = true;
 
     }
 
@@ -1028,7 +1024,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(View view) {
                                             MainFragment.teacheraicadb.addProblem(equation, equationType);
-                                            MainFragment.teacheraicadb.updateProblemStatus("skipped");
+                                            MainFragment.teacheraicadb.updateProblemStatus("Skipped");
 
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
@@ -1539,23 +1535,16 @@ public class SolveProblemActivity extends AppCompatActivity {
                         && current_answer_with_asterisk_tokens.length == final_answer_with_asterisk_tokens.length)
                         || (Arrays.equals(current_answer_tokens, final_answer_tokens)
                         && current_answer_tokens.length == final_answer_tokens.length)) {
-                    Toast.makeText(getApplicationContext(), "Final Answer has been reached!", Toast.LENGTH_LONG).show();
                     step_number++;
                     number_of_steps++;
-                    solutions_list.add(current_solution);
                     MainFragment.teacheraicadb.addStep(current_solution);
 
-                    for (int i = 0; i < solutions_list.size(); i++) {
-                        Toast.makeText(getApplicationContext(),
-                                "Number of Steps Made: " + number_of_steps + "\n" +
-                                        "Solutions Made: " + solutions_list.get(i), Toast.LENGTH_LONG).show();
-                    }
                     solved = true;
 
-                    if (hinted) {
-                        MainFragment.teacheraicadb.updateProblemStatus("hinted and solved");
+                    if (hinted_and_solved) {
+                        MainFragment.teacheraicadb.updateProblemStatus("Hinted and Solved");
                     } else {
-                        MainFragment.teacheraicadb.updateProblemStatus("solved");
+                        MainFragment.teacheraicadb.updateProblemStatus("Solved");
                     }
 
                     if (equationType.equals("generated")) {
@@ -1578,12 +1567,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
                     step_number++;
                     number_of_steps++;
-                    solutions_list.add(current_solution);
                     MainFragment.teacheraicadb.addStep(current_solution);
-
-                    Toast.makeText(getApplicationContext(),
-                            "Number of Steps Made: " + number_of_steps + "\n" +
-                                    "Solutions Made: " + solutions_list, Toast.LENGTH_LONG).show();
 
                     current_solution_step.setEnabled(false);
                     next_solution_step_view.setVisibility(View.VISIBLE);
@@ -1593,33 +1577,17 @@ public class SolveProblemActivity extends AppCompatActivity {
                     focus_settings();
                 } else {
                     errorsCommited++;
-                    solution_error_number = 1;
-                    solution_errors_list.add(current_solution);
-
                     get_solution_step_number(current_solution_step);
 
                     MainFragment.teacheraicadb.addError(equation, current_solution);
-
-                    Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
-                            "Erring Solutions: " + solution_errors_list + "\n" +
-                            "Error Number: " + solution_error_number + "\n" +
-                            "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
 
                     current_solution_step.setError("Wrong solution!");
                 }
             } else {
                 errorsCommited++;
-                solution_error_number = 2;
-                solution_errors_list.add(current_solution);
-
                 get_solution_step_number(current_solution_step);
 
                 MainFragment.teacheraicadb.addError(equation, current_solution);
-
-                Toast.makeText(getApplicationContext(), "Errors Committed: " + errorsCommited + "\n" +
-                        "Erring Solutions: " + solution_errors_list + "\n" +
-                        "Error Number: " + solution_error_number + "\n" +
-                        "Step Erred: " + step_number, Toast.LENGTH_LONG).show();
 
                 current_solution_step.setError("Input should not be blank!");
             }
@@ -1634,7 +1602,7 @@ public class SolveProblemActivity extends AppCompatActivity {
             MainFragment.teacheraicadb.addError(equation, current_solution);
         }
 
-        if (solution_errors_list.size() == 3) {
+        if (errorsCommited == 3) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("UH OH...")
                     .setMessage("It seems that you are having a difficulty solving this problem. Want to take a hint?")
@@ -1646,7 +1614,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     .setListener(R.id.take_hint, true, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    hinted = true;
+                                    hinted_and_solved = true;
 
                                     new LovelyCustomDialog(SolveProblemActivity.this)
                                             .setTitle("AVAILABLE HINTS")
@@ -1709,8 +1677,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                        btn_hint.setBackgroundColor(getResources().getColor(R.color.fb_primary_color));
                                                                        btn_hint.setFocusBackgroundColor(getResources().getColor(R.color.fb_focus_color));
                                                                        btn_hint.setText(hint_choices[i]);
-
-                                                                       Toast.makeText(getApplicationContext(), hint_choices[i].toString(), Toast.LENGTH_LONG).show();
 
                                                                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                                                        layoutParams.setMargins(10, 10, 10, 10);
@@ -1813,25 +1779,17 @@ public class SolveProblemActivity extends AppCompatActivity {
 
                                                                                                                                       }
                                                                                                                                   }
-
                                                                                                                    )
-                                                                                                                   .
+                                                                                                                   .setListener(R.id.solve_expo_back, true, new View.OnClickListener() {
+                                                                                                                               @Override
+                                                                                                                               public void onClick(View view) {
 
-                                                                                                                           setListener(R.id.solve_expo_back, true, new View.OnClickListener() {
-                                                                                                                                       @Override
-                                                                                                                                       public void onClick(View
-                                                                                                                                                                   view) {
-                                                                                                                                           errorsCommited = 3;
-                                                                                                                                       }
-                                                                                                                                   }
-
-                                                                                                                           )
-                                                                                                                   .
-
-                                                                                                                           show();
+                                                                                                                               }
+                                                                                                                           }
+                                                                                                                   )
+                                                                                                                   .show();
                                                                                                        }
                                                                                                    }
-
                                                                        );
                                                                    }
 
@@ -1839,39 +1797,27 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                            }
 
                                             )
-                                            .
-
-                                                    setListener(R.id.back_to_solve, true, new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View view) {
-                                                                    solving = true;
-                                                                }
-                                                            }
-
-                                                    )
-                                            .
-
-                                                    show();
+                                            .setListener(R.id.back_to_solve, true, new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            errorsCommited++;
+                                                            solving = true;
+                                                        }
+                                                    }
+                                            )
+                                            .show();
                                 }
                             }
-
                     )
-                    .
-
-                            setListener(R.id.ignore_hint, true, new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            solving = true;
-                                        }
-                                    }
-
-                            )
-                    .
-
-                            show();
-        } else if (errorsCommited == 5)
-
-        {
+                    .setListener(R.id.ignore_hint, true, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    solving = true;
+                                }
+                            }
+                    )
+                    .show();
+        } else if (errorsCommited == 5) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("IS THE PROBLEM VERY DIFFICULT?")
                     .setMessage("It seems that this equation is giving you a hard time. I can provide you the answer to this equation if you want, however, you have to quit solving this problem. Is that all right?")
@@ -1896,9 +1842,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                         }
                     })
                     .show();
-        } else if (errorsCommited == 9)
-
-        {
+        } else if (errorsCommited == 9) {
             new LovelyStandardDialog(SolveProblemActivity.this)
                     .setTitle("I'M SORRY")
                     .setMessage("I think its time to let go of this problem and solve a new one. Nice try, though.")
@@ -2186,24 +2130,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                 match = false;
             }
 
-//            util = new ExprEvaluator();
-//            engine = util.getEvalEngine();
-//            engine.setStepListener(new StepListener());
-//            result = util.evaluate(equation);
-//
-//            System.out.println("Result: " + result.toString());
-//
-//            if (result.isAST()) {
-//                match = true;
-//            }
-//
-//            if (result.toString().equals("{}")) {
-//                match = false;
-//            }
-
-            // disable trace mode if the step listener isn't necessary anymore
-//            engine.setTraceMode(false);
-
         } catch (SyntaxError e) {
             // catch Symja parser errors here
             System.out.println(e.getMessage());
@@ -2279,16 +2205,16 @@ public class SolveProblemActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (hinted) {
+        if (hinted_and_left) {
             i = new Intent(this, MainActivity.class);
-            MainFragment.teacheraicadb.updateProblemStatus("hinted and left");
+            MainFragment.teacheraicadb.updateProblemStatus("Hinted and Left");
             finish();
             startActivity(i);
         }
 
         if (!solving) {
             i = new Intent(this, MainActivity.class);
-            MainFragment.teacheraicadb.updateProblemStatus("left");
+            MainFragment.teacheraicadb.updateProblemStatus("Left");
             finish();
             startActivity(i);
         }
