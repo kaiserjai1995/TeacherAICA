@@ -1,6 +1,7 @@
 package edu.its.solveexponents.teacheraica.content;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,11 +11,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -29,11 +32,29 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
 
+    public static TeacherAICADB teacheraicadb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
+        try {
+            teacheraicadb = TeacherAICADB.getInstance(getApplicationContext());
+        } catch (Exception e) {
+            MainActivity.teacheraicadb.logSystemError("TEACHERAICADB \n" + e.toString());
+
+            new AlertDialog.Builder(getApplicationContext())
+                    .setTitle("Oooops!")
+                    .setMessage("Something went wrong. We will fix this as soon as possible.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
+
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/felbridge.ttf")
                 .setFontAttrId(R.attr.fontPath)

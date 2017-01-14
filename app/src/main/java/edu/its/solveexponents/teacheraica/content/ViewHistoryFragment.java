@@ -43,7 +43,7 @@ public class ViewHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_view_history, container, false);
 
-        ArrayList<Problem> problems = MainFragment.teacheraicadb.getProblems();
+        ArrayList<Problem> problems = MainActivity.teacheraicadb.getProblems();
 
         LinearLayout no_problems_view = (LinearLayout) rootView.findViewById(R.id.no_problems_view);
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Bold.ttf");

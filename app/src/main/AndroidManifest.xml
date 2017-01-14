@@ -1,15 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.its.solveexponents.teacheraica">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <supports-screens android:smallScreens="true"
-                      android:normalScreens="true"
-                      android:largeScreens="true"
-                      android:xlargeScreens="true"
-                      android:anyDensity="true"
-                      android:resizeable="true"/>
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"/>
 
     <application
         android:allowBackup="true"
@@ -21,8 +22,8 @@
         <activity
             android:name=".content.SplashScreen"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -33,24 +34,39 @@
         <activity
             android:name=".content.SolveProblemActivity"
             android:label="Solve Exponents"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".content.LoginActivity"
+            android:label="Login"
             android:screenOrientation="portrait"
-            android:noHistory="true">
+            android:theme="@style/AppTheme.Dark">
+
+        </activity>
+
+        <activity
+            android:name=".content.SignUpActivity"
+            android:label="Sign Up"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark">
 
         </activity>
 
         <activity
             android:name=".content.MainActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
             <intent-filter>
-                <action android:name="edu.its.solveexponents.teacheraica.MAINACTIVITY" />
+                <action android:name="edu.its.solveexponents.teacheraica.MAINACTIVITY"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
 
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

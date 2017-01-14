@@ -2,8 +2,10 @@ package edu.its.solveexponents.teacheraica.content;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import edu.its.solveexponents.teacheraica.R;
 
@@ -18,6 +20,14 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
+
+        TextView aicatitle = (TextView) findViewById(R.id.aicatitle);
+        aicatitle.setTypeface(font, Typeface.BOLD);
+
+        TextView aicadesc = (TextView) findViewById(R.id.aicadesc);
+        aicadesc.setTypeface(font);
 
         mProgress = (ProgressBar) findViewById(R.id.splash_screen_progress_bar);
 
@@ -48,7 +58,7 @@ public class SplashScreen extends Activity {
     }
 
     private void startApp() {
-        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+        Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
         startActivity(intent);
     }
 }

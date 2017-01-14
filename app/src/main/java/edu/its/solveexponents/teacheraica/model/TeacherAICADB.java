@@ -35,7 +35,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
     private int maxNumberOfProblemsPerSublevel;
 
-    private static final String DB_NAME = "teacheraicadb";
+    public static String DB_NAME = "teacheraicadb";
 
     private static final int DB_VERSION = 1;
 
@@ -114,6 +114,14 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_SYSTEM_ERRORS = "tbl_system_errors";
     private final String TBL_SYSTEM_ERRORS_PROBLEM_OR_MESSAGE = "problemOrMessage";
     private final String TBL_SYSTEM_ERRORS_TIMESTAMP = "timeStamp";
+
+    public String getDB_NAME() {
+        return DB_NAME;
+    }
+
+    public void setDB_NAME(String DB_NAME) {
+        this.DB_NAME = DB_NAME;
+    }
 
     public static synchronized TeacherAICADB getInstance(Context context) {
         // Use the application context, which will ensure that you

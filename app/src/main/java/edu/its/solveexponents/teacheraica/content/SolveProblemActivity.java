@@ -41,6 +41,7 @@ import java.util.Arrays;
 
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.algo.Randomizer;
+import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -62,9 +63,6 @@ public class SolveProblemActivity extends AppCompatActivity {
     boolean solved;
 
     String hint;
-
-    public static View parentView;
-    public static View solutionScrollView;
 
     MathView math_equation, solution_preview, abort_problem_final_answer, abort_problem_equation;
     MathView generated_problem;
@@ -165,7 +163,7 @@ public class SolveProblemActivity extends AppCompatActivity {
             math_equation.setText(final_equation_string);
 
             this.equationType = "generated";
-            MainFragment.teacheraicadb.addProblem(equation, equationType);
+            MainActivity.teacheraicadb.addProblem(equation, equationType);
         } else {
             //TODO Analyze equation string for determining hint type
             final_answer = getIntent().getExtras().getString("result");
@@ -181,7 +179,7 @@ public class SolveProblemActivity extends AppCompatActivity {
             }
 
             this.equationType = "custom";
-            MainFragment.teacheraicadb.addProblem(equation, equationType);
+            MainActivity.teacheraicadb.addProblem(equation, equationType);
         }
 
         Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
@@ -592,8 +590,6 @@ public class SolveProblemActivity extends AppCompatActivity {
             }
         });
 
-        parentView = (View) findViewById(R.id.activity_layout_solve);
-        solutionScrollView = (View) findViewById(R.id.scrollView_solve);
     }
 
     @Override
@@ -610,7 +606,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .setListener(R.id.abort_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MainFragment.teacheraicadb.updateProblemStatus("aborted");
+                        MainActivity.teacheraicadb.updateProblemStatus("aborted");
                         show_answer();
                     }
                 })
@@ -960,8 +956,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             Button cancel_problem_btn = (Button) v.findViewById(R.id.cancel_problem_btn);
                                             cancel_problem_btn.setVisibility(View.GONE);
 
-                                            level = MainFragment.teacheraicadb.getCurrentLevel();
-                                            sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+                                            level = MainActivity.teacheraicadb.getCurrentLevel();
+                                            sublevel = MainActivity.teacheraicadb.getCurrentSublevel(level);
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
 
@@ -1006,8 +1002,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             result = util.evaluate(equation);
                                             System.out.println("Result: " + result.toString());
 
-                                            current_level = MainFragment.teacheraicadb.getCurrentLevel();
-                                            current_sublevel = MainFragment.teacheraicadb.getCurrentSublevel(current_level);
+                                            current_level = MainActivity.teacheraicadb.getCurrentLevel();
+                                            current_sublevel = MainActivity.teacheraicadb.getCurrentSublevel(current_level);
 
                                             i.putExtra("generated", true);
                                             i.putExtra("level", current_level);
@@ -1023,8 +1019,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            MainFragment.teacheraicadb.addProblem(equation, equationType);
-                                            MainFragment.teacheraicadb.updateProblemStatus("Skipped");
+                                            MainActivity.teacheraicadb.addProblem(equation, equationType);
+                                            MainActivity.teacheraicadb.updateProblemStatus("Skipped");
 
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
@@ -1537,14 +1533,14 @@ public class SolveProblemActivity extends AppCompatActivity {
                         && current_answer_tokens.length == final_answer_tokens.length)) {
                     step_number++;
                     number_of_steps++;
-                    MainFragment.teacheraicadb.addStep(current_solution);
+                    MainActivity.teacheraicadb.addStep(current_solution);
 
                     solved = true;
 
                     if (hinted_and_solved) {
-                        MainFragment.teacheraicadb.updateProblemStatus("Hinted and Solved");
+                        MainActivity.teacheraicadb.updateProblemStatus("Hinted and Solved");
                     } else {
-                        MainFragment.teacheraicadb.updateProblemStatus("Solved");
+                        MainActivity.teacheraicadb.updateProblemStatus("Solved");
                     }
 
                     if (equationType.equals("generated")) {
@@ -1557,7 +1553,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                             increment = 1;
                         }
 
-                        MainFragment.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
+                        MainActivity.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
 
                         next_problem_prompt("generated");
                     } else if (equationType.equals("custom")) {
@@ -1567,7 +1563,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
                     step_number++;
                     number_of_steps++;
-                    MainFragment.teacheraicadb.addStep(current_solution);
+                    MainActivity.teacheraicadb.addStep(current_solution);
 
                     current_solution_step.setEnabled(false);
                     next_solution_step_view.setVisibility(View.VISIBLE);
@@ -1579,7 +1575,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     errorsCommited++;
                     get_solution_step_number(current_solution_step);
 
-                    MainFragment.teacheraicadb.addError(equation, current_solution);
+                    MainActivity.teacheraicadb.addError(equation, current_solution);
 
                     current_solution_step.setError("Wrong solution!");
                 }
@@ -1587,19 +1583,19 @@ public class SolveProblemActivity extends AppCompatActivity {
                 errorsCommited++;
                 get_solution_step_number(current_solution_step);
 
-                MainFragment.teacheraicadb.addError(equation, current_solution);
+                MainActivity.teacheraicadb.addError(equation, current_solution);
 
                 current_solution_step.setError("Input should not be blank!");
             }
         } catch (SyntaxError e) {
             current_solution_step.setError("Invalid input");
-            MainFragment.teacheraicadb.addError(equation, current_solution);
+            MainActivity.teacheraicadb.addError(equation, current_solution);
         } catch (MathException e) {
             current_solution_step.setError("Invalid input");
-            MainFragment.teacheraicadb.addError(equation, current_solution);
+            MainActivity.teacheraicadb.addError(equation, current_solution);
         } catch (Exception e) {
             current_solution_step.setError("Invalid input");
-            MainFragment.teacheraicadb.addError(equation, current_solution);
+            MainActivity.teacheraicadb.addError(equation, current_solution);
         }
 
         if (errorsCommited == 3) {
@@ -1721,7 +1717,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                                                                                               System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
                                                                                                                                                       "Hint Code: " + hint_code);
 
-                                                                                                                                              MainFragment.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[0]);
+                                                                                                                                              MainActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[0]);
 
                                                                                                                                               WebView hint_webview1 = new WebView(SolveProblemActivity.this);
                                                                                                                                               LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -1761,7 +1757,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                                                                                               System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
                                                                                                                                                       "Hint Code: " + hint_code);
 
-                                                                                                                                              MainFragment.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[1]);
+                                                                                                                                              MainActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[1]);
 
                                                                                                                                               WebView hint_webview2 = new WebView(SolveProblemActivity.this);
                                                                                                                                               LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -1831,7 +1827,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             five_errors = true;
-                            MainFragment.teacheraicadb.updateProblemStatus("Errors 5x and Aborted");
+                            MainActivity.teacheraicadb.updateProblemStatus("Errors 5x and Aborted");
                             onBackPressed();
                         }
                     })
@@ -1995,7 +1991,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     }
 
     public void show_answer() {
-        MainFragment.teacheraicadb.updateProblemStatus("abort");
+        MainActivity.teacheraicadb.updateProblemStatus("abort");
 
         new LovelyCustomDialog(SolveProblemActivity.this)
                 .setIcon(R.drawable.aica)
@@ -2207,24 +2203,24 @@ public class SolveProblemActivity extends AppCompatActivity {
         super.onPause();
         if (hinted_and_left) {
             i = new Intent(this, MainActivity.class);
-            MainFragment.teacheraicadb.updateProblemStatus("Hinted and Left");
+            MainActivity.teacheraicadb.updateProblemStatus("Hinted and Left");
             finish();
             startActivity(i);
         }
 
         if (!solving) {
             i = new Intent(this, MainActivity.class);
-            MainFragment.teacheraicadb.updateProblemStatus("Left");
+            MainActivity.teacheraicadb.updateProblemStatus("Left");
             finish();
             startActivity(i);
         }
 
         if (five_errors) {
-            MainFragment.teacheraicadb.updateProblemStatus("Errors 5x and Left");
+            MainActivity.teacheraicadb.updateProblemStatus("Errors 5x and Left");
         }
 
         if (nine_errors) {
-            MainFragment.teacheraicadb.updateProblemStatus("Errors 9x");
+            MainActivity.teacheraicadb.updateProblemStatus("Errors 9x");
         }
     }
 

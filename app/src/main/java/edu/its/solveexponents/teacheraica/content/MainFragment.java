@@ -1,18 +1,13 @@
 package edu.its.solveexponents.teacheraica.content;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
-
-import java.io.File;
 
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
@@ -39,25 +34,25 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        File fileDir = new File(Environment.getExternalStorageDirectory().getPath() + "/teacheraica");
+//        File fileDir = new File(Environment.getExternalStorageDirectory().getPath() + "/teacheraica");
+//
+//        if (!fileDir.exists()) fileDir.mkdir();
 
-        if (!fileDir.exists()) fileDir.mkdir();
-
-        try {
-            teacheraicadb = TeacherAICADB.getInstance(getContext());
-        } catch (Exception e) {
-            MainFragment.teacheraicadb.logSystemError("TEACHERAICADB \n" + e.toString());
-
-            new AlertDialog.Builder(getContext())
-                    .setTitle("Oooops!")
-                    .setMessage("Something went wrong. We will fix this as soon as possible.")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
-        }
+//        try {
+//            teacheraicadb = TeacherAICADB.getInstance(getContext());
+//        } catch (Exception e) {
+//            MainFragment.teacheraicadb.logSystemError("TEACHERAICADB \n" + e.toString());
+//
+//            new AlertDialog.Builder(getContext())
+//                    .setTitle("Oooops!")
+//                    .setMessage("Something went wrong. We will fix this as soon as possible.")
+//                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    })
+//                    .show();
+//        }
 
         // Inflate the layout for this fragment
         return rootView;

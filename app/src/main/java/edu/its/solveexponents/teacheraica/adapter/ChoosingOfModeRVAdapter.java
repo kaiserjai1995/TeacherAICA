@@ -29,7 +29,7 @@ import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.algo.Randomizer;
-import edu.its.solveexponents.teacheraica.content.MainFragment;
+import edu.its.solveexponents.teacheraica.content.MainActivity;
 import edu.its.solveexponents.teacheraica.content.SolveProblemActivity;
 import edu.its.solveexponents.teacheraica.model.ModeInput;
 import io.github.kexanie.library.MathView;
@@ -133,8 +133,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
-                        level = MainFragment.teacheraicadb.getCurrentLevel();
-                        sublevel = MainFragment.teacheraicadb.getCurrentSublevel(level);
+                        level = MainActivity.teacheraicadb.getCurrentLevel();
+                        sublevel = MainActivity.teacheraicadb.getCurrentSublevel(level);
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
                         equationType = "generated";
@@ -219,8 +219,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MainFragment.teacheraicadb.addProblem(equation, equationType);
-                        MainFragment.teacheraicadb.updateProblemStatus("Skipped");
+                        MainActivity.teacheraicadb.addProblem(equation, equationType);
+                        MainActivity.teacheraicadb.updateProblemStatus("Skipped");
 
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
@@ -249,8 +249,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MainFragment.teacheraicadb.addProblem(equation, equationType);
-                        MainFragment.teacheraicadb.updateProblemStatus("Skipped");
+                        MainActivity.teacheraicadb.addProblem(equation, equationType);
+                        MainActivity.teacheraicadb.updateProblemStatus("Skipped");
                     }
                 })
                 .show();
