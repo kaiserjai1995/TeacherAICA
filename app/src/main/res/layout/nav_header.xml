@@ -33,4 +33,15 @@
         android:text="@string/application_desc"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
+    <TextView
+        android:id="@+id/nav_username"
+        fontPath="fonts/Raleway-Bold.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:layout_toEndOf="@+id/username_pre"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:ignore="MissingPrefix"/>
+
 </LinearLayout>

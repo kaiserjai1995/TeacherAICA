@@ -2,6 +2,7 @@ package edu.its.solveexponents.teacheraica.content;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -9,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +22,7 @@ import butterknife.InjectView;
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 import fr.ganfra.materialspinner.MaterialSpinner;
+import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
  * Created by jairus on 1/14/17.
@@ -40,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
     @InjectView(R.id.input_section) EditText _sectionText;
     @InjectView(R.id.input_age) EditText _ageText;
     @InjectView(R.id.spinner_gender) MaterialSpinner _genderText;
-    @InjectView(R.id.btn_signup) Button _signupButton;
+    @InjectView(R.id.btn_signup) FancyButton _signupButton;
     @InjectView(R.id.link_login) TextView _loginLink;
 
     @Override
@@ -96,57 +97,60 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String username = _usernameText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String lastname = _lastnameText.getText().toString();
-        String firstname = _firstnameText.getText().toString();
-        String middlename = _middlenameText.getText().toString();
-        String section = _sectionText.getText().toString();
-        String age = _ageText.getText().toString();
-        String gender = _genderText.getSelectedItem().toString();
-
         // TODO: Implement your own signup logic here.
-
-        LoginActivity.usersdb.addUser(username, password, lastname, firstname, middlename, section, age, gender);
-
-        try {
-            teacheraicadb = TeacherAICADB.getInstance(getApplicationContext());
-        } catch (Exception e) {
-            LoginActivity.teacheraicadb.logSystemError("TEACHERAICADB \n" + e.toString());
-
-            new AlertDialog.Builder(getApplicationContext())
-                    .setTitle("Oooops!")
-                    .setMessage("Something went wrong. We will fix this as soon as possible.")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .show();
-        }
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
+                        String username = _usernameText.getText().toString();
+                        String password = _passwordText.getText().toString();
+                        String lastname = _lastnameText.getText().toString();
+                        String firstname = _firstnameText.getText().toString();
+                        String middlename = _middlenameText.getText().toString();
+                        String section = _sectionText.getText().toString();
+                        String age = _ageText.getText().toString();
+                        String gender = _genderText.getSelectedItem().toString();
+
+                        if (LoginActivity.usersdb.checkUsernameIfExists(username).isEmpty()) {
+                            LoginActivity.usersdb.addUser(username, password, lastname, firstname, middlename, section, age, gender);
+
+                            try {
+                                teacheraicadb = TeacherAICADB.getInstance(getApplicationContext(), username);
+                            } catch (Exception e) {
+                                LoginActivity.teacheraicadb.logSystemError("TEACHERAICADB \n" + e.toString());
+
+                                new AlertDialog.Builder(getApplicationContext())
+                                        .setTitle("Oooops!")
+                                        .setMessage("Something went wrong. We will fix this as soon as possible.")
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .show();
+                            }
+
+                            onSignupSuccess();
+                            progressDialog.dismiss();
+                        } else {
+                            onSignupFailed();
+                            progressDialog.dismiss();
+                        }
+
                     }
                 }, 3000);
     }
 
-
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
+//        setResult(RESULT_OK, null);
+        Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+        startActivity(i);
         finish();
     }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Account Creation failed", Toast.LENGTH_LONG).show();
-
         _signupButton.setEnabled(true);
     }
 

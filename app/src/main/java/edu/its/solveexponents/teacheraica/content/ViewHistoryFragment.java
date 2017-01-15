@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.yarolegovich.lovelydialog.LovelyCustomDialog;
+
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.ArrayList;
@@ -22,12 +25,16 @@ import edu.its.solveexponents.teacheraica.model.Problem;
 import io.github.kexanie.library.MathView;
 
 import static io.github.kexanie.library.R.id.KaTeX;
+import static java.lang.Math.round;
 
 /**
  * Created by jairus on 7/6/16.
  */
 
 public class ViewHistoryFragment extends Fragment {
+
+    ArrayList<Problem> problems, solvedProblems, unsolvedProblems, generatedProblems, customProblems;
+    Typeface font;
 
     public ViewHistoryFragment() {
         // Required empty public constructor
@@ -41,15 +48,66 @@ public class ViewHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_view_history, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_view_history, container, false);
 
-        ArrayList<Problem> problems = MainActivity.teacheraicadb.getProblems();
+        problems = LoginActivity.teacheraicadb.getProblems();
+        solvedProblems = LoginActivity.teacheraicadb.getSolvedProblems();
+        unsolvedProblems = LoginActivity.teacheraicadb.getUnsolvedProblems();
+        generatedProblems = LoginActivity.teacheraicadb.getGeneratedProblems();
+        customProblems = LoginActivity.teacheraicadb.getCustomProblems();
 
         LinearLayout no_problems_view = (LinearLayout) rootView.findViewById(R.id.no_problems_view);
-        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Bold.ttf");
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Bold.ttf");
 
         final LinearLayout view_history_layout = (LinearLayout) rootView.findViewById(R.id.view_history_layout);
         view_history_layout.setOrientation(LinearLayout.VERTICAL);
+
+        FloatingActionButton history_summary = (FloatingActionButton) rootView.findViewById(R.id.history_summary);
+        history_summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new LovelyCustomDialog(getContext())
+                        .setCancelable(true)
+                        .setView(R.layout.history_performance)
+                        .configureView(new LovelyCustomDialog.ViewConfigurator() {
+                            @Override
+                            public void configureView(View v) {
+                                TextView total_questions = (TextView) v.findViewById(R.id.total_questions);
+                                total_questions.setTypeface(font, Typeface.BOLD);
+                                total_questions.setText("" + problems.size());
+
+                                TextView total_solved_questions = (TextView) v.findViewById(R.id.total_solved_questions);
+                                total_solved_questions.setTypeface(font, Typeface.BOLD);
+                                total_solved_questions.setText("" + solvedProblems.size());
+
+                                TextView total_unsolved_questions = (TextView) v.findViewById(R.id.total_unsolved_questions);
+                                total_unsolved_questions.setTypeface(font, Typeface.BOLD);
+                                total_unsolved_questions.setText("" + unsolvedProblems.size());
+
+                                TextView efficiency_solving_questions = (TextView) v.findViewById(R.id.efficiency_solving_questions);
+                                efficiency_solving_questions.setTypeface(font, Typeface.BOLD);
+                                double result_init = (double)solvedProblems.size() / (double)problems.size();
+                                double result_tent = result_init * 50;
+                                double result = round(result_tent + 50);
+                                efficiency_solving_questions.setText("" + result + "%");
+
+                                TextView total_generated_questions = (TextView) v.findViewById(R.id.total_generated_questions);
+                                total_generated_questions.setTypeface(font, Typeface.BOLD);
+                                total_generated_questions.setText("" + generatedProblems.size());
+
+                                TextView total_custom_questions = (TextView) v.findViewById(R.id.total_custom_questions);
+                                total_custom_questions.setTypeface(font, Typeface.BOLD);
+                                total_custom_questions.setText("" + customProblems.size());
+                            }
+                        })
+                        .setTitle("Summary of Performance")
+                        .setTopColorRes(R.color.teal)
+                        .setIcon(R.drawable.aica)
+                        .setTitleGravity(1)
+                        .show();
+            }
+        });
+
 
         if (problems.size() != 0) {
             no_problems_view.setVisibility(View.GONE);
@@ -111,7 +169,7 @@ public class ViewHistoryFragment extends Fragment {
                                 "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
                                 "         SVG: { linebreaks: { automatic: true } }\n" +
                                 "});");
-                problem_text_in.setText("\\(\\large" + problem.getProblem() + "\\)");
+                problem_text_in.setText("\\(\\large " + problem.getProblem() + " \\)");
 
                 TextView date_in = new TextView(rootView.getContext());
                 date_in.setId(4000 + i);
@@ -131,6 +189,16 @@ public class ViewHistoryFragment extends Fragment {
                 solved_status_in.setTextSize(15);
                 solved_status_in.setTypeface(font, Typeface.BOLD);
                 solved_status_in.setText(problem.getStatus());
+
+                TextView equation_type_in = new TextView(rootView.getContext());
+                equation_type_in.setId(6000 + i);
+                RelativeLayout.LayoutParams equation_type_in_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                equation_type_in_layoutParams.addRule(RelativeLayout.END_OF, problem_solved_image_in.getId());
+                equation_type_in_layoutParams.addRule(RelativeLayout.BELOW, solved_status_in.getId());
+                equation_type_in.setLayoutParams(equation_type_in_layoutParams);
+                equation_type_in.setTextSize(15);
+                equation_type_in.setTypeface(font);
+                equation_type_in.setText(problem.getProblemType());
 
                 //Layout to Expand
 
@@ -190,10 +258,32 @@ public class ViewHistoryFragment extends Fragment {
                 time_stopped.setTypeface(font, Typeface.BOLD);
                 time_stopped.setText("Stopped Solving At: \t" + problem.getTime_stopped());
 
+                TextView time_elapsed = new TextView(rootView.getContext());
+                time_elapsed.setId(14000 + i);
+                RelativeLayout.LayoutParams time_elapsed_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                time_elapsed_layoutParams.addRule(RelativeLayout.BELOW, time_stopped.getId());
+                time_elapsed_layoutParams.addRule(RelativeLayout.END_OF, details_image.getId());
+                time_elapsed.setLayoutParams(time_elapsed_layoutParams);
+                time_elapsed.setTextSize(15);
+                time_elapsed.setTypeface(font, Typeface.BOLD);
+                time_elapsed.setText("Time Elapsed: \t" + problem.getTimeElapsed() + " seconds");
+
+                ArrayList<String> solutionSteps = problem.getSolution();
+
+                TextView num_solution_steps = new TextView(rootView.getContext());
+                num_solution_steps.setId(15000 + i);
+                RelativeLayout.LayoutParams num_solution_steps_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                num_solution_steps_layoutParams.addRule(RelativeLayout.BELOW, time_elapsed.getId());
+                num_solution_steps_layoutParams.addRule(RelativeLayout.END_OF, details_image.getId());
+                num_solution_steps.setLayoutParams(num_solution_steps_layoutParams);
+                num_solution_steps.setTextSize(15);
+                num_solution_steps.setTypeface(font, Typeface.BOLD);
+                num_solution_steps.setText("Solution Steps Made: \t" + solutionSteps.size());
+
                 TextView solution_steps_title = new TextView(rootView.getContext());
-                solution_steps_title.setId(14000 + i);
+                solution_steps_title.setId(16000 + i);
                 RelativeLayout.LayoutParams solution_steps_title_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                solution_steps_title_layoutParams.addRule(RelativeLayout.BELOW, time_stopped.getId());
+                solution_steps_title_layoutParams.addRule(RelativeLayout.BELOW, num_solution_steps.getId());
                 solution_steps_title_layoutParams.addRule(RelativeLayout.END_OF, details_image.getId());
                 solution_steps_title_layoutParams.setMargins(0, 10, 0, 0);
                 solution_steps_title.setLayoutParams(solution_steps_title_layoutParams);
@@ -202,7 +292,7 @@ public class ViewHistoryFragment extends Fragment {
                 solution_steps_title.setText("Solution Steps:");
 
                 TextView solution_steps = new TextView(rootView.getContext());
-                solution_steps.setId(15000 + i);
+                solution_steps.setId(17000 + i);
                 RelativeLayout.LayoutParams solution_steps_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 solution_steps_layoutParams.addRule(RelativeLayout.BELOW, solution_steps_title.getId());
                 solution_steps_layoutParams.addRule(RelativeLayout.END_OF, details_image.getId());
@@ -210,7 +300,6 @@ public class ViewHistoryFragment extends Fragment {
                 solution_steps.setTextSize(15);
                 solution_steps.setTypeface(font, Typeface.BOLD);
 
-                ArrayList<String> solutionSteps = problem.getSolution();
                 String solutionString = "";
 
                 for (int j = 0; j < solutionSteps.size(); j++) {
@@ -233,6 +322,8 @@ public class ViewHistoryFragment extends Fragment {
                 RelativeLayout.LayoutParams space_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 200);
                 space.setLayoutParams(space_layoutParams);
 
+                layout_row_problem.addView(num_solution_steps);
+                layout_row_problem.addView(time_elapsed);
                 layout_row_problem.addView(details_image);
                 layout_row_problem.addView(details_title);
                 layout_row_problem.addView(solution_steps);
@@ -242,6 +333,7 @@ public class ViewHistoryFragment extends Fragment {
 
                 row_problem.addView(layout_row_problem);
 
+                layout_row_title.addView(equation_type_in);
                 layout_row_title.addView(space);
                 layout_row_title.addView(solved_status_in);
                 layout_row_title.addView(date_in);

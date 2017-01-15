@@ -130,7 +130,23 @@ public class UsersDB extends SQLiteOpenHelper {
             if (cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 _username = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME));
-                teacheraicadb.setDB_NAME(_username);
+            }
+        }
+        return _username;
+    }
+
+    public String checkUsernameIfExists(String username) {
+        String _username = "";
+
+        String sql = "SELECT *" +
+                " FROM " + TABLE_NAME +
+                " WHERE " + COLUMN_USERNAME + " = '" + username + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                _username = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME));
             }
         }
         return _username;

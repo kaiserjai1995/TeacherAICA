@@ -41,7 +41,6 @@ import java.util.Arrays;
 
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.algo.Randomizer;
-import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -145,7 +144,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .replace("</center>", "")
                 .replace("<font size='+2'>", "<font size='5px'>");
 
-        if (getIntent().getExtras().getBoolean("generated")) {
+        if (getIntent().getExtras().getBoolean("Generated")) {
             level = getIntent().getExtras().getInt("level");
             sublevel = getIntent().getExtras().getInt("sublevel");
             final_answer = getIntent().getExtras().getString("result");
@@ -162,8 +161,8 @@ public class SolveProblemActivity extends AppCompatActivity {
 
             math_equation.setText(final_equation_string);
 
-            this.equationType = "generated";
-            MainActivity.teacheraicadb.addProblem(equation, equationType);
+            this.equationType = "Generated";
+            LoginActivity.teacheraicadb.addProblem(equation, equationType);
         } else {
             //TODO Analyze equation string for determining hint type
             final_answer = getIntent().getExtras().getString("result");
@@ -178,11 +177,9 @@ public class SolveProblemActivity extends AppCompatActivity {
                 System.out.println("Token: " + equation_token.get(i).toString());
             }
 
-            this.equationType = "custom";
-            MainActivity.teacheraicadb.addProblem(equation, equationType);
+            this.equationType = "Custom";
+            LoginActivity.teacheraicadb.addProblem(equation, equationType);
         }
-
-        Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
 
         submit_solution_step_1 = (FancyButton) findViewById(R.id.submit_solution_step_1);
         submit_solution_step_2 = (FancyButton) findViewById(R.id.submit_solution_step_2);
@@ -606,7 +603,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .setListener(R.id.abort_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MainActivity.teacheraicadb.updateProblemStatus("aborted");
+                        LoginActivity.teacheraicadb.updateProblemStatus("aborted");
                         show_answer();
                     }
                 })
@@ -929,7 +926,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     }
 
     public void next_problem_prompt(String problem_type) {
-        if (problem_type.equals("generated")) {
+        if (problem_type.equals("Generated")) {
             new LovelyCustomDialog(this)
                     .setIcon(R.drawable.aica)
                     .setTopColorRes(R.color.darkRed)
@@ -956,16 +953,12 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             Button cancel_problem_btn = (Button) v.findViewById(R.id.cancel_problem_btn);
                                             cancel_problem_btn.setVisibility(View.GONE);
 
-                                            level = MainActivity.teacheraicadb.getCurrentLevel();
-                                            sublevel = MainActivity.teacheraicadb.getCurrentSublevel(level);
+                                            level = LoginActivity.teacheraicadb.getCurrentLevel();
+                                            sublevel = LoginActivity.teacheraicadb.getCurrentSublevel(level);
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
 
                                             generated_problem = (MathView) v.findViewById(R.id.generated_problem);
-
-                                            Toast.makeText(getApplicationContext(), "Level: " + level +
-                                                    "\nSublevel: " + sublevel +
-                                                    "\nEquation: " + equation, Toast.LENGTH_LONG).show();
 
                                             util = new ExprEvaluator();
                                             engine = util.getEvalEngine();
@@ -1002,10 +995,10 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             result = util.evaluate(equation);
                                             System.out.println("Result: " + result.toString());
 
-                                            current_level = MainActivity.teacheraicadb.getCurrentLevel();
-                                            current_sublevel = MainActivity.teacheraicadb.getCurrentSublevel(current_level);
+                                            current_level = LoginActivity.teacheraicadb.getCurrentLevel();
+                                            current_sublevel = LoginActivity.teacheraicadb.getCurrentSublevel(current_level);
 
-                                            i.putExtra("generated", true);
+                                            i.putExtra("Generated", true);
                                             i.putExtra("level", current_level);
                                             i.putExtra("sublevel", current_sublevel);
                                             i.putExtra("equation", equation);
@@ -1019,15 +1012,11 @@ public class SolveProblemActivity extends AppCompatActivity {
                                     .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            MainActivity.teacheraicadb.addProblem(equation, equationType);
-                                            MainActivity.teacheraicadb.updateProblemStatus("Skipped");
+                                            LoginActivity.teacheraicadb.addProblem(equation, equationType);
+                                            LoginActivity.teacheraicadb.updateProblemStatus("Skipped");
 
                                             equation = Randomizer.getRandomEquation(level, sublevel);
                                             hint = Randomizer.getHint(level, sublevel);
-
-                                            Toast.makeText(SolveProblemActivity.this, "Level: " + level +
-                                                    "\nSublevel: " + sublevel +
-                                                    "\nEquation: " + equation, Toast.LENGTH_LONG).show();
 
                                             util = new ExprEvaluator();
                                             engine = util.getEvalEngine();
@@ -1058,7 +1047,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                         }
                     })
                     .show();
-        } else if (problem_type.equals("custom")) {
+        } else if (problem_type.equals("Custom")) {
             new LovelyCustomDialog(this)
                     .setIcon(R.drawable.aica)
                     .setTopColorRes(R.color.darkGreen)
@@ -1416,7 +1405,7 @@ public class SolveProblemActivity extends AppCompatActivity {
 
                                                                         System.out.println("Result: " + resultString);
 
-                                                                        i.putExtra("generated", false);
+                                                                        i.putExtra("Generated", false);
                                                                         i.putExtra("equation", equation);
                                                                         i.putExtra("result", resultString);
                                                                         i.putExtra("equation_string", equation_string);
@@ -1498,7 +1487,6 @@ public class SolveProblemActivity extends AppCompatActivity {
     }
 
     public void evaluate_solution(String current_solution, EditText current_solution_step, LinearLayout next_solution_step_view, FancyButton submit_current_solution_step, EditText next_solution_step) {
-        Toast.makeText(getApplicationContext(), final_answer, Toast.LENGTH_LONG).show();
 
         try {
             if (!current_solution.isEmpty()) {
@@ -1533,17 +1521,17 @@ public class SolveProblemActivity extends AppCompatActivity {
                         && current_answer_tokens.length == final_answer_tokens.length)) {
                     step_number++;
                     number_of_steps++;
-                    MainActivity.teacheraicadb.addStep(current_solution);
+                    LoginActivity.teacheraicadb.addStep(current_solution);
 
                     solved = true;
 
                     if (hinted_and_solved) {
-                        MainActivity.teacheraicadb.updateProblemStatus("Hinted and Solved");
+                        LoginActivity.teacheraicadb.updateProblemStatus("Hinted and Solved");
                     } else {
-                        MainActivity.teacheraicadb.updateProblemStatus("Solved");
+                        LoginActivity.teacheraicadb.updateProblemStatus("Solved");
                     }
 
-                    if (equationType.equals("generated")) {
+                    if (equationType.equals("Generated")) {
 
                         int increment = 0;
                         if (level == 1 && errorsCommited < 3 ||
@@ -1553,17 +1541,17 @@ public class SolveProblemActivity extends AppCompatActivity {
                             increment = 1;
                         }
 
-                        MainActivity.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
+                        LoginActivity.teacheraicadb.incrementLevelSublevelProblemsCount(level, sublevel, increment);
 
-                        next_problem_prompt("generated");
-                    } else if (equationType.equals("custom")) {
-                        next_problem_prompt("custom");
+                        next_problem_prompt("Generated");
+                    } else if (equationType.equals("Custom")) {
+                        next_problem_prompt("Custom");
                     } // Add for quizzes coming from Lecture
                 } else if (current_result.toString().equals(final_answer)) {
                     Toast.makeText(getApplicationContext(), "Correct Solution!", Toast.LENGTH_LONG).show();
                     step_number++;
                     number_of_steps++;
-                    MainActivity.teacheraicadb.addStep(current_solution);
+                    LoginActivity.teacheraicadb.addStep(current_solution);
 
                     current_solution_step.setEnabled(false);
                     next_solution_step_view.setVisibility(View.VISIBLE);
@@ -1575,7 +1563,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                     errorsCommited++;
                     get_solution_step_number(current_solution_step);
 
-                    MainActivity.teacheraicadb.addError(equation, current_solution);
+                    LoginActivity.teacheraicadb.addError(equation, current_solution);
 
                     current_solution_step.setError("Wrong solution!");
                 }
@@ -1583,19 +1571,19 @@ public class SolveProblemActivity extends AppCompatActivity {
                 errorsCommited++;
                 get_solution_step_number(current_solution_step);
 
-                MainActivity.teacheraicadb.addError(equation, current_solution);
+                LoginActivity.teacheraicadb.addError(equation, current_solution);
 
                 current_solution_step.setError("Input should not be blank!");
             }
         } catch (SyntaxError e) {
             current_solution_step.setError("Invalid input");
-            MainActivity.teacheraicadb.addError(equation, current_solution);
+            LoginActivity.teacheraicadb.addError(equation, current_solution);
         } catch (MathException e) {
             current_solution_step.setError("Invalid input");
-            MainActivity.teacheraicadb.addError(equation, current_solution);
+            LoginActivity.teacheraicadb.addError(equation, current_solution);
         } catch (Exception e) {
             current_solution_step.setError("Invalid input");
-            MainActivity.teacheraicadb.addError(equation, current_solution);
+            LoginActivity.teacheraicadb.addError(equation, current_solution);
         }
 
         if (errorsCommited == 3) {
@@ -1717,7 +1705,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                                                                                               System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
                                                                                                                                                       "Hint Code: " + hint_code);
 
-                                                                                                                                              MainActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[0]);
+                                                                                                                                              LoginActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[0]);
 
                                                                                                                                               WebView hint_webview1 = new WebView(SolveProblemActivity.this);
                                                                                                                                               LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -1757,7 +1745,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                                                                                               System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
                                                                                                                                                       "Hint Code: " + hint_code);
 
-                                                                                                                                              MainActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[1]);
+                                                                                                                                              LoginActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[1]);
 
                                                                                                                                               WebView hint_webview2 = new WebView(SolveProblemActivity.this);
                                                                                                                                               LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -1827,7 +1815,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             five_errors = true;
-                            MainActivity.teacheraicadb.updateProblemStatus("Errors 5x and Aborted");
+                            LoginActivity.teacheraicadb.updateProblemStatus("Errors 5x and Aborted");
                             onBackPressed();
                         }
                     })
@@ -1991,7 +1979,7 @@ public class SolveProblemActivity extends AppCompatActivity {
     }
 
     public void show_answer() {
-        MainActivity.teacheraicadb.updateProblemStatus("abort");
+        LoginActivity.teacheraicadb.updateProblemStatus("abort");
 
         new LovelyCustomDialog(SolveProblemActivity.this)
                 .setIcon(R.drawable.aica)
@@ -2203,24 +2191,24 @@ public class SolveProblemActivity extends AppCompatActivity {
         super.onPause();
         if (hinted_and_left) {
             i = new Intent(this, MainActivity.class);
-            MainActivity.teacheraicadb.updateProblemStatus("Hinted and Left");
+            LoginActivity.teacheraicadb.updateProblemStatus("Hinted and Left");
             finish();
             startActivity(i);
         }
 
         if (!solving) {
             i = new Intent(this, MainActivity.class);
-            MainActivity.teacheraicadb.updateProblemStatus("Left");
+            LoginActivity.teacheraicadb.updateProblemStatus("Left");
             finish();
             startActivity(i);
         }
 
         if (five_errors) {
-            MainActivity.teacheraicadb.updateProblemStatus("Errors 5x and Left");
+            LoginActivity.teacheraicadb.updateProblemStatus("Errors 5x and Left");
         }
 
         if (nine_errors) {
-            MainActivity.teacheraicadb.updateProblemStatus("Errors 9x");
+            LoginActivity.teacheraicadb.updateProblemStatus("Errors 9x");
         }
     }
 

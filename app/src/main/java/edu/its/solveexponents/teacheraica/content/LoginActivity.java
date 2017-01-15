@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +21,7 @@ import butterknife.InjectView;
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.model.TeacherAICADB;
 import edu.its.solveexponents.teacheraica.model.UsersDB;
+import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
  * Created by jairus on 1/14/17.
@@ -34,10 +34,16 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @InjectView(R.id.input_username) EditText _usernameText;
-    @InjectView(R.id.input_password) EditText _passwordText;
-    @InjectView(R.id.btn_login) Button _loginButton;
-    @InjectView(R.id.link_signup) TextView _signupLink;
+    String uname = "";
+
+    @InjectView(R.id.input_username)
+    EditText _usernameText;
+    @InjectView(R.id.input_password)
+    EditText _passwordText;
+    @InjectView(R.id.btn_login)
+    FancyButton _loginButton;
+    @InjectView(R.id.link_signup)
+    TextView _signupLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,12 +102,12 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _usernameText.getText().toString();
+        String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
 
-        final String uname = LoginActivity.usersdb.getUsername(_usernameText.getText().toString(), _passwordText.getText().toString());
+        uname = LoginActivity.usersdb.getUsername(username, password);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -110,10 +116,11 @@ public class LoginActivity extends AppCompatActivity {
                             onLoginFailed();
                             progressDialog.dismiss();
                         } else {
-                            onLoginSuccess();
+                            teacheraicadb = TeacherAICADB.getInstance(getApplicationContext(), uname);
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            i.putExtra("uname", uname);
+                            onLoginSuccess();
                             startActivity(i);
+                            progressDialog.dismiss();
                         }
                     }
                 }, 3000);
@@ -124,9 +131,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
+                teacheraicadb = TeacherAICADB.getInstance(getApplicationContext(), uname);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
                 this.finish();
             }
         }

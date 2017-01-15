@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
@@ -12,10 +13,10 @@
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:paddingTop="50dp">
+        android:paddingTop="20dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -40,12 +41,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
                 android:text="Account Creation Page"
                 android:textColor="@color/white"
-                android:layout_marginBottom="10dp"
                 android:textSize="15sp"/>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -59,9 +65,7 @@
                 <!-- Username Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_username"
@@ -74,9 +78,7 @@
                 <!-- Password Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_password"
@@ -89,9 +91,7 @@
                 <!-- Last Name Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_lastname"
@@ -104,9 +104,7 @@
                 <!-- First Name Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_firstname"
@@ -119,9 +117,7 @@
                 <!-- Middle Name Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_middlename"
@@ -134,9 +130,7 @@
                 <!-- Section Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_section"
@@ -149,9 +143,7 @@
                 <!-- Age Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/input_age"
@@ -175,14 +167,23 @@
                     app:ms_multiline="true"/>
 
                 <!-- Signup Button -->
-                <android.support.v7.widget.AppCompatButton
+
+                <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_signup"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="24dp"
                     android:padding="12dp"
-                    android:text="Create Account"/>
+                    fancy:fb_borderColor="@color/primary_dark"
+                    fancy:fb_borderWidth="1dp"
+                    fancy:fb_defaultColor="@color/primary_dark"
+                    fancy:fb_focusColor="@color/primary"
+                    fancy:fb_fontIconResource="&#xf04b;"
+                    fancy:fb_iconPosition="left"
+                    fancy:fb_radius="30dp"
+                    fancy:fb_text=" CREATE ACCOUNT"
+                    fancy:fb_textColor="#FFFFFF"/>
 
                 <TextView
                     android:id="@+id/link_login"

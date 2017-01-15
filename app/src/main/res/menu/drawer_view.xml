@@ -34,6 +34,10 @@
                     android:id="@+id/nav_about_us"
                     android:icon="@drawable/ic_about_us"
                     android:title="@string/nav_drawer_title_about_us"/>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_logout"
+                    android:title="Log Out"/>
             </group>
         </menu>
     </item>

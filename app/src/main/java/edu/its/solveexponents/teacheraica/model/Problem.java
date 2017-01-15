@@ -8,17 +8,32 @@ import java.util.ArrayList;
 
 public class Problem {
     private int problemID;
+    private String solvedProblem;
+    private String unsolvedProblem;
+    private String generatedProblem;
+    private String customProblem;
     private String problem;
     private String date;
     private String status;
     private String time_created;
     private String time_stopped;
+    private String problemType;
+    private String timeElapsed;
 
     private ArrayList<String> solution;
 
     public Problem() {
         solution = new ArrayList<>();
     }
+
+    public String getProblemType() {
+        return problemType;
+    }
+
+    public void setProblemType(String problemType) {
+        this.problemType = problemType;
+    }
+
 
     public void setproblemID(int problemID) {
         this.problemID = problemID;
@@ -36,12 +51,52 @@ public class Problem {
         return this.problem;
     }
 
+    public String getSolvedProblem() {
+        return solvedProblem;
+    }
+
+    public void setSolvedProblem(String solvedProblem) {
+        this.solvedProblem = solvedProblem;
+    }
+
+    public String getUnsolvedProblem() {
+        return unsolvedProblem;
+    }
+
+    public void setUnsolvedProblem(String unsolvedProblem) {
+        this.unsolvedProblem = unsolvedProblem;
+    }
+
+    public String getGeneratedProblem() {
+        return generatedProblem;
+    }
+
+    public void setGeneratedProblem(String generatedProblem) {
+        this.generatedProblem = generatedProblem;
+    }
+
+    public String getCustomProblem() {
+        return customProblem;
+    }
+
+    public void setCustomProblem(String customProblem) {
+        this.customProblem = customProblem;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
 
     public String getDate() {
         return this.date;
+    }
+
+    public String getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void setTimeElapsed(String timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 
     public void setSolution(ArrayList<String> solution) {

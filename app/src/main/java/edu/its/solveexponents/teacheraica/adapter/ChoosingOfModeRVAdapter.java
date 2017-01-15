@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
@@ -29,7 +28,7 @@ import java.util.List;
 
 import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.algo.Randomizer;
-import edu.its.solveexponents.teacheraica.content.MainActivity;
+import edu.its.solveexponents.teacheraica.content.LoginActivity;
 import edu.its.solveexponents.teacheraica.content.SolveProblemActivity;
 import edu.its.solveexponents.teacheraica.model.ModeInput;
 import io.github.kexanie.library.MathView;
@@ -133,11 +132,11 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
-                        level = MainActivity.teacheraicadb.getCurrentLevel();
-                        sublevel = MainActivity.teacheraicadb.getCurrentSublevel(level);
+                        level = LoginActivity.teacheraicadb.getCurrentLevel();
+                        sublevel = LoginActivity.teacheraicadb.getCurrentSublevel(level);
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
-                        equationType = "generated";
+                        equationType = "Generated";
 
                         showGeneratedProblemView(level, sublevel);
                         break;
@@ -168,10 +167,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     @Override
                     public void configureView(View v) {
                         generated_problem = (MathView) v.findViewById(R.id.generated_problem);
-
-                        Toast.makeText(mContext, "Level: " + level +
-                                "\nSublevel: " + sublevel +
-                                "\nEquation: " + equation, Toast.LENGTH_LONG).show();
 
                         util = new ExprEvaluator();
                         engine = util.getEvalEngine();
@@ -205,7 +200,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         result = util.evaluate(equation);
                         System.out.println("Result: " + result.toString());
 
-                        i.putExtra("generated", true);
+                        i.putExtra("Generated", true);
                         i.putExtra("level", level);
                         i.putExtra("sublevel", sublevel);
                         i.putExtra("equation", equation);
@@ -219,15 +214,11 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MainActivity.teacheraicadb.addProblem(equation, equationType);
-                        MainActivity.teacheraicadb.updateProblemStatus("Skipped");
+                        LoginActivity.teacheraicadb.addProblem(equation, equationType);
+                        LoginActivity.teacheraicadb.updateProblemStatus("Skipped");
 
                         equation = Randomizer.getRandomEquation(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
-
-                        Toast.makeText(mContext, "Level: " + level +
-                                "\nSublevel: " + sublevel +
-                                "\nEquation: " + equation, Toast.LENGTH_LONG).show();
 
                         util = new ExprEvaluator();
                         engine = util.getEvalEngine();
@@ -249,8 +240,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .setListener(R.id.cancel_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MainActivity.teacheraicadb.addProblem(equation, equationType);
-                        MainActivity.teacheraicadb.updateProblemStatus("Skipped");
+                        LoginActivity.teacheraicadb.addProblem(equation, equationType);
+                        LoginActivity.teacheraicadb.updateProblemStatus("Skipped");
                     }
                 })
                 .show();
@@ -600,7 +591,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
                                                     System.out.println("Result: " + resultString);
 
-                                                    i.putExtra("generated", false);
+                                                    i.putExtra("Generated", false);
                                                     i.putExtra("equation", equation);
                                                     i.putExtra("result", resultString);
                                                     i.putExtra("equation_string", equation_string);

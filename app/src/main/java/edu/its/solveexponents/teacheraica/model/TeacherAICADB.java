@@ -35,8 +35,6 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
     private int maxNumberOfProblemsPerSublevel;
 
-    public static String DB_NAME = "teacheraicadb";
-
     private static final int DB_VERSION = 1;
 
     private final String TBL_PROBLEM_TYPES = "tbl_problem_types";
@@ -115,30 +113,32 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     private final String TBL_SYSTEM_ERRORS_PROBLEM_OR_MESSAGE = "problemOrMessage";
     private final String TBL_SYSTEM_ERRORS_TIMESTAMP = "timeStamp";
 
+    public String DB_NAME;
+
     public String getDB_NAME() {
         return DB_NAME;
     }
 
-    public void setDB_NAME(String DB_NAME) {
-        this.DB_NAME = DB_NAME;
-    }
-
-    public static synchronized TeacherAICADB getInstance(Context context) {
+    public static synchronized TeacherAICADB getInstance(Context context, String DB_NAME) {
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
 
         if (sInstance == null) {
-            sInstance = new TeacherAICADB(context.getApplicationContext());
+            sInstance = new TeacherAICADB(context.getApplicationContext(), DB_NAME);
+        } else {
+            sInstance = new TeacherAICADB(context.getApplicationContext(), DB_NAME);
         }
 
         return sInstance;
     }
 
-    public TeacherAICADB(Context context) {
+    public TeacherAICADB(Context context, String DB_NAME) {
         super(context, Environment.getExternalStorageDirectory().getAbsolutePath() + "/teacheraica/" + DB_NAME, null, DB_VERSION);
 
         Log.d("TEACHERAICADB", Environment.getExternalStorageDirectory().getPath());
+
+        this.DB_NAME = DB_NAME;
 
         maxNumberOfProblemsPerSublevel = 5;
         this.context = context;
@@ -443,7 +443,7 @@ public class TeacherAICADB extends SQLiteOpenHelper {
     }
 
     public ArrayList<Problem> getProblems() {
-        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS + ", " + TBL_PROBLEMS_PROBLEMTYPE + ", " + TBL_PROBLEMS_TIMEELAPSED
                 + " FROM " + TBL_PROBLEMS
                 + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
 
@@ -475,6 +475,10 @@ public class TeacherAICADB extends SQLiteOpenHelper {
                 String status = (cursor.getString(4) == null) ? "" : cursor.getString(4);
                 problem.setStatus(status);
 
+                problem.setProblemType(cursor.getString(5));
+
+                problem.setTimeElapsed(cursor.getString(6));
+
                 {
                     ArrayList<String> solution = new ArrayList<>();
                     String solutionSql = "SELECT " + TBL_STEPS_STEP + " FROM " + TBL_STEPS
@@ -496,6 +500,243 @@ public class TeacherAICADB extends SQLiteOpenHelper {
 
         return problems;
     }
+
+    public ArrayList<Problem> getSolvedProblems() {
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS + ", " + TBL_PROBLEMS_PROBLEMTYPE
+                + " FROM " + TBL_PROBLEMS
+                + " WHERE " + TBL_PROBLEMS_STATUS + " = " + "'Solved'"
+                + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        ArrayList<Problem> problems = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Problem problem = new Problem();
+                problem.setproblemID(cursor.getInt(0));
+                problem.setProblem(cursor.getString(1));
+                String date = (cursor.getString(2) == null) ? "" : cursor.getString(2);
+                String time_created = "";
+                String time_stopped = (cursor.getString(3) == null) ? "" : cursor.getString(3);
+
+                if (!date.equals("")) {
+                    date = date.substring(0, date.indexOf(" "));
+                    time_created = cursor.getString(2).substring(cursor.getString(2).indexOf(" "));
+                }
+
+                if (!time_stopped.equals("")) {
+                    time_stopped = time_stopped.substring(time_stopped.indexOf(" "));
+                }
+
+                problem.setDate(date);
+                problem.setTime_created(time_created);
+                problem.setTime_stopped(time_stopped);
+
+                String status = (cursor.getString(4) == null) ? "" : cursor.getString(4);
+                problem.setStatus(status);
+
+                problem.setProblemType(cursor.getString(5));
+
+                {
+                    ArrayList<String> solution = new ArrayList<>();
+                    String solutionSql = "SELECT " + TBL_STEPS_STEP + " FROM " + TBL_STEPS
+                            + " WHERE " + TBL_STEPS_PROBLEMID + " = " + cursor.getInt(0)
+                            + " ORDER BY " + TBL_STEPS_STEPID;
+                    Cursor solutionCursor = db.rawQuery(solutionSql, null);
+
+                    if (solutionCursor.moveToFirst()) {
+                        do {
+                            solution.add(solutionCursor.getString(0));
+                        } while (solutionCursor.moveToNext());
+                    }
+                    problem.setSolution(solution);
+                }
+
+                problems.add(problem);
+            } while (cursor.moveToNext());
+        }
+
+        return problems;
+    }
+
+    public ArrayList<Problem> getUnsolvedProblems() {
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS + ", " + TBL_PROBLEMS_PROBLEMTYPE
+                + " FROM " + TBL_PROBLEMS
+                + " WHERE " + TBL_PROBLEMS_STATUS + " <> " + "'Solved'"
+                + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        ArrayList<Problem> problems = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Problem problem = new Problem();
+                problem.setproblemID(cursor.getInt(0));
+                problem.setProblem(cursor.getString(1));
+                String date = (cursor.getString(2) == null) ? "" : cursor.getString(2);
+                String time_created = "";
+                String time_stopped = (cursor.getString(3) == null) ? "" : cursor.getString(3);
+
+                if (!date.equals("")) {
+                    date = date.substring(0, date.indexOf(" "));
+                    time_created = cursor.getString(2).substring(cursor.getString(2).indexOf(" "));
+                }
+
+                if (!time_stopped.equals("")) {
+                    time_stopped = time_stopped.substring(time_stopped.indexOf(" "));
+                }
+
+                problem.setDate(date);
+                problem.setTime_created(time_created);
+                problem.setTime_stopped(time_stopped);
+
+                String status = (cursor.getString(4) == null) ? "" : cursor.getString(4);
+                problem.setStatus(status);
+
+                problem.setProblemType(cursor.getString(5));
+
+                {
+                    ArrayList<String> solution = new ArrayList<>();
+                    String solutionSql = "SELECT " + TBL_STEPS_STEP + " FROM " + TBL_STEPS
+                            + " WHERE " + TBL_STEPS_PROBLEMID + " = " + cursor.getInt(0)
+                            + " ORDER BY " + TBL_STEPS_STEPID;
+                    Cursor solutionCursor = db.rawQuery(solutionSql, null);
+
+                    if (solutionCursor.moveToFirst()) {
+                        do {
+                            solution.add(solutionCursor.getString(0));
+                        } while (solutionCursor.moveToNext());
+                    }
+                    problem.setSolution(solution);
+                }
+
+                problems.add(problem);
+            } while (cursor.moveToNext());
+        }
+
+        return problems;
+    }
+
+    public ArrayList<Problem> getGeneratedProblems() {
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS + ", " + TBL_PROBLEMS_PROBLEMTYPE
+                + " FROM " + TBL_PROBLEMS
+                + " WHERE " + TBL_PROBLEMS_PROBLEMTYPE + " = " + "'Generated'"
+                + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        ArrayList<Problem> problems = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Problem problem = new Problem();
+                problem.setproblemID(cursor.getInt(0));
+                problem.setProblem(cursor.getString(1));
+                String date = (cursor.getString(2) == null) ? "" : cursor.getString(2);
+                String time_created = "";
+                String time_stopped = (cursor.getString(3) == null) ? "" : cursor.getString(3);
+
+                if (!date.equals("")) {
+                    date = date.substring(0, date.indexOf(" "));
+                    time_created = cursor.getString(2).substring(cursor.getString(2).indexOf(" "));
+                }
+
+                if (!time_stopped.equals("")) {
+                    time_stopped = time_stopped.substring(time_stopped.indexOf(" "));
+                }
+
+                problem.setDate(date);
+                problem.setTime_created(time_created);
+                problem.setTime_stopped(time_stopped);
+
+                String status = (cursor.getString(4) == null) ? "" : cursor.getString(4);
+                problem.setStatus(status);
+
+                problem.setProblemType(cursor.getString(5));
+
+                {
+                    ArrayList<String> solution = new ArrayList<>();
+                    String solutionSql = "SELECT " + TBL_STEPS_STEP + " FROM " + TBL_STEPS
+                            + " WHERE " + TBL_STEPS_PROBLEMID + " = " + cursor.getInt(0)
+                            + " ORDER BY " + TBL_STEPS_STEPID;
+                    Cursor solutionCursor = db.rawQuery(solutionSql, null);
+
+                    if (solutionCursor.moveToFirst()) {
+                        do {
+                            solution.add(solutionCursor.getString(0));
+                        } while (solutionCursor.moveToNext());
+                    }
+                    problem.setSolution(solution);
+                }
+
+                problems.add(problem);
+            } while (cursor.moveToNext());
+        }
+
+        return problems;
+    }
+
+    public ArrayList<Problem> getCustomProblems() {
+        String sql = "SELECT " + TBL_PROBLEMS_PROBLEMID + ", " + TBL_PROBLEMS_PROBLEM + ", " + TBL_PROBLEMS_DATECREATED + ", " + TBL_PROBLEMS_DATESTOPPED + ", " + TBL_PROBLEMS_STATUS + ", " + TBL_PROBLEMS_PROBLEMTYPE
+                + " FROM " + TBL_PROBLEMS
+                + " WHERE " + TBL_PROBLEMS_PROBLEMTYPE + " = " + "'Custom'"
+                + " ORDER BY " + TBL_PROBLEMS_PROBLEMID + " DESC";
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        ArrayList<Problem> problems = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Problem problem = new Problem();
+                problem.setproblemID(cursor.getInt(0));
+                problem.setProblem(cursor.getString(1));
+                String date = (cursor.getString(2) == null) ? "" : cursor.getString(2);
+                String time_created = "";
+                String time_stopped = (cursor.getString(3) == null) ? "" : cursor.getString(3);
+
+                if (!date.equals("")) {
+                    date = date.substring(0, date.indexOf(" "));
+                    time_created = cursor.getString(2).substring(cursor.getString(2).indexOf(" "));
+                }
+
+                if (!time_stopped.equals("")) {
+                    time_stopped = time_stopped.substring(time_stopped.indexOf(" "));
+                }
+
+                problem.setDate(date);
+                problem.setTime_created(time_created);
+                problem.setTime_stopped(time_stopped);
+
+                String status = (cursor.getString(4) == null) ? "" : cursor.getString(4);
+                problem.setStatus(status);
+
+                problem.setProblemType(cursor.getString(5));
+
+                {
+                    ArrayList<String> solution = new ArrayList<>();
+                    String solutionSql = "SELECT " + TBL_STEPS_STEP + " FROM " + TBL_STEPS
+                            + " WHERE " + TBL_STEPS_PROBLEMID + " = " + cursor.getInt(0)
+                            + " ORDER BY " + TBL_STEPS_STEPID;
+                    Cursor solutionCursor = db.rawQuery(solutionSql, null);
+
+                    if (solutionCursor.moveToFirst()) {
+                        do {
+                            solution.add(solutionCursor.getString(0));
+                        } while (solutionCursor.moveToNext());
+                    }
+                    problem.setSolution(solution);
+                }
+
+                problems.add(problem);
+            } while (cursor.moveToNext());
+        }
+
+        return problems;
+    }
+
 
     public ArrayList<String> getProblemSolution(int problemId) {
         ArrayList<String> solution = new ArrayList<>();
