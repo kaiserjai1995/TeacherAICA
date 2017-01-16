@@ -11,7 +11,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:background="@android:color/darker_gray"/>
 
     <io.github.kexanie.library.MathView
@@ -23,7 +23,7 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"/>
 
     <View

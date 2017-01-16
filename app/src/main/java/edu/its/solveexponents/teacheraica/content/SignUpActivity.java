@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @InjectView(R.id.input_username) EditText _usernameText;
     @InjectView(R.id.input_password) EditText _passwordText;
+    @InjectView(R.id.input_confirm_password) EditText _confirmPasswordText;
     @InjectView(R.id.input_lastname) EditText _lastnameText;
     @InjectView(R.id.input_firstname) EditText _firstnameText;
     @InjectView(R.id.input_middlename) EditText _middlenameText;
@@ -97,8 +98,6 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        // TODO: Implement your own signup logic here.
-
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -159,6 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
+        String confirmPassword = _confirmPasswordText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String firstname = _firstnameText.getText().toString();
         String middlename = _middlenameText.getText().toString();
@@ -187,6 +187,12 @@ public class SignUpActivity extends AppCompatActivity {
             valid = false;
         } else {
             _passwordText.setError(null);
+        }
+
+        if (!confirmPassword.equals(password)) {
+            _passwordText.setError("Password Field and Confirm Password Field do not match!");
+            _confirmPasswordText.setError("Password Field and Confirm Password Field do not match!");
+            valid = false;
         }
 
         if (lastname.matches(".*\\\\d.*")) {

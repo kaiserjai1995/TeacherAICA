@@ -74,7 +74,7 @@ public class SolveProblemActivity extends AppCompatActivity {
             btn_var_d;
     FancyButton submit_solution_step_1, submit_solution_step_2, submit_solution_step_3, submit_solution_step_4,
             submit_solution_step_5, submit_solution_step_6, submit_solution_step_7, submit_solution_step_8,
-            submit_solution_step_9;
+            submit_solution_step_9, quit_problem_button;
     MaterialEditText solution_step_1, solution_step_2, solution_step_3, solution_step_4, solution_step_5,
             solution_step_6, solution_step_7, solution_step_8, solution_step_9;
     LinearLayout solution_step_1_view, solution_step_2_view, solution_step_3_view, solution_step_4_view,
@@ -190,6 +190,7 @@ public class SolveProblemActivity extends AppCompatActivity {
         submit_solution_step_7 = (FancyButton) findViewById(R.id.submit_solution_step_7);
         submit_solution_step_8 = (FancyButton) findViewById(R.id.submit_solution_step_8);
         submit_solution_step_9 = (FancyButton) findViewById(R.id.submit_solution_step_9);
+        quit_problem_button = (FancyButton) findViewById(R.id.quit_problem_button);
 
         btn_one = (FancyButton) findViewById(R.id.btn_one);
         btn_two = (FancyButton) findViewById(R.id.btn_two);
@@ -253,6 +254,13 @@ public class SolveProblemActivity extends AppCompatActivity {
         solution_step_1.requestFocus();
 
         focus_settings();
+
+        quit_problem_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         submit_solution_step_1.setOnClickListener(new View.OnClickListener() {
             @Override

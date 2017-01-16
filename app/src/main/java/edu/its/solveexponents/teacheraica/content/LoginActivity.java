@@ -105,8 +105,6 @@ public class LoginActivity extends AppCompatActivity {
         String username = _usernameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-
         uname = LoginActivity.usersdb.getUsername(username, password);
 
         new android.os.Handler().postDelayed(

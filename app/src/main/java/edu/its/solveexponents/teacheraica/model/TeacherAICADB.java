@@ -19,6 +19,8 @@ import java.util.TimeZone;
  * Created by jairus on 8/7/16.
  */
 
+    //TODO: SELECT hintsUsed data to be retrieved by ViewHistoryFragment
+
 public class TeacherAICADB extends SQLiteOpenHelper {
     private static TeacherAICADB sInstance;
 

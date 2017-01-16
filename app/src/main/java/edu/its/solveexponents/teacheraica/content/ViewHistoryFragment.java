@@ -31,6 +31,10 @@ import static java.lang.Math.round;
  * Created by jairus on 7/6/16.
  */
 
+    //TODO: Display details regarding student's performance on Overall, Generated, and Custom
+
+    //TODO: Add Hints Used Details to View History Fragment
+
 public class ViewHistoryFragment extends Fragment {
 
     ArrayList<Problem> problems, solvedProblems, unsolvedProblems, generatedProblems, customProblems;
@@ -62,8 +66,8 @@ public class ViewHistoryFragment extends Fragment {
         final LinearLayout view_history_layout = (LinearLayout) rootView.findViewById(R.id.view_history_layout);
         view_history_layout.setOrientation(LinearLayout.VERTICAL);
 
-        FloatingActionButton history_summary = (FloatingActionButton) rootView.findViewById(R.id.history_summary);
-        history_summary.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton all_questions = (FloatingActionButton) rootView.findViewById(R.id.all_questions);
+        all_questions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new LovelyCustomDialog(getContext())
