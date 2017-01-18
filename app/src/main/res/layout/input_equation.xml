@@ -8,6 +8,15 @@
               android:paddingBottom="10dp"
               android:paddingTop="10dp">
 
+    <TextView
+        android:id="@+id/input_exponent_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="INPUT EXPONENT PROBLEM"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -574,33 +583,50 @@
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
 
-        <Button
+        <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/validate_problem_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/validate_problem_btn_text"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            app:fb_borderColor="#FFFFFF"
+            app:fb_borderWidth="1dp"
+            app:fb_defaultColor="#3b5998"
+            app:fb_focusColor="#5474b8"
+            app:fb_iconPosition="left"
+            app:fb_radius="30dp"
+            app:fb_text="VALIDATE INPUT PROBLEM"
+            app:fb_textColor="#FFFFFF"/>
 
-        <Button
+        <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/cancel_input_problem_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/cancel_input_problem_btn_text"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            app:fb_borderColor="#FFFFFF"
+            app:fb_borderWidth="1dp"
+            app:fb_defaultColor="@color/darkRed"
+            app:fb_focusColor="@color/colorAccent"
+            app:fb_iconPosition="left"
+            app:fb_radius="30dp"
+            app:fb_text="GO BACK"
+            app:fb_textColor="#FFFFFF"/>
 
     </LinearLayout>
-
-
 </LinearLayout>

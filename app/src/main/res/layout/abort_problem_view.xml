@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
@@ -8,31 +9,53 @@
               android:paddingTop="10dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
 
-        <Button
-            android:id="@+id/abort_problem_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/abort_problem_btn_text"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
-
-        <Button
+        <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/resume_problem_btn"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/resume_problem_btn_text"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            app:fb_borderColor="#FFFFFF"
+            app:fb_borderWidth="1dp"
+            app:fb_defaultColor="#3b5998"
+            app:fb_iconResource="@drawable/ic_solve"
+            app:fb_focusColor="#5474b8"
+            app:fb_iconPosition="left"
+            app:fb_radius="30dp"
+            app:fb_text="RESUME SOLVING"
+            app:fb_textColor="#FFFFFF"/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/abort_problem_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:fb_iconResource="@drawable/ic_quit"
+            android:paddingTop="10dp"
+            app:fb_borderColor="#FFFFFF"
+            app:fb_borderWidth="1dp"
+            app:fb_defaultColor="@color/darkRed"
+            app:fb_focusColor="@color/colorAccent"
+            app:fb_iconPosition="left"
+            app:fb_radius="30dp"
+            app:fb_text="ABORT SOLVING"
+            app:fb_textColor="#FFFFFF"/>
+
 
     </LinearLayout>
 

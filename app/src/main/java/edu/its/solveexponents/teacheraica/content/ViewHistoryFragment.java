@@ -192,7 +192,11 @@ public class ViewHistoryFragment extends Fragment {
                 solved_status_in.setLayoutParams(solved_status_in_layoutParams);
                 solved_status_in.setTextSize(15);
                 solved_status_in.setTypeface(font, Typeface.BOLD);
-                solved_status_in.setText(problem.getStatus());
+                if (problem.getStatus().isEmpty()) {
+                    solved_status_in.setText("App Crash");
+                } else {
+                    solved_status_in.setText(problem.getStatus());
+                }
 
                 TextView equation_type_in = new TextView(rootView.getContext());
                 equation_type_in.setId(6000 + i);
@@ -260,7 +264,11 @@ public class ViewHistoryFragment extends Fragment {
                 time_stopped.setLayoutParams(time_stopped_layoutParams);
                 time_stopped.setTextSize(15);
                 time_stopped.setTypeface(font, Typeface.BOLD);
-                time_stopped.setText("Stopped Solving At: \t" + problem.getTime_stopped());
+                if (problem.getTime_stopped().isEmpty()) {
+                    time_stopped.setText("Stopped Solving At: \t" + problem.getTime_created());
+                } else {
+                    time_stopped.setText("Stopped Solving At: \t" + problem.getTime_stopped());
+                }
 
                 TextView time_elapsed = new TextView(rootView.getContext());
                 time_elapsed.setId(14000 + i);
@@ -270,7 +278,11 @@ public class ViewHistoryFragment extends Fragment {
                 time_elapsed.setLayoutParams(time_elapsed_layoutParams);
                 time_elapsed.setTextSize(15);
                 time_elapsed.setTypeface(font, Typeface.BOLD);
-                time_elapsed.setText("Time Elapsed: \t" + problem.getTimeElapsed() + " seconds");
+                if (problem.getTimeElapsed() == null) {
+                    time_elapsed.setText("Time Elapsed: \t0 seconds");
+                } else {
+                    time_elapsed.setText("Time Elapsed: \t" + problem.getTimeElapsed() + " seconds");
+                }
 
                 ArrayList<String> solutionSteps = problem.getSolution();
 

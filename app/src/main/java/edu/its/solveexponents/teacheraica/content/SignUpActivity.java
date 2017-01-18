@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -110,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
                         String age = _ageText.getText().toString();
                         String gender = _genderText.getSelectedItem().toString();
 
-                        if (LoginActivity.usersdb.checkUsernameIfExists(username).isEmpty()) {
+                        if (!LoginActivity.usersdb.checkUsernameIfExists(username)) {
                             LoginActivity.usersdb.addUser(username, password, lastname, firstname, middlename, section, age, gender);
 
                             try {
@@ -142,14 +143,21 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
-//        setResult(RESULT_OK, null);
         Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
         startActivity(i);
         finish();
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Account Creation failed", Toast.LENGTH_LONG).show();
+        new LovelyInfoDialog(SignUpActivity.this)
+                .setIcon(R.drawable.aica)
+                .setTitle("Sign Up Failed")
+                .setTitleGravity(1)
+                .setCancelable(true)
+                .setMessage("The username you have entered already exists. Please enter another username.")
+                .setTopColorRes(R.color.primary)
+                .setConfirmButtonText("OK")
+                .show();
         _signupButton.setEnabled(true);
     }
 
@@ -166,7 +174,7 @@ public class SignUpActivity extends AppCompatActivity {
         String age = _ageText.getText().toString();
         String gender = _genderText.getSelectedItem().toString();
 
-        Matcher m = Pattern.compile("[a-zA-Z0-9\\\\._\\\\-]{3,}").matcher(username);
+        Matcher m = Pattern.compile("[a-z0-9\\\\._\\\\-]{3,}").matcher(username);
 
         if (username.isEmpty() || username.length() < 3) {
             _usernameText.setError("Username should have at least 3 characters");
@@ -178,6 +186,12 @@ public class SignUpActivity extends AppCompatActivity {
         if (!m.find()) {
             _usernameText.setError("Username should only contain letters, numbers, underscores, dashes, should not be empty and should not be less than 3 characters");
             valid = false;
+        } else {
+            _usernameText.setError(null);
+        }
+
+        if (username.contains(" ")) {
+            _usernameText.setError("Username must not contain spaces!");
         } else {
             _usernameText.setError(null);
         }

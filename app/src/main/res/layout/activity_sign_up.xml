@@ -97,7 +97,7 @@
                         android:id="@+id/input_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password"
+                        android:hint="Confirm Password"
                         android:inputType="textPassword"/>
                 </android.support.design.widget.TextInputLayout>
 

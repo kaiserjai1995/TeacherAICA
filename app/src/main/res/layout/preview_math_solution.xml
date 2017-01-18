@@ -8,11 +8,25 @@
               android:paddingBottom="10dp"
               android:paddingTop="10dp">
 
+    <TextView
+        android:id="@+id/current_solution_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:text="CURRENT SOLUTION IN MATH FORMAT"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginBottom="10dp"
         android:background="@android:color/darker_gray"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"/>
 
     <io.github.kexanie.library.MathView
         android:id="@+id/solution_preview"
@@ -24,7 +38,7 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"/>
 
     <View
@@ -32,17 +46,26 @@
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"/>
 
-    <Button
+    <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/ok_btn"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="OK"
-        android:textColor="@color/darkBlueGrey"
-        android:textStyle="bold"
-        android:theme="@style/SolveProblemButton"/>
-
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        app:fb_borderColor="#FFFFFF"
+        app:fb_borderWidth="1dp"
+        app:fb_defaultColor="@color/primary_dark"
+        app:fb_focusColor="@color/primary"
+        app:fb_iconPosition="left"
+        app:fb_iconResource="@drawable/ic_ok"
+        app:fb_radius="30dp"
+        app:fb_text="OK"
+        app:fb_textColor="#FFFFFF"/>
 
 </LinearLayout>

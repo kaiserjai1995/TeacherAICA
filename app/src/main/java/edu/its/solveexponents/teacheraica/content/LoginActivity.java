@@ -52,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
 
         File fileDir = new File(Environment.getExternalStorageDirectory().getPath() + "/teacheraica");
 
+        System.out.println(fileDir.exists());
+
         if (!fileDir.exists()) fileDir.mkdir();
 
         usersdb = UsersDB.getInstance(getApplicationContext());

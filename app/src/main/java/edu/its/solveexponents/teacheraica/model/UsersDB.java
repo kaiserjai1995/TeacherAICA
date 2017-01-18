@@ -135,20 +135,17 @@ public class UsersDB extends SQLiteOpenHelper {
         return _username;
     }
 
-    public String checkUsernameIfExists(String username) {
-        String _username = "";
-
+    public boolean checkUsernameIfExists(String username) {
         String sql = "SELECT *" +
                 " FROM " + TABLE_NAME +
                 " WHERE " + COLUMN_USERNAME + " = '" + username + "'";
         Cursor cursor = db.rawQuery(sql, null);
+        boolean usernameExists = false;
 
-        if (cursor != null) {
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                _username = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME));
-            }
+        if (cursor.moveToFirst()) {
+            usernameExists = true;
         }
-        return _username;
+
+        return usernameExists;
     }
 }

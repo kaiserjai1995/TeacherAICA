@@ -2,6 +2,7 @@ package edu.its.solveexponents.teacheraica.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -38,6 +38,8 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * Created by jairus on 8/2/16.
  */
 
+    //TODO: Refactor Codes
+
 public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfModeRVAdapter.ChoosingOfModeViewHolder> {
     public static class ChoosingOfModeViewHolder extends RecyclerView.ViewHolder {
 
@@ -62,32 +64,32 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         }
     }
 
-    List<ModeInput> mode_input;
     private Context mContext;
-    String hint, current_hint;
+
+    String hint, resultString, equation_string, final_equation, equation, equationType;
     int level, sublevel;
-    MaterialEditText input_problem;
-    MathView generated_problem;
+    boolean match;
+
+    List<ModeInput> mode_input;
+
+    MathView generated_problem, input_mode_problem;
+
     Intent i;
+
     ExprEvaluator util;
     EvalEngine engine;
     IExpr result;
-    Button validate_problem_btn;
-    int current_level;
-    int current_sublevel;
+
     InputMethodManager inputMethodManager;
+
+    MaterialEditText input_problem;
     FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
             btn_zero, btn_left_shift, btn_right_shift, btn_add, btn_subtract, btn_multiply, btn_divide, btn_power,
             btn_decimal, btn_open_parenthesis, btn_closing_parenthesis, btn_backspace, btn_clear, btn_open_brace,
             btn_closing_brace, btn_var_w, btn_var_x, btn_var_y, btn_var_z, btn_var_a, btn_var_b, btn_var_c,
             btn_var_d;
-    MathView input_mode_problem;
-    String resultString;
-    Boolean match;
-    String equation_string;
-    String final_equation;
-    String equation;
-    String equationType;
+    FancyButton validate_problem_btn;
+    TextView input_exponent_title, generated_exponent_title;
 
     public ChoosingOfModeRVAdapter(Context context, List<ModeInput> mode_input) {
         this.mode_input = mode_input;
@@ -112,24 +114,24 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 
-        if (i == 0) {
-            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP) {
-                choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorAccent);
-            } else {
-                choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_generated);
-            }
-        } else if (i == 1) {
-            if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP) {
-                choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorPrimaryDark);
-            } else {
-                choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_input);
-            }
+        switch (i) {
+            case 0:
+                if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP)
+                    choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorAccent);
+                else
+                    choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_generated);
+                break;
+            case 1:
+                if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP)
+                    choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorPrimaryDark);
+                else
+                    choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_input);
+                break;
         }
 
         choosingOfModeViewHolder.cv_choosing_of_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 switch (mode_input.get(i).mode_title) {
                     case "Solve COMPUTER-GENERATED Problems":
                         level = LoginActivity.teacheraicadb.getCurrentLevel();
@@ -158,7 +160,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         new LovelyCustomDialog(mContext)
                 .setView(R.layout.generated_mode_problem_view)
                 .setTopColorRes(R.color.darkRed)
-                .setTitle(R.string.generated_problem_title)
                 .setIcon(R.drawable.aica)
                 .setTitleGravity(1)
                 .setMessageGravity(1)
@@ -166,19 +167,12 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 .configureView(new LovelyCustomDialog.ViewConfigurator() {
                     @Override
                     public void configureView(View v) {
+                        generated_exponent_title = (TextView) v.findViewById(R.id.generated_exponent_title);
+                        generated_exponent_title.setTypeface(Typeface.createFromAsset(mContext.getAssets(),
+                                "fonts/Raleway-Bold.ttf"));
+
                         generated_problem = (MathView) v.findViewById(R.id.generated_problem);
-
-                        util = new ExprEvaluator();
-                        engine = util.getEvalEngine();
-
-                        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
-
-                        StringWriter stw = new StringWriter();
-                        mathUtil.toMathML(engine.parse(equation), stw);
-
-                        final_equation = stw.toString();
-
-                        equation_string = "<center><font size='+2'>" + final_equation + "</font></center>";
+                        convert_equation_to_mathML();
 
                         generated_problem.config(
                                 "MathJax.Hub.Config({\n"+
@@ -186,20 +180,15 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                         "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
                                         "         SVG: { linebreaks: { automatic: true } }\n"+
                                         "});");
-
                         generated_problem.setText(equation_string);
                     }
                 })
                 .setListener(R.id.solve_problem_btn, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        get_equation_result();
+
                         i = new Intent(mContext, SolveProblemActivity.class);
-
-                        util = new ExprEvaluator();
-                        engine = util.getEvalEngine();
-                        result = util.evaluate(equation);
-                        System.out.println("Result: " + result.toString());
-
                         i.putExtra("Generated", true);
                         i.putExtra("level", level);
                         i.putExtra("sublevel", sublevel);
@@ -249,7 +238,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     public void showInputProblemView() {
         new LovelyCustomDialog(mContext)
-                .setTitle(R.string.input_problem_title)
                 .setIcon(R.drawable.aica)
                 .setTitleGravity(1)
                 .setTopColorRes(R.color.darkGreen)
@@ -259,6 +247,10 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     @Override
                     public void configureView(View v) {
                         input_problem = (MaterialEditText) v.findViewById(R.id.input_problem);
+
+                        input_exponent_title = (TextView) v.findViewById(R.id.input_exponent_title);
+                        input_exponent_title.setTypeface(Typeface.createFromAsset(mContext.getAssets(),
+                                "fonts/Raleway-Bold.ttf"));
 
                         input_problem.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -301,7 +293,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
                         btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
 
-                        validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
+                        validate_problem_btn = (FancyButton) v.findViewById(R.id.validate_problem_btn);
 
                         btn_one.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -589,8 +581,6 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                                                         resultString = result.toString();
                                                     }
 
-                                                    System.out.println("Result: " + resultString);
-
                                                     i.putExtra("Generated", false);
                                                     i.putExtra("equation", equation);
                                                     i.putExtra("result", resultString);
@@ -624,6 +614,24 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                 })
                 .show();
 
+    }
+
+    public void convert_equation_to_mathML() {
+        util = new ExprEvaluator();
+        engine = util.getEvalEngine();
+
+        MathMLUtilities mathUtil = new MathMLUtilities(engine, false, false);
+        StringWriter stw = new StringWriter();
+        mathUtil.toMathML(engine.parse(equation), stw);
+
+        final_equation = stw.toString();
+        equation_string = "<center><font size='+2'>" + final_equation + "</font></center>";
+    }
+
+    public void get_equation_result() {
+        util = new ExprEvaluator();
+        engine = util.getEvalEngine();
+        result = util.evaluate(equation);
     }
 
     public boolean check(String equation) {

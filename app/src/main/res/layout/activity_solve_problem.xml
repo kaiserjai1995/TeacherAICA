@@ -67,7 +67,7 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Solution Space"
             android:textSize="18sp"
@@ -75,7 +75,7 @@
 
         <ScrollView
             android:id="@+id/scrollView_solve"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:paddingBottom="5dp"
@@ -97,21 +97,22 @@
 
                     <LinearLayout
                         android:id="@+id/solution_step_1_view"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 1"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
                             <com.rengwuxian.materialedittext.MaterialEditText
                                 android:id="@+id/solution_step_1"
@@ -130,7 +131,6 @@
                                 android:id="@+id/submit_solution_step_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toEndOf="@id/solution_step_1"
                                 android:paddingBottom="10dp"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
@@ -143,7 +143,7 @@
                                 app:fb_iconPosition="left"
                                 app:fb_radius="30dp"
                                 app:fb_textColor="#FFFFFF"/>
-                        </RelativeLayout>
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -586,6 +586,633 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@id/solution_step_9"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_10_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_10"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_10"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_11_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_11"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_11"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_12_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_12"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_12"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_13_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_13"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_13"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_14_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_14"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_14"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_15_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_15"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_15"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_16_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_16"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_16"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_17_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_17"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_17"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_17"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_18_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_18"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_18"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_19_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_19"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_19"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_19"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                app:fb_borderColor="#FFFFFF"
+                                app:fb_borderWidth="1dp"
+                                app:fb_defaultColor="#3b5998"
+                                app:fb_focusColor="#5474b8"
+                                app:fb_fontIconResource="&#xf04b;"
+                                app:fb_iconPosition="left"
+                                app:fb_radius="30dp"
+                                app:fb_textColor="#FFFFFF"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <!-- Step End -->
+
+                    <!-- Step Start -->
+
+                    <LinearLayout
+                        android:id="@+id/solution_step_20_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Step 3"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/solution_step_20"
+                                android:layout_width="255dp"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="true"
+                                android:hint="Enter valid solution"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                app:met_baseColor="@color/colorPrimaryDark"
+                                app:met_errorColor="@color/darkRed"
+                                app:met_primaryColor="@color/darkGreen"/>
+
+                            <mehdi.sakout.fancybuttons.FancyButton
+                                android:id="@+id/submit_solution_step_20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/solution_step_20"
                                 android:paddingBottom="10dp"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
@@ -1225,13 +1852,14 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            app:fb_text="QUIT SOLVING THIS PROBLEM"
             app:fb_borderColor="#FFFFFF"
             app:fb_borderWidth="1dp"
-            app:fb_defaultColor="#3b5998"
-            app:fb_focusColor="#5474b8"
+            app:fb_defaultColor="@color/primary_dark"
+            app:fb_focusColor="@color/primary"
             app:fb_iconPosition="left"
+            app:fb_iconResource="@drawable/ic_quit"
             app:fb_radius="30dp"
+            app:fb_text="QUIT SOLVING THIS PROBLEM"
             app:fb_textColor="#FFFFFF"/>
 
     </LinearLayout>

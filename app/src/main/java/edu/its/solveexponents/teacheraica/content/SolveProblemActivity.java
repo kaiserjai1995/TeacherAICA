@@ -50,22 +50,25 @@ import static io.github.kexanie.library.R.id.MathJax;
  * Created by jairus on 12/8/16.
  */
 
-public class SolveProblemActivity extends AppCompatActivity {
+//TODO: Solutions must not exceed 9 times
+//TODO: Put icons in every FancyButton
+
+public class SolveProblemActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
 
-    private int level;
-    private int sublevel;
-    private String final_answer;
-    private String equation;
-    private String equationType;
-    private int errorsCommited;
-    boolean solved;
+    private int level, sublevel, errorsCommited;
+    private String final_answer, equation, equationType;
 
-    String hint;
+    int current_level, current_sublevel, number_of_steps, step_number;
 
-    MathView math_equation, solution_preview, abort_problem_final_answer, abort_problem_equation;
-    MathView generated_problem;
-    String equation_string;
+    boolean solved, match, hinted_and_left, hinted_and_solved, solving, five_errors, nine_errors,
+            max_solution_reached;
+
+    String hint, equation_string, final_equation_string, preview_string, abort_problem_final_answer_string,
+            step_by_step, final_equation, resultString, hint_code;
+
+    MathView math_equation, solution_preview, abort_problem_final_answer, abort_problem_equation,
+            generated_problem, input_mode_problem;
 
     FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
             btn_zero, btn_left_shift, btn_right_shift, btn_add, btn_subtract, btn_multiply, btn_divide, btn_power,
@@ -74,39 +77,34 @@ public class SolveProblemActivity extends AppCompatActivity {
             btn_var_d;
     FancyButton submit_solution_step_1, submit_solution_step_2, submit_solution_step_3, submit_solution_step_4,
             submit_solution_step_5, submit_solution_step_6, submit_solution_step_7, submit_solution_step_8,
-            submit_solution_step_9, quit_problem_button;
+            submit_solution_step_9, submit_solution_step_10, submit_solution_step_11, submit_solution_step_12,
+            submit_solution_step_13, submit_solution_step_14, submit_solution_step_15, submit_solution_step_16,
+            submit_solution_step_17, submit_solution_step_18, submit_solution_step_19, submit_solution_step_20;
+    FancyButton btn_hint, quit_problem_button, validate_problem_btn;
     MaterialEditText solution_step_1, solution_step_2, solution_step_3, solution_step_4, solution_step_5,
-            solution_step_6, solution_step_7, solution_step_8, solution_step_9;
+            solution_step_6, solution_step_7, solution_step_8, solution_step_9, solution_step_10, solution_step_11,
+            solution_step_12, solution_step_13, solution_step_14, solution_step_15, solution_step_16,
+            solution_step_17, solution_step_18, solution_step_19, solution_step_20;
+    MaterialEditText input_problem;
     LinearLayout solution_step_1_view, solution_step_2_view, solution_step_3_view, solution_step_4_view,
             solution_step_5_view, solution_step_6_view, solution_step_7_view, solution_step_8_view,
-            solution_step_9_view;
+            solution_step_9_view, solution_step_10_view, solution_step_11_view, solution_step_12_view,
+            solution_step_13_view, solution_step_14_view, solution_step_15_view, solution_step_16_view,
+            solution_step_17_view, solution_step_18_view, solution_step_19_view, solution_step_20_view;
+
+    TextView entered_solutions_title, current_solution_title, show_problem_answer_title, final_answer_show_title;
+
     ExprEvaluator util;
-    IExpr current_result;
+    IExpr current_result, result;
     EvalEngine engine;
-    String final_equation_string;
-    String preview_string;
-    String abort_problem_final_answer_string;
-    String step_by_step;
     StringWriter stw_step_by_step;
+
     Intent i;
-    ArrayList<String> step_list = new ArrayList<>();
-    FancyButton btn_hint;
-    ArrayList<String> read_url = new ArrayList<>();
-    String final_equation;
-    IExpr result;
-    int current_level;
-    int current_sublevel;
-    MaterialEditText input_problem;
+
+    ArrayList<String> step_list = new ArrayList<>(),
+            read_url = new ArrayList<>();
+
     InputMethodManager inputMethodManager;
-    Button validate_problem_btn;
-    MathView input_mode_problem;
-    String resultString;
-    Boolean match;
-    int number_of_steps;
-    int step_number;
-    int solution_error_number;
-    boolean hinted_and_left, hinted_and_solved, solving, five_errors, nine_errors;
-    String hint_code;
 
     public class StepListener extends AbstractEvalStepListener {
         /**
@@ -120,67 +118,79 @@ public class SolveProblemActivity extends AppCompatActivity {
             stw_step_by_step.write(step_by_step);
 
             step_list.add(stw_step_by_step.toString());
-
-            System.out.println("Out: " + stw_step_by_step.toString());
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setActivityImmersiveMode();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        retrieve_math_equation();
+
+        if (getIntent().getExtras().getBoolean("Generated")) {
+            retrieve_generated_equation_data();
+            displayEquation();
+
+            this.equationType = "Generated";
+            LoginActivity.teacheraicadb.addProblem(equation, equationType);
+        } else {
+            retrieve_input_equation_data();
+            displayEquation();
+
+            this.equationType = "Custom";
+            LoginActivity.teacheraicadb.addProblem(equation, equationType);
+        }
+
+        initializeObjectVariables();
+    }
+
+    public void setActivityImmersiveMode() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_solve_problem);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
 
-        // Set a Toolbar to replace the ActionBar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+    public void retrieve_math_equation() {
         math_equation = (MathView) findViewById(R.id.math_equation);
         equation = getIntent().getExtras().getString("equation");
         equation_string = getIntent().getExtras().getString("equation_string");
         final_equation_string = equation_string.replace("<center>", "")
                 .replace("</center>", "")
                 .replace("<font size='+2'>", "<font size='5px'>");
+    }
 
-        if (getIntent().getExtras().getBoolean("Generated")) {
-            level = getIntent().getExtras().getInt("level");
-            sublevel = getIntent().getExtras().getInt("sublevel");
-            final_answer = getIntent().getExtras().getString("result");
-            hint = getIntent().getExtras().getString("hint");
+    public void retrieve_generated_equation_data() {
+        level = getIntent().getExtras().getInt("level");
+        sublevel = getIntent().getExtras().getInt("sublevel");
+        final_answer = getIntent().getExtras().getString("result");
+        hint = getIntent().getExtras().getString("hint");
 
-            Log.d("TEACHERAICADB", "LEVEL: " + level + "_" + sublevel);
+        Log.d("TEACHERAICADB", "LEVEL: " + level + "_" + sublevel);
+    }
 
-            math_equation.config(
-                    "MathJax.Hub.Config({\n" +
-                            "  CommonHTML: { linebreaks: { automatic: true } },\n" +
-                            "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
-                            "         SVG: { linebreaks: { automatic: true } }\n" +
-                            "});");
+    public void retrieve_input_equation_data() {
+        //TODO Analyze equation string for determining hint type
+        final_answer = getIntent().getExtras().getString("result");
+    }
 
-            math_equation.setText(final_equation_string);
+    public void displayEquation() {
+        math_equation.config(
+                "MathJax.Hub.Config({\n" +
+                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
+                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
+                        "         SVG: { linebreaks: { automatic: true } }\n" +
+                        "});");
 
-            this.equationType = "Generated";
-            LoginActivity.teacheraicadb.addProblem(equation, equationType);
-        } else {
-            //TODO Analyze equation string for determining hint type
-            final_answer = getIntent().getExtras().getString("result");
-            math_equation.setText(final_equation_string);
+        math_equation.setText(final_equation_string);
+    }
 
-            System.out.println("EQUATION TO ANALYZE: " + equation);
-
-            ArrayList<Character> equation_token = new ArrayList<Character>();
-
-            for (int i = 0; i < equation.length(); i++) {
-                equation_token.add(equation.charAt(i));
-                System.out.println("Token: " + equation_token.get(i).toString());
-            }
-
-            this.equationType = "Custom";
-            LoginActivity.teacheraicadb.addProblem(equation, equationType);
-        }
-
+    public void initializeObjectVariables() {
         submit_solution_step_1 = (FancyButton) findViewById(R.id.submit_solution_step_1);
         submit_solution_step_2 = (FancyButton) findViewById(R.id.submit_solution_step_2);
         submit_solution_step_3 = (FancyButton) findViewById(R.id.submit_solution_step_3);
@@ -190,7 +200,17 @@ public class SolveProblemActivity extends AppCompatActivity {
         submit_solution_step_7 = (FancyButton) findViewById(R.id.submit_solution_step_7);
         submit_solution_step_8 = (FancyButton) findViewById(R.id.submit_solution_step_8);
         submit_solution_step_9 = (FancyButton) findViewById(R.id.submit_solution_step_9);
-        quit_problem_button = (FancyButton) findViewById(R.id.quit_problem_button);
+        submit_solution_step_10 = (FancyButton) findViewById(R.id.submit_solution_step_10);
+        submit_solution_step_11 = (FancyButton) findViewById(R.id.submit_solution_step_11);
+        submit_solution_step_12 = (FancyButton) findViewById(R.id.submit_solution_step_12);
+        submit_solution_step_13 = (FancyButton) findViewById(R.id.submit_solution_step_13);
+        submit_solution_step_14 = (FancyButton) findViewById(R.id.submit_solution_step_14);
+        submit_solution_step_15 = (FancyButton) findViewById(R.id.submit_solution_step_15);
+        submit_solution_step_16 = (FancyButton) findViewById(R.id.submit_solution_step_16);
+        submit_solution_step_17 = (FancyButton) findViewById(R.id.submit_solution_step_17);
+        submit_solution_step_18 = (FancyButton) findViewById(R.id.submit_solution_step_18);
+        submit_solution_step_19 = (FancyButton) findViewById(R.id.submit_solution_step_19);
+        submit_solution_step_20 = (FancyButton) findViewById(R.id.submit_solution_step_20);
 
         btn_one = (FancyButton) findViewById(R.id.btn_one);
         btn_two = (FancyButton) findViewById(R.id.btn_two);
@@ -225,6 +245,8 @@ public class SolveProblemActivity extends AppCompatActivity {
         btn_var_c = (FancyButton) findViewById(R.id.btn_var_c);
         btn_var_d = (FancyButton) findViewById(R.id.btn_var_d);
 
+        quit_problem_button = (FancyButton) findViewById(R.id.quit_problem_button);
+
         solution_step_1 = (MaterialEditText) findViewById(R.id.solution_step_1);
         solution_step_2 = (MaterialEditText) findViewById(R.id.solution_step_2);
         solution_step_3 = (MaterialEditText) findViewById(R.id.solution_step_3);
@@ -234,6 +256,17 @@ public class SolveProblemActivity extends AppCompatActivity {
         solution_step_7 = (MaterialEditText) findViewById(R.id.solution_step_7);
         solution_step_8 = (MaterialEditText) findViewById(R.id.solution_step_8);
         solution_step_9 = (MaterialEditText) findViewById(R.id.solution_step_9);
+        solution_step_10 = (MaterialEditText) findViewById(R.id.solution_step_10);
+        solution_step_11 = (MaterialEditText) findViewById(R.id.solution_step_11);
+        solution_step_12 = (MaterialEditText) findViewById(R.id.solution_step_12);
+        solution_step_13 = (MaterialEditText) findViewById(R.id.solution_step_13);
+        solution_step_14 = (MaterialEditText) findViewById(R.id.solution_step_14);
+        solution_step_15 = (MaterialEditText) findViewById(R.id.solution_step_15);
+        solution_step_16 = (MaterialEditText) findViewById(R.id.solution_step_16);
+        solution_step_17 = (MaterialEditText) findViewById(R.id.solution_step_17);
+        solution_step_18 = (MaterialEditText) findViewById(R.id.solution_step_18);
+        solution_step_19 = (MaterialEditText) findViewById(R.id.solution_step_19);
+        solution_step_20 = (MaterialEditText) findViewById(R.id.solution_step_20);
 
         solution_step_1_view = (LinearLayout) findViewById(R.id.solution_step_1_view);
         solution_step_2_view = (LinearLayout) findViewById(R.id.solution_step_2_view);
@@ -244,327 +277,71 @@ public class SolveProblemActivity extends AppCompatActivity {
         solution_step_7_view = (LinearLayout) findViewById(R.id.solution_step_7_view);
         solution_step_8_view = (LinearLayout) findViewById(R.id.solution_step_8_view);
         solution_step_9_view = (LinearLayout) findViewById(R.id.solution_step_9_view);
+        solution_step_10_view = (LinearLayout) findViewById(R.id.solution_step_10_view);
+        solution_step_11_view = (LinearLayout) findViewById(R.id.solution_step_11_view);
+        solution_step_12_view = (LinearLayout) findViewById(R.id.solution_step_12_view);
+        solution_step_13_view = (LinearLayout) findViewById(R.id.solution_step_13_view);
+        solution_step_14_view = (LinearLayout) findViewById(R.id.solution_step_14_view);
+        solution_step_15_view = (LinearLayout) findViewById(R.id.solution_step_15_view);
+        solution_step_16_view = (LinearLayout) findViewById(R.id.solution_step_16_view);
+        solution_step_17_view = (LinearLayout) findViewById(R.id.solution_step_17_view);
+        solution_step_18_view = (LinearLayout) findViewById(R.id.solution_step_18_view);
+        solution_step_19_view = (LinearLayout) findViewById(R.id.solution_step_19_view);
+        solution_step_20_view = (LinearLayout) findViewById(R.id.solution_step_20_view);
 
-        step_number = 0;
-        number_of_steps = 0;
+        submit_solution_step_1.setOnClickListener(this);
+        submit_solution_step_2.setOnClickListener(this);
+        submit_solution_step_3.setOnClickListener(this);
+        submit_solution_step_4.setOnClickListener(this);
+        submit_solution_step_5.setOnClickListener(this);
+        submit_solution_step_6.setOnClickListener(this);
+        submit_solution_step_7.setOnClickListener(this);
+        submit_solution_step_8.setOnClickListener(this);
+        submit_solution_step_9.setOnClickListener(this);
+        submit_solution_step_10.setOnClickListener(this);
+        submit_solution_step_11.setOnClickListener(this);
+        submit_solution_step_12.setOnClickListener(this);
+        submit_solution_step_13.setOnClickListener(this);
+        submit_solution_step_14.setOnClickListener(this);
+        submit_solution_step_15.setOnClickListener(this);
+        submit_solution_step_16.setOnClickListener(this);
+        submit_solution_step_17.setOnClickListener(this);
+        submit_solution_step_18.setOnClickListener(this);
+        submit_solution_step_19.setOnClickListener(this);
+        submit_solution_step_20.setOnClickListener(this);
 
-        errorsCommited = 0;
-        solution_error_number = 0;
-
-        solution_step_1.requestFocus();
-
-        focus_settings();
-
-        quit_problem_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        submit_solution_step_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_1.getText().toString(),
-                        solution_step_1,
-                        solution_step_2_view,
-                        submit_solution_step_1,
-                        solution_step_2);
-            }
-
-        });
-
-        submit_solution_step_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_2.getText().toString(),
-                        solution_step_2,
-                        solution_step_3_view,
-                        submit_solution_step_2,
-                        solution_step_3);
-            }
-        });
-
-        submit_solution_step_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_3.getText().toString(),
-                        solution_step_3,
-                        solution_step_4_view,
-                        submit_solution_step_3,
-                        solution_step_4);
-            }
-        });
-
-        submit_solution_step_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_4.getText().toString(),
-                        solution_step_4,
-                        solution_step_5_view,
-                        submit_solution_step_4,
-                        solution_step_5);
-            }
-        });
-
-        submit_solution_step_5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_5.getText().toString(),
-                        solution_step_5,
-                        solution_step_6_view,
-                        submit_solution_step_5,
-                        solution_step_6);
-            }
-        });
-
-        submit_solution_step_6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_6.getText().toString(),
-                        solution_step_6,
-                        solution_step_7_view,
-                        submit_solution_step_6,
-                        solution_step_7);
-            }
-        });
-
-        submit_solution_step_7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_7.getText().toString(),
-                        solution_step_7,
-                        solution_step_8_view,
-                        submit_solution_step_7,
-                        solution_step_8);
-            }
-        });
-
-        submit_solution_step_8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_8.getText().toString(),
-                        solution_step_8,
-                        solution_step_9_view,
-                        submit_solution_step_8,
-                        solution_step_9);
-            }
-        });
-
-        submit_solution_step_9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                evaluate_solution(solution_step_9.getText().toString(),
-                        solution_step_9,
-                        solution_step_9_view,
-                        submit_solution_step_9,
-                        solution_step_9);
-            }
-        });
-
-
-        btn_one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_one.getText().toString());
-            }
-        });
-
-        btn_two.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_two.getText().toString());
-            }
-        });
-
-        btn_three.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_three.getText().toString());
-            }
-        });
-
-        btn_four.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_four.getText().toString());
-            }
-        });
-
-        btn_five.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_five.getText().toString());
-            }
-        });
-
-        btn_six.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_six.getText().toString());
-            }
-        });
-
-        btn_seven.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_seven.getText().toString());
-            }
-        });
-
-        btn_eight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_eight.getText().toString());
-            }
-        });
-
-        btn_nine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_nine.getText().toString());
-            }
-        });
-
-        btn_zero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_zero.getText().toString());
-            }
-        });
-
-        btn_left_shift.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                left_shift();
-            }
-        });
-
-        btn_right_shift.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                right_shift();
-            }
-        });
-
-        btn_var_w.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_w.getText().toString());
-            }
-        });
-
-        btn_var_x.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_x.getText().toString());
-            }
-        });
-
-        btn_var_y.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_y.getText().toString());
-            }
-        });
-
-        btn_var_z.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_z.getText().toString());
-            }
-        });
-
-        btn_var_a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_a.getText().toString());
-            }
-        });
-
-        btn_var_b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_b.getText().toString());
-            }
-        });
-
-        btn_var_c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_c.getText().toString());
-            }
-        });
-
-        btn_var_d.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_var_d.getText().toString());
-            }
-        });
-
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_add.getText().toString());
-            }
-        });
-
-        btn_subtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_subtract.getText().toString());
-            }
-        });
-
-        btn_multiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_multiply.getText().toString());
-            }
-        });
-
-        btn_divide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_divide.getText().toString());
-            }
-        });
-
-        btn_power.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_power.getText().toString());
-            }
-        });
-
-        btn_decimal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_decimal.getText().toString());
-            }
-        });
-
-        btn_open_parenthesis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_open_parenthesis.getText().toString());
-            }
-        });
-
-        btn_closing_parenthesis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                process_btn_chars(btn_closing_parenthesis.getText().toString());
-            }
-        });
-
-        btn_backspace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backspace();
-            }
-        });
+        btn_one.setOnClickListener(this);
+        btn_two.setOnClickListener(this);
+        btn_three.setOnClickListener(this);
+        btn_four.setOnClickListener(this);
+        btn_five.setOnClickListener(this);
+        btn_six.setOnClickListener(this);
+        btn_seven.setOnClickListener(this);
+        btn_eight.setOnClickListener(this);
+        btn_nine.setOnClickListener(this);
+        btn_zero.setOnClickListener(this);
+        btn_left_shift.setOnClickListener(this);
+        btn_right_shift.setOnClickListener(this);
+        btn_add.setOnClickListener(this);
+        btn_subtract.setOnClickListener(this);
+        btn_multiply.setOnClickListener(this);
+        btn_divide.setOnClickListener(this);
+        btn_power.setOnClickListener(this);
+        btn_decimal.setOnClickListener(this);
+        btn_open_parenthesis.setOnClickListener(this);
+        btn_closing_parenthesis.setOnClickListener(this);
+        btn_backspace.setOnClickListener(this);
+        btn_clear.setOnClickListener(this);
+        btn_open_brace.setOnClickListener(this);
+        btn_closing_brace.setOnClickListener(this);
+        btn_var_w.setOnClickListener(this);
+        btn_var_x.setOnClickListener(this);
+        btn_var_y.setOnClickListener(this);
+        btn_var_z.setOnClickListener(this);
+        btn_var_a.setOnClickListener(this);
+        btn_var_b.setOnClickListener(this);
+        btn_var_c.setOnClickListener(this);
+        btn_var_d.setOnClickListener(this);
 
         btn_backspace.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -574,27 +351,196 @@ public class SolveProblemActivity extends AppCompatActivity {
             }
         });
 
-        btn_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        quit_problem_button.setOnClickListener(this);
+
+        errorsCommited = 0;
+        solution_step_1.requestFocus();
+        focus_settings();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.quit_problem_button:
+                onBackPressed();
+                break;
+            case R.id.submit_solution_step_1:
+                evaluate_solution(solution_step_1.getText().toString(), solution_step_1, solution_step_2_view,
+                        submit_solution_step_1, solution_step_2);
+                break;
+            case R.id.submit_solution_step_2:
+                evaluate_solution(solution_step_2.getText().toString(), solution_step_2, solution_step_3_view,
+                        submit_solution_step_2, solution_step_3);
+                break;
+            case R.id.submit_solution_step_3:
+                evaluate_solution(solution_step_3.getText().toString(), solution_step_3, solution_step_4_view,
+                        submit_solution_step_3, solution_step_4);
+                break;
+            case R.id.submit_solution_step_4:
+                evaluate_solution(solution_step_4.getText().toString(), solution_step_4, solution_step_5_view,
+                        submit_solution_step_4, solution_step_5);
+                break;
+            case R.id.submit_solution_step_5:
+                evaluate_solution(solution_step_5.getText().toString(), solution_step_5, solution_step_6_view,
+                        submit_solution_step_5, solution_step_6);
+                break;
+            case R.id.submit_solution_step_6:
+                evaluate_solution(solution_step_6.getText().toString(), solution_step_6, solution_step_7_view,
+                        submit_solution_step_6, solution_step_7);
+                break;
+            case R.id.submit_solution_step_7:
+                evaluate_solution(solution_step_7.getText().toString(), solution_step_7, solution_step_8_view,
+                        submit_solution_step_7, solution_step_8);
+                break;
+            case R.id.submit_solution_step_8:
+                evaluate_solution(solution_step_8.getText().toString(), solution_step_8, solution_step_9_view,
+                        submit_solution_step_8, solution_step_9);
+                break;
+            case R.id.submit_solution_step_9:
+                evaluate_solution(solution_step_9.getText().toString(), solution_step_9, solution_step_10_view,
+                        submit_solution_step_9, solution_step_10);
+                break;
+            case R.id.submit_solution_step_10:
+                evaluate_solution(solution_step_10.getText().toString(), solution_step_10, solution_step_11_view,
+                        submit_solution_step_10, solution_step_11);
+                break;
+            case R.id.submit_solution_step_11:
+                evaluate_solution(solution_step_11.getText().toString(), solution_step_11, solution_step_12_view,
+                        submit_solution_step_11, solution_step_12);
+                break;
+            case R.id.submit_solution_step_12:
+                evaluate_solution(solution_step_12.getText().toString(), solution_step_12, solution_step_13_view,
+                        submit_solution_step_12, solution_step_13);
+                break;
+            case R.id.submit_solution_step_13:
+                evaluate_solution(solution_step_13.getText().toString(), solution_step_13, solution_step_14_view,
+                        submit_solution_step_13, solution_step_14);
+                break;
+            case R.id.submit_solution_step_14:
+                evaluate_solution(solution_step_14.getText().toString(), solution_step_14, solution_step_15_view,
+                        submit_solution_step_14, solution_step_15);
+                break;
+            case R.id.submit_solution_step_15:
+                evaluate_solution(solution_step_15.getText().toString(), solution_step_15, solution_step_16_view,
+                        submit_solution_step_15, solution_step_16);
+                break;
+            case R.id.submit_solution_step_16:
+                evaluate_solution(solution_step_16.getText().toString(), solution_step_16, solution_step_17_view,
+                        submit_solution_step_16, solution_step_17);
+                break;
+            case R.id.submit_solution_step_17:
+                evaluate_solution(solution_step_17.getText().toString(), solution_step_17, solution_step_18_view,
+                        submit_solution_step_17, solution_step_18);
+                break;
+            case R.id.submit_solution_step_18:
+                evaluate_solution(solution_step_18.getText().toString(), solution_step_18, solution_step_19_view,
+                        submit_solution_step_18, solution_step_19);
+                break;
+            case R.id.submit_solution_step_19:
+                evaluate_solution(solution_step_19.getText().toString(), solution_step_19, solution_step_20_view,
+                        submit_solution_step_19, solution_step_20);
+                break;
+            case R.id.submit_solution_step_20:
+                max_solution_reached = true;
+                force_solving_abort();
+                break;
+            case R.id.btn_one:
+                process_btn_chars(btn_one.getText().toString());
+                break;
+            case R.id.btn_two:
+                process_btn_chars(btn_two.getText().toString());
+                break;
+            case R.id.btn_three:
+                process_btn_chars(btn_three.getText().toString());
+                break;
+            case R.id.btn_four:
+                process_btn_chars(btn_four.getText().toString());
+                break;
+            case R.id.btn_five:
+                process_btn_chars(btn_five.getText().toString());
+                break;
+            case R.id.btn_six:
+                process_btn_chars(btn_six.getText().toString());
+                break;
+            case R.id.btn_seven:
+                process_btn_chars(btn_seven.getText().toString());
+                break;
+            case R.id.btn_eight:
+                process_btn_chars(btn_eight.getText().toString());
+                break;
+            case R.id.btn_nine:
+                process_btn_chars(btn_nine.getText().toString());
+                break;
+            case R.id.btn_zero:
+                process_btn_chars(btn_zero.getText().toString());
+                break;
+            case R.id.btn_left_shift:
+                left_shift();
+                break;
+            case R.id.btn_right_shift:
+                right_shift();
+                break;
+            case R.id.btn_var_w:
+                process_btn_chars(btn_var_w.getText().toString());
+                break;
+            case R.id.btn_var_x:
+                process_btn_chars(btn_var_x.getText().toString());
+                break;
+            case R.id.btn_var_y:
+                process_btn_chars(btn_var_y.getText().toString());
+                break;
+            case R.id.btn_var_z:
+                process_btn_chars(btn_var_z.getText().toString());
+                break;
+            case R.id.btn_var_a:
+                process_btn_chars(btn_var_a.getText().toString());
+                break;
+            case R.id.btn_var_b:
+                process_btn_chars(btn_var_b.getText().toString());
+                break;
+            case R.id.btn_var_c:
+                process_btn_chars(btn_var_c.getText().toString());
+                break;
+            case R.id.btn_var_d:
+                process_btn_chars(btn_var_d.getText().toString());
+                break;
+            case R.id.btn_add:
+                process_btn_chars(btn_add.getText().toString());
+                break;
+            case R.id.btn_subtract:
+                process_btn_chars(btn_subtract.getText().toString());
+                break;
+            case R.id.btn_multiply:
+                process_btn_chars(btn_multiply.getText().toString());
+                break;
+            case R.id.btn_divide:
+                process_btn_chars(btn_divide.getText().toString());
+                break;
+            case R.id.btn_power:
+                process_btn_chars(btn_power.getText().toString());
+                break;
+            case R.id.btn_decimal:
+                process_btn_chars(btn_decimal.getText().toString());
+                break;
+            case R.id.btn_open_parenthesis:
+                process_btn_chars(btn_open_parenthesis.getText().toString());
+                break;
+            case R.id.btn_closing_parenthesis:
+                process_btn_chars(btn_closing_parenthesis.getText().toString());
+                break;
+            case R.id.btn_backspace:
+                backspace();
+                break;
+            case R.id.btn_clear:
                 clear_equation();
-            }
-        });
-
-        btn_open_brace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.btn_open_brace:
                 process_btn_chars(btn_open_brace.getText().toString());
-            }
-        });
-
-        btn_closing_brace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.btn_closing_brace:
                 process_btn_chars(btn_closing_brace.getText().toString());
-            }
-        });
-
+                break;
+        }
     }
 
     @Override
@@ -622,8 +568,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-        hinted_and_left = true;
 
+        hinted_and_left = true;
     }
 
     public void focus_settings() {
@@ -1121,7 +1067,7 @@ public class SolveProblemActivity extends AppCompatActivity {
                                             btn_var_c = (FancyButton) v.findViewById(R.id.btn_var_c);
                                             btn_var_d = (FancyButton) v.findViewById(R.id.btn_var_d);
 
-                                            validate_problem_btn = (Button) v.findViewById(R.id.validate_problem_btn);
+                                            validate_problem_btn = (FancyButton) v.findViewById(R.id.validate_problem_btn);
 
                                             btn_one.setOnClickListener(new View.OnClickListener() {
                                                 @Override
@@ -1463,7 +1409,6 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     public void preview_current_solution(final String current_solution_string) {
         new LovelyCustomDialog(SolveProblemActivity.this)
-                .setTitle("CURRENT SOLUTION")
                 .setTitleGravity(1)
                 .setTopColorRes(R.color.darkDeepOrange)
                 .setIcon(R.drawable.aica)
@@ -1472,6 +1417,10 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .configureView(new LovelyCustomDialog.ViewConfigurator() {
                     @Override
                     public void configureView(View v) {
+                        current_solution_title = (TextView) v.findViewById(R.id.current_solution_title);
+                        current_solution_title.setTypeface(Typeface.createFromAsset(getAssets(),
+                                "fonts/Raleway-Bold.ttf"));
+
                         solution_preview = (MathView) v.findViewById(R.id.solution_preview);
 
                         util = new ExprEvaluator();
@@ -1501,17 +1450,16 @@ public class SolveProblemActivity extends AppCompatActivity {
                 util = new ExprEvaluator();
                 current_result = util.evaluate(current_solution);
 
-                String[] current_answer_tokens = current_solution.split("(?<=[-+*/])|(?=[-+*/])");
+                String[] current_answer_tokens = current_solution.replace(" ", "").split("(?<=[-+*/])|(?=[-+*/])");
                 String[] final_answer_tokens = final_answer.split("(?<=[-+*/])|(?=[-+*/])");
 
                 String[] final_answer_with_asterisk_tokens = final_answer.replace("*", "").replace("(", "").replace(")", "").replace("+-", "-").split("(?<=[-+*/])|(?=[-+*/])");
-                String[] current_answer_with_asterisk_tokens = current_solution.replace("*", "").replace("(", "").replace(")", "").replace("+-", "-").split("(?<=[-+*/])|(?=[-+*/])");
+                String[] current_answer_with_asterisk_tokens = current_solution.replace(" ", "").replace("*", "").replace("(", "").replace(")", "").replace("+-", "-").split("(?<=[-+*/])|(?=[-+*/])");
 
                 if (Arrays.toString(final_answer_tokens).contains("+")
                         || Arrays.toString(final_answer_tokens).contains("-")
                         || Arrays.toString(final_answer_with_asterisk_tokens).contains("+")
                         || Arrays.toString(final_answer_with_asterisk_tokens).contains("-")) {
-                    System.out.println("Has + or - Sign");
                     Arrays.sort(final_answer_tokens);
                     Arrays.sort(final_answer_with_asterisk_tokens);
                     Arrays.sort(current_answer_tokens);
@@ -1710,9 +1658,6 @@ public class SolveProblemActivity extends AppCompatActivity {
                                                                                                                                                       break;
                                                                                                                                               }
 
-                                                                                                                                              System.out.println("Hints Used: " + hint_choices[0].toString() + "\n" +
-                                                                                                                                                      "Hint Code: " + hint_code);
-
                                                                                                                                               LoginActivity.teacheraicadb.addHintUsed(equation, hint_code, hint_choices[0]);
 
                                                                                                                                               WebView hint_webview1 = new WebView(SolveProblemActivity.this);
@@ -1835,23 +1780,8 @@ public class SolveProblemActivity extends AppCompatActivity {
                     })
                     .show();
         } else if (errorsCommited == 9) {
-            new LovelyStandardDialog(SolveProblemActivity.this)
-                    .setTitle("I'M SORRY")
-                    .setMessage("I think its time to let go of this problem and solve a new one. Nice try, though.")
-                    .setTitleGravity(1)
-                    .setMessageGravity(1)
-                    .setTopColorRes(R.color.darkDeepOrange)
-                    .setIcon(R.drawable.aica)
-                    .setCancelable(false)
-                    .setPositiveButtonColorRes(R.color.colorAccent)
-                    .setPositiveButton("OK", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            nine_errors = true;
-                            show_answer();
-                        }
-                    })
-                    .show();
+            nine_errors = true;
+            force_solving_abort();
         }
 
     }
@@ -1875,8 +1805,6 @@ public class SolveProblemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_view_all_solutions_entered:
                 new LovelyCustomDialog(SolveProblemActivity.this)
-                        .setTitle("ENTERED SOLUTIONS")
-                        .setMessage("These are the solutions that you have entered:")
                         .setTitleGravity(1)
                         .setMessageGravity(1)
                         .setCancelable(false)
@@ -1886,6 +1814,10 @@ public class SolveProblemActivity extends AppCompatActivity {
                         .configureView(new LovelyCustomDialog.ViewConfigurator() {
                             @Override
                             public void configureView(View v) {
+                                entered_solutions_title = (TextView) v.findViewById(R.id.entered_solutions_title);
+                                entered_solutions_title.setTypeface(Typeface.createFromAsset(getAssets(),
+                                        "fonts/Raleway-Bold.ttf"));
+
                                 LinearLayout entered_solutions_view = (LinearLayout) v.findViewById(R.id.entered_solutions_view);
                                 TextView no_entered_solutions = (TextView) v.findViewById(R.id.no_entered_solutions);
                                 ArrayList<String> correct_solutions = new ArrayList<String>();
@@ -1992,8 +1924,6 @@ public class SolveProblemActivity extends AppCompatActivity {
         new LovelyCustomDialog(SolveProblemActivity.this)
                 .setIcon(R.drawable.aica)
                 .setTopColorRes(R.color.darkDeepOrange)
-                .setTitle("ANSWER TO THE EQUATION PROBLEM")
-                .setMessage("You could've answered this, though. Still, nice try though and I know you'll do better next time you encounter this type of problem. The final answer to the problem is:")
                 .setCancelable(false)
                 .setMessageGravity(1)
                 .setTitleGravity(1)
@@ -2001,6 +1931,14 @@ public class SolveProblemActivity extends AppCompatActivity {
                 .configureView(new LovelyCustomDialog.ViewConfigurator() {
                     @Override
                     public void configureView(View v) {
+                        show_problem_answer_title = (TextView) v.findViewById(R.id.show_problem_answer_title);
+                        show_problem_answer_title.setTypeface(Typeface.createFromAsset(getAssets(),
+                                "fonts/Raleway-Bold.ttf"));
+
+                        final_answer_show_title = (TextView) v.findViewById(R.id.final_answer_show_title);
+                        final_answer_show_title.setTypeface(Typeface.createFromAsset(getAssets(),
+                                "fonts/Raleway-Bold.ttf"));
+
                         abort_problem_final_answer = (MathView) v.findViewById(R.id.abort_problem_final_answer);
                         abort_problem_equation = (MathView) v.findViewById(R.id.abort_problem_equation);
 
@@ -2111,33 +2049,6 @@ public class SolveProblemActivity extends AppCompatActivity {
         return match;
     }
 
-    public boolean check_solution_input(String equation) {
-        try {
-            match = true;
-
-            if (equation.matches("^-?\\d+$")) {
-                match = false;
-            }
-            if (equation.matches("(\\w+)")) {
-                match = false;
-            }
-
-        } catch (SyntaxError e) {
-            // catch Symja parser errors here
-            System.out.println(e.getMessage());
-            match = false;
-        } catch (MathException me) {
-            // catch Symja math errors here
-            System.out.println(me.getMessage());
-            match = false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            match = false;
-        }
-
-        return match;
-    }
-
 
     public void process_btn_chars_input(String chars) {
         input_problem.getText().insert(input_problem.getSelectionStart(), chars);
@@ -2170,6 +2081,25 @@ public class SolveProblemActivity extends AppCompatActivity {
 
     public void clear_equation_input() {
         input_problem.setText("");
+    }
+
+    public void force_solving_abort() {
+        new LovelyStandardDialog(SolveProblemActivity.this)
+                .setTitle("I'M SORRY")
+                .setMessage("I think its time to let go of this problem and solve a new one. Nice try, though.")
+                .setTitleGravity(1)
+                .setMessageGravity(1)
+                .setTopColorRes(R.color.darkDeepOrange)
+                .setIcon(R.drawable.aica)
+                .setCancelable(false)
+                .setPositiveButtonColorRes(R.color.colorAccent)
+                .setPositiveButton("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        show_answer();
+                    }
+                })
+                .show();
     }
 
     public void get_solution_step_number(EditText current_solution_step) {
@@ -2217,6 +2147,10 @@ public class SolveProblemActivity extends AppCompatActivity {
 
         if (nine_errors) {
             LoginActivity.teacheraicadb.updateProblemStatus("Errors 9x");
+        }
+
+        if (max_solution_reached) {
+            LoginActivity.teacheraicadb.updateProblemStatus("Max Num of Solution Reached");
         }
     }
 
