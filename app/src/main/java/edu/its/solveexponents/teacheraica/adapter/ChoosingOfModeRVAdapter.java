@@ -117,13 +117,13 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
         switch (i) {
             case 0:
                 if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP)
-                    choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorAccent);
+                    choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.darkRed);
                 else
                     choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_generated);
                 break;
             case 1:
                 if (currentapiVersion < Build.VERSION_CODES.LOLLIPOP)
-                    choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.colorPrimaryDark);
+                    choosingOfModeViewHolder.cv_choosing_of_mode.setCardBackgroundColor(R.color.primary_dark);
                 else
                     choosingOfModeViewHolder.cv_choosing_of_mode.setBackgroundResource(R.drawable.bg_input);
                 break;
@@ -136,7 +136,7 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                     case "Solve COMPUTER-GENERATED Problems":
                         level = LoginActivity.teacheraicadb.getCurrentLevel();
                         sublevel = LoginActivity.teacheraicadb.getCurrentSublevel(level);
-                        equation = Randomizer.getRandomEquation(level, sublevel);
+                        equation = checkIfProblemExists(level, sublevel);
                         hint = Randomizer.getHint(level, sublevel);
                         equationType = "Generated";
 
@@ -206,7 +206,8 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
                         LoginActivity.teacheraicadb.addProblem(equation, equationType);
                         LoginActivity.teacheraicadb.updateProblemStatus("Skipped");
 
-                        equation = Randomizer.getRandomEquation(level, sublevel);
+                        equation = checkIfProblemExists(level, sublevel);
+
                         hint = Randomizer.getHint(level, sublevel);
 
                         util = new ExprEvaluator();
@@ -712,5 +713,31 @@ public class ChoosingOfModeRVAdapter extends RecyclerView.Adapter<ChoosingOfMode
 
     public void clear_equation() {
         input_problem.setText("");
+    }
+
+    public String checkIfProblemExists(int level, int sublevel) {
+        equation = Randomizer.getRandomEquation(level, sublevel);
+
+        if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+            System.out.println("Problem Exists!");
+            equation = Randomizer.getRandomEquation(level, sublevel);
+
+            if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                System.out.println("Problem Exists!");
+                equation = Randomizer.getRandomEquation(level, sublevel);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                    System.out.println("Problem Exists!");
+                    equation = Randomizer.getRandomEquation(level, sublevel);
+
+                    if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                        System.out.println("Problem Exists!");
+                        equation = Randomizer.getRandomEquation(level, sublevel);
+                    }
+                }
+            }
+        }
+
+        return equation;
     }
 }

@@ -91,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         Log.d(TAG, "Login");
 
+        _loginButton.setText("LOGGING IN....");
+
         if (!validate()) {
             onLoginFailed();
             return;
@@ -153,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginFailed() {
         Toast.makeText(getBaseContext(), "Wrong username and/or password", Toast.LENGTH_LONG).show();
-
+        _loginButton.setText("LOGIN");
         _loginButton.setEnabled(true);
     }
 

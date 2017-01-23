@@ -57,6 +57,9 @@ public class LecturesFragment extends Fragment {
         lectures_topic.add(new LecturesTopic(getString(R.string.lecture_introduction_title),
                 getString(R.string.lecture_introduction_desc),
                 R.drawable.ic_lectures));
+        lectures_topic.add(new LecturesTopic(getString(R.string.lecture_positive_integer_exponents_title),
+                getString(R.string.lecture_positive_integer_exponents_desc),
+                R.drawable.ic_lectures));
         lectures_topic.add(new LecturesTopic(getString(R.string.lecture_base_raised_to_zero_title),
                 getString(R.string.lecture_base_raised_to_zero_desc),
                 R.drawable.ic_lectures));

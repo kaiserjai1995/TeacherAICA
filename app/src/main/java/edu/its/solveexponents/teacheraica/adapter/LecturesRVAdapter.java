@@ -14,14 +14,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.its.solveexponents.teacheraica.content.lectures.LectureSubtractionOfExponentsFragment;
+import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.content.lectures.LectureAdditionOfExponentsWithTheSameBasesFragment;
 import edu.its.solveexponents.teacheraica.content.lectures.LectureBaseRaisedToZeroFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureNegativeIntegerExponentsFragment;
 import edu.its.solveexponents.teacheraica.content.lectures.LectureIntroductionFragment;
-import edu.its.solveexponents.teacheraica.content.lectures.LectureMultiplicationOfExponentsToFindThePowerOfAPowerFragment;
 import edu.its.solveexponents.teacheraica.content.lectures.LectureMultiplicationOfBasesWithTheSameExponentsFragment;
-import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureMultiplicationOfExponentsToFindThePowerOfAPowerFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureNegativeIntegerExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LecturePositiveIntegerExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.lectures.LectureSubtractionOfExponentsFragment;
 import edu.its.solveexponents.teacheraica.model.LecturesTopic;
 
 /**
@@ -80,6 +81,9 @@ public class LecturesRVAdapter extends RecyclerView.Adapter<LecturesRVAdapter.Le
                 switch (lectures_topic.get(i).lectures_topic_title) {
                     case "Introduction":
                         fragmentClass = LectureIntroductionFragment.class;
+                        break;
+                    case "Positive Integer Exponents":
+                        fragmentClass = LecturePositiveIntegerExponentsFragment.class;
                         break;
                     case "Base Raised to Zero":
                         fragmentClass = LectureBaseRaisedToZeroFragment.class;

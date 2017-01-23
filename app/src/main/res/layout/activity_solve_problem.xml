@@ -618,7 +618,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 10"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -675,7 +675,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 11"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -732,7 +732,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 12"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -789,7 +789,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 13"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -846,7 +846,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 14"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -903,7 +903,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 15"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -960,7 +960,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 16"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -1017,7 +1017,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 17"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -1074,7 +1074,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 18"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -1131,7 +1131,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 19"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 
@@ -1188,7 +1188,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Step 3"
+                            android:text="Step 20"
                             android:textSize="15sp"
                             android:textStyle="bold"/>
 

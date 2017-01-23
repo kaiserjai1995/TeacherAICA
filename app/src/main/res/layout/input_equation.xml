@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="18sp"
-        android:text="INPUT EXPONENT PROBLEM"/>
+        android:text="INPUT EXPONENT PROBLEM"
+        android:textSize="18sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -604,6 +604,7 @@
             app:fb_defaultColor="#3b5998"
             app:fb_focusColor="#5474b8"
             app:fb_iconPosition="left"
+            app:fb_iconResource="@drawable/ic_validate"
             app:fb_radius="30dp"
             app:fb_text="VALIDATE INPUT PROBLEM"
             app:fb_textColor="#FFFFFF"/>
@@ -624,6 +625,7 @@
             app:fb_defaultColor="@color/darkRed"
             app:fb_focusColor="@color/colorAccent"
             app:fb_iconPosition="left"
+            app:fb_iconResource="@drawable/ic_quit"
             app:fb_radius="30dp"
             app:fb_text="GO BACK"
             app:fb_textColor="#FFFFFF"/>

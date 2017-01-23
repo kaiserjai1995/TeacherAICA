@@ -54,6 +54,9 @@ public class ReadingMaterialsFragment extends Fragment {
 
     private void initializeData() {
         reading_materials_topic = new ArrayList<>();
+        reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_positive_integer_exponents_title),
+                getString(R.string.reading_materials_positive_integer_exponents_desc),
+                R.drawable.ic_reading_materials));
         reading_materials_topic.add(new ReadingMaterialsTopic(getString(R.string.reading_materials_base_raised_to_zero_title),
                 getString(R.string.reading_materials_base_raised_to_zero_desc),
                 R.drawable.ic_reading_materials));

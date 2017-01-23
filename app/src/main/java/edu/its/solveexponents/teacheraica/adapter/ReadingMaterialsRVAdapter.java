@@ -18,6 +18,7 @@ import edu.its.solveexponents.teacheraica.R;
 import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialMultiplicationOfExponentsToFindThePowerOfAPowerFragment;
 import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialMultiplicationOfBasesWithTheSameExponentsFragment;
 import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialNegativeIntegerExponentsFragment;
+import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialPositiveIntegerExponentsFragment;
 import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialSubtractionOfExponentsFragment;
 import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialAdditionOfExponentsWithTheSameBasesFragment;
 import edu.its.solveexponents.teacheraica.content.reading_materials.ReadingMaterialBaseRaisedToZeroFragment;
@@ -77,6 +78,9 @@ public class ReadingMaterialsRVAdapter extends RecyclerView.Adapter<ReadingMater
                 Class fragmentClass;
 
                 switch (reading_materials_topic.get(i).reading_materials_topic_title) {
+                    case "Positive Integer Exponents":
+                        fragmentClass = ReadingMaterialPositiveIntegerExponentsFragment.class;
+                        break;
                     case "Base Raised to Zero":
                         fragmentClass = ReadingMaterialBaseRaisedToZeroFragment.class;
                         break;

@@ -2,6 +2,8 @@ package edu.its.solveexponents.teacheraica.algo;
 
 import java.util.Random;
 
+//TODO: Add Positive Integer Exponents Equations
+
 /**
  * Created by jairus on 12/14/16.
  */
@@ -9,6 +11,11 @@ import java.util.Random;
 public class Randomizer {
     /*
     Each skill set will be having 12 equations overall in 4 levels of difficulty, having 3 equations each level
+        1. Positive Integer Exponents:
+            Level 1 (5 Items): [s1][a]^[e1]
+            Level 2 (5 Items): ([s1][a]^[e1]) [s2] ([s3][b]^[e2])
+            Level 3 (5 Items): ([s1][a][v]^[e1]) [s2] ([s3][b][v]^[e2])
+            Level 4 (5 Items): (([s1][a][v1]^[e1])^[e3]) [s2] (([s3][b][v1]^[e2])^[e4])
         1. Base Raised to Zero:
             Level 1 (2 Items): [s1][a]^0
             Level 2 (2 Items): ([s1][a]^0) [s2] ([s1][a]^0)
@@ -82,19 +89,27 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                //P
+                equation = "[s1][a]^[e1]";
+                a = random_integer(false, 1, 3);
+                e1 = random_integer(false, 2, 2);
+
+                break;
+            case 2:
                 //Base Raised to Zero
                 //Z
                 equation = "[s1][a]^0";
                 a = random_integer(false, 1, 1000);
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with Same Bases
                 //AE
                 equation = "([v1]^[e1]) * ([v1]^[e2])";
                 e1 = random_integer(false, 2, 9);
                 e2 = random_integer(false, 2, 9);
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 //MB
                 equation = "([s1][a]^[e1]) * ([s3][b]^[e1])";
@@ -102,7 +117,7 @@ public class Randomizer {
                 b = random_integer(false, 1, 3);
                 e1 = random_integer(false, 1, 2);
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 //ME
                 equation = "([a]^[e1])^[e2]";
@@ -110,7 +125,7 @@ public class Randomizer {
                 e1 = random_integer(false, 1, 2);
                 e2 = random_integer(false, 1, 2);
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 //SE
                 equation = "([a]^[e1]) / ([b]^[e2])";
@@ -119,7 +134,7 @@ public class Randomizer {
                 e1 = random_integer(false, 2, 2);
                 e2 = random_integer(false, 2, 2);
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 //N
                 equation = "[a]^(-[e1])";
@@ -156,13 +171,22 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                //P
+                equation = "([s1][a]^[e1]) [s2] ([s3][b]^[e2])";
+                a = random_integer(false, 1, 3);
+                b = random_integer(false, 1, 3);
+                e1 = random_integer(true, 2, 2);
+                e2 = random_integer(true, 2, 2);
+                break;
+            case 2:
                 //Base Raised to Zero
                 //Z
                 equation = "([s1][a]^0) [s2] ([s3][b]^0)";
                 a = random_integer(false, 1, 1000);
                 b = random_integer(false, 1, 1000);
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with Same Bases
                 //AE
                 equation = "([a][v1]^[e1]) * ([b][v1]^[e2])";
@@ -171,7 +195,7 @@ public class Randomizer {
                 e1 = random_integer(false, 2, 3);
                 e2 = random_integer(false, 2, 3);
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 //MB, AE
                 equation = "([s1][a][v1]^[e1]) * ([s3][b][v1]^[e1])";
@@ -179,7 +203,7 @@ public class Randomizer {
                 b = random_integer(false, 1, 4);
                 e1 = random_integer(false, 2, 3);
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 //ME
                 equation = "([s1][a][v1]^[e1])^[e2]";
@@ -187,7 +211,7 @@ public class Randomizer {
                 e1 = random_integer(false, 2, 2);
                 e2 = random_integer(false, 2, 2);
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 //SE
                 equation = "([a][v1]^[e1]) / ([b][v1]^[e2])";
@@ -196,7 +220,7 @@ public class Randomizer {
                 e1 = random_integer(false, 4, 20);
                 e2 = random_integer(false, 2, 4);
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 //N
                 equation = "([s1][a][v1])^(-[e1])";
@@ -238,13 +262,22 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                //P
+                equation = "([a][v1]^[e1]) [s2] ([b][v1]^[e2])";
+                a = random_integer(true, 1, 3);
+                b = random_integer(true, 1, 3);
+                e1 = random_integer(false, 0, 3);
+                e2 = random_integer(false, 0, 3);
+                break;
+            case 2:
                 //Base Raised to Zero
                 //Z
                 equation = "([s1][a][v1]^0) [s2] ([s3][b][v2]^0)";
                 a = random_integer(true, 1, 9);
                 b = random_integer(true, 1, 9);
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with Same Bases
                 //AE
                 equation = "([s1][a][v1]^[e1]) * ([s3][b][v1]^[e2])";
@@ -253,7 +286,7 @@ public class Randomizer {
                 e1 = random_integer(false, 0, 3);
                 e2 = random_integer(false, 0, 3);
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 //MB, ME
                 equation = "(([s1][a][v1]^[e1])^[e2]) * (([s3][b][v1]^[e1])^[e2])";
@@ -262,7 +295,7 @@ public class Randomizer {
                 e1 = random_integer(false, 0, 3);
                 e2 = random_integer(false, 0, 3);
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 //ME
                 equation = "(([a][v1]^[e1])^[e2]) [s2] (([b][v1]^[e3])^[e4])";
@@ -273,7 +306,7 @@ public class Randomizer {
                 e3 = random_integer(false, 2, 2);
                 e4 = random_integer(false, 2, 2);
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 //SE
                 equation = "([s1][a][v1]^[e1]) / ([s3][b][v1]^[e2])";
@@ -282,7 +315,7 @@ public class Randomizer {
                 e1 = random_integer(false, 4, 20);
                 e2 = random_integer(false, 0, 4);
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 //N
                 equation = "(([a][v1])^(-[e1])) [s4] (([b][v1])^(-[e2]))";
@@ -337,6 +370,17 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                //P, ME
+                equation = "(([s1][a][v1]^[e1])^[e3]) [s2] (([s3][b][v1]^[e2])^[e4])";
+                a = random_integer(true, 1, 3);
+                b = random_integer(true, 1, 3);
+                e1 = random_integer(false, 0, 3);
+                e2 = random_integer(false, 0, 3);
+                e3 = random_integer(false, 0, 3);
+                e4 = random_integer(false, 0, 3);
+                break;
+            case 2:
                 //Base Raised to Zero
                 //Z, ME
                 equation = "(([s1][a][v1]^0)^[e1]) [s2] (([s3][b][v1]^0)^[e2])";
@@ -345,7 +389,7 @@ public class Randomizer {
                 e1 = random_integer(false, 0, 3);
                 e2 = random_integer(false, 0, 3);
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with Same Bases
                 //AE, ME
                 equation = "(([s1][a][v1]^[e1])^[e3]) * (([s3][b][v1]^[e2])^[e3])";
@@ -355,7 +399,7 @@ public class Randomizer {
                 e2 = random_integer(false, 0, 3);
                 e3 = random_integer(false, 0, 3);
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 //MB, AE
                 equation = "(([s1][a][v1]^[e1]) * ([s3][b][v1]^[e1])) [s2] (([s4][c][v1]^[e1]) * ([s5][d][v1]^[e1]))";
@@ -365,7 +409,7 @@ public class Randomizer {
                 d = random_integer(true, 1, 3);
                 e1 = random_integer(false, 0, 3);
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 //ME
                 equation = "(([a][v1]^[e1])^[e2]) [s6] (([b][v1]^[e3])^[e4])";
@@ -376,7 +420,7 @@ public class Randomizer {
                 e3 = random_integer(false, 2, 2);
                 e4 = random_integer(false, 2, 2);
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 //SE, ME
                 equation = "(([s1][a][v1]^[e1])^[e3]) / (([s3][b][v1]^[e2])^[e4])";
@@ -387,7 +431,7 @@ public class Randomizer {
                 e3 = random_integer(false, 2, 3);
                 e4 = random_integer(false, 2, 2);
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 //N, ME
                 equation = "((([s1][a][v1])^([s7][e1]))^([s8][e3])) [s6] ((([s3][b][v1])^([s9][e2]))^([s10][e4]))";
@@ -511,26 +555,30 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                hint = "Positive Integer Exponents";
+                break;
+            case 2:
                 //Base Raised to Zero
                 hint = "Base Raised to Zero";
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with the Same Bases
                 hint = "Addition of Exponents with the Same Bases";
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 hint = "Multiplication of Bases with the Same Exponents";
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 hint = "Subtraction of Exponents";
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 hint = "Negative Integer Exponents";
                 break;
@@ -540,30 +588,34 @@ public class Randomizer {
     }
 
     private static String generateHintLevel2(int sublevel) {
-        String hint ="";
+        String hint = "";
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                hint = "Positive Integer Exponents";
+                break;
+            case 2:
                 //Base Raised to Zero
                 hint = "Base Raised to Zero";
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with the Same Bases
                 hint = "Addition of Exponents with the Same Bases";
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 hint = "Multiplication of Bases with the Same Exponents, Addition of Exponents with the Same Bases";
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 hint = "Subtraction of Exponents";
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 hint = "Negative Integer Exponents";
                 break;
@@ -577,26 +629,30 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                hint = "Positive Integer Exponents";
+                break;
+            case 2:
                 //Base Raised to Zero
                 hint = "Base Raised to Zero";
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with the Same Bases
                 hint = "Addition of Exponents with the Same Bases";
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 hint = "Multiplication of Bases with the Same Exponents, Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 hint = "Subtraction of Exponents";
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 hint = "Negative Integer Exponents";
                 break;
@@ -610,26 +666,30 @@ public class Randomizer {
 
         switch (sublevel) {
             case 1:
+                //Positive Integer Exponents
+                hint = "Positive Integer Exponents, Multiplication of Exponents to Find the Power of a Power";
+                break;
+            case 2:
                 //Base Raised to Zero
                 hint = "Base Raised to Zero, Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 2:
+            case 3:
                 //Addition of Exponents with the Same Bases
                 hint = "Addition of Exponents with the Same Bases, Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 3:
+            case 4:
                 //Multiplication of Bases with the Same Exponents
                 hint = "Multiplication of Bases with the Same Exponents, Addition of Exponents with the Same Bases";
                 break;
-            case 4:
+            case 5:
                 //Multiplication of Exponents to Find the Power of a Power
                 hint = "Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 5:
+            case 6:
                 //Subtraction of Exponents
                 hint = "Subtraction of Exponents, Multiplication of Exponents to Find the Power of a Power";
                 break;
-            case 6:
+            case 7:
                 //Negative Integer Exponents
                 hint = "Negative Integer Exponents, Multiplication of Exponents to Find the Power of a Power";
                 break;
@@ -637,7 +697,6 @@ public class Randomizer {
 
         return hint;
     }
-
 
 
 }

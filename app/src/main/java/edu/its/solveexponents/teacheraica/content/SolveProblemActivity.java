@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,7 +49,6 @@ import static io.github.kexanie.library.R.id.MathJax;
  * Created by jairus on 12/8/16.
  */
 
-//TODO: Solutions must not exceed 9 times
 //TODO: Put icons in every FancyButton
 
 public class SolveProblemActivity extends AppCompatActivity implements View.OnClickListener {
@@ -62,7 +60,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
     int current_level, current_sublevel, number_of_steps, step_number;
 
     boolean solved, match, hinted_and_left, hinted_and_solved, solving, five_errors, nine_errors,
-            max_solution_reached;
+            max_solution_reached, next_problem_press;
 
     String hint, equation_string, final_equation_string, preview_string, abort_problem_final_answer_string,
             step_by_step, final_equation, resultString, hint_code;
@@ -645,6 +643,94 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                     inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             });
+        } else if (solution_step_10.hasFocus()) {
+            solution_step_10.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_11.hasFocus()) {
+            solution_step_11.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_12.hasFocus()) {
+            solution_step_12.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_13.hasFocus()) {
+            solution_step_13.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_14.hasFocus()) {
+            solution_step_14.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_15.hasFocus()) {
+            solution_step_15.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_16.hasFocus()) {
+            solution_step_16.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_17.hasFocus()) {
+            solution_step_17.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_18.hasFocus()) {
+            solution_step_18.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_19.hasFocus()) {
+            solution_step_19.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
+        } else if (solution_step_20.hasFocus()) {
+            solution_step_20.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            });
         }
 
     }
@@ -677,6 +763,39 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
         } else if (solution_step_9.hasFocus()) {
             solution_step_9.getText().insert(solution_step_9.getSelectionStart(), chars);
             solution_step_9.setSelection(solution_step_9.getSelectionStart());
+        } else if (solution_step_10.hasFocus()) {
+            solution_step_10.getText().insert(solution_step_10.getSelectionStart(), chars);
+            solution_step_10.setSelection(solution_step_10.getSelectionStart());
+        } else if (solution_step_11.hasFocus()) {
+            solution_step_11.getText().insert(solution_step_11.getSelectionStart(), chars);
+            solution_step_11.setSelection(solution_step_11.getSelectionStart());
+        } else if (solution_step_12.hasFocus()) {
+            solution_step_12.getText().insert(solution_step_12.getSelectionStart(), chars);
+            solution_step_12.setSelection(solution_step_12.getSelectionStart());
+        } else if (solution_step_13.hasFocus()) {
+            solution_step_13.getText().insert(solution_step_13.getSelectionStart(), chars);
+            solution_step_13.setSelection(solution_step_13.getSelectionStart());
+        } else if (solution_step_14.hasFocus()) {
+            solution_step_14.getText().insert(solution_step_14.getSelectionStart(), chars);
+            solution_step_14.setSelection(solution_step_14.getSelectionStart());
+        } else if (solution_step_15.hasFocus()) {
+            solution_step_15.getText().insert(solution_step_15.getSelectionStart(), chars);
+            solution_step_15.setSelection(solution_step_15.getSelectionStart());
+        } else if (solution_step_16.hasFocus()) {
+            solution_step_16.getText().insert(solution_step_16.getSelectionStart(), chars);
+            solution_step_16.setSelection(solution_step_16.getSelectionStart());
+        } else if (solution_step_17.hasFocus()) {
+            solution_step_17.getText().insert(solution_step_17.getSelectionStart(), chars);
+            solution_step_17.setSelection(solution_step_17.getSelectionStart());
+        } else if (solution_step_18.hasFocus()) {
+            solution_step_18.getText().insert(solution_step_18.getSelectionStart(), chars);
+            solution_step_18.setSelection(solution_step_18.getSelectionStart());
+        } else if (solution_step_19.hasFocus()) {
+            solution_step_19.getText().insert(solution_step_19.getSelectionStart(), chars);
+            solution_step_19.setSelection(solution_step_19.getSelectionStart());
+        } else if (solution_step_20.hasFocus()) {
+            solution_step_20.getText().insert(solution_step_20.getSelectionStart(), chars);
+            solution_step_20.setSelection(solution_step_20.getSelectionStart());
         }
     }
 
@@ -734,6 +853,72 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                 solution_step_9.setSelection(0);
             } else {
                 solution_step_9.setSelection(solution_step_9.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_10.hasFocus()) {
+            if (solution_step_10.getSelectionStart() == 0) {
+                solution_step_10.setSelection(0);
+            } else {
+                solution_step_10.setSelection(solution_step_10.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_11.hasFocus()) {
+            if (solution_step_11.getSelectionStart() == 0) {
+                solution_step_11.setSelection(0);
+            } else {
+                solution_step_11.setSelection(solution_step_11.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_12.hasFocus()) {
+            if (solution_step_12.getSelectionStart() == 0) {
+                solution_step_12.setSelection(0);
+            } else {
+                solution_step_12.setSelection(solution_step_12.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_13.hasFocus()) {
+            if (solution_step_13.getSelectionStart() == 0) {
+                solution_step_13.setSelection(0);
+            } else {
+                solution_step_13.setSelection(solution_step_13.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_14.hasFocus()) {
+            if (solution_step_14.getSelectionStart() == 0) {
+                solution_step_14.setSelection(0);
+            } else {
+                solution_step_14.setSelection(solution_step_14.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_15.hasFocus()) {
+            if (solution_step_15.getSelectionStart() == 0) {
+                solution_step_15.setSelection(0);
+            } else {
+                solution_step_15.setSelection(solution_step_15.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_16.hasFocus()) {
+            if (solution_step_16.getSelectionStart() == 0) {
+                solution_step_16.setSelection(0);
+            } else {
+                solution_step_16.setSelection(solution_step_16.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_17.hasFocus()) {
+            if (solution_step_17.getSelectionStart() == 0) {
+                solution_step_17.setSelection(0);
+            } else {
+                solution_step_17.setSelection(solution_step_17.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_18.hasFocus()) {
+            if (solution_step_18.getSelectionStart() == 0) {
+                solution_step_18.setSelection(0);
+            } else {
+                solution_step_18.setSelection(solution_step_18.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_19.hasFocus()) {
+            if (solution_step_19.getSelectionStart() == 0) {
+                solution_step_19.setSelection(0);
+            } else {
+                solution_step_19.setSelection(solution_step_19.getSelectionEnd() - 1);
+            }
+        } else if (solution_step_20.hasFocus()) {
+            if (solution_step_20.getSelectionStart() == 0) {
+                solution_step_20.setSelection(0);
+            } else {
+                solution_step_20.setSelection(solution_step_20.getSelectionEnd() - 1);
             }
         }
 
@@ -793,6 +978,72 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                 solution_step_9.setSelection(solution_step_9.length());
             } else {
                 solution_step_9.setSelection(solution_step_9.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_10.hasFocus()) {
+            if (solution_step_10.getSelectionEnd() == solution_step_10.length()) {
+                solution_step_10.setSelection(solution_step_10.length());
+            } else {
+                solution_step_10.setSelection(solution_step_10.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_11.hasFocus()) {
+            if (solution_step_11.getSelectionEnd() == solution_step_11.length()) {
+                solution_step_11.setSelection(solution_step_11.length());
+            } else {
+                solution_step_11.setSelection(solution_step_11.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_12.hasFocus()) {
+            if (solution_step_12.getSelectionEnd() == solution_step_12.length()) {
+                solution_step_12.setSelection(solution_step_12.length());
+            } else {
+                solution_step_12.setSelection(solution_step_12.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_13.hasFocus()) {
+            if (solution_step_13.getSelectionEnd() == solution_step_13.length()) {
+                solution_step_13.setSelection(solution_step_13.length());
+            } else {
+                solution_step_13.setSelection(solution_step_13.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_14.hasFocus()) {
+            if (solution_step_14.getSelectionEnd() == solution_step_14.length()) {
+                solution_step_14.setSelection(solution_step_14.length());
+            } else {
+                solution_step_14.setSelection(solution_step_14.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_15.hasFocus()) {
+            if (solution_step_15.getSelectionEnd() == solution_step_15.length()) {
+                solution_step_15.setSelection(solution_step_15.length());
+            } else {
+                solution_step_15.setSelection(solution_step_15.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_16.hasFocus()) {
+            if (solution_step_16.getSelectionEnd() == solution_step_16.length()) {
+                solution_step_16.setSelection(solution_step_16.length());
+            } else {
+                solution_step_16.setSelection(solution_step_16.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_17.hasFocus()) {
+            if (solution_step_17.getSelectionEnd() == solution_step_17.length()) {
+                solution_step_17.setSelection(solution_step_17.length());
+            } else {
+                solution_step_17.setSelection(solution_step_17.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_18.hasFocus()) {
+            if (solution_step_18.getSelectionEnd() == solution_step_18.length()) {
+                solution_step_18.setSelection(solution_step_18.length());
+            } else {
+                solution_step_18.setSelection(solution_step_18.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_19.hasFocus()) {
+            if (solution_step_19.getSelectionEnd() == solution_step_19.length()) {
+                solution_step_19.setSelection(solution_step_19.length());
+            } else {
+                solution_step_19.setSelection(solution_step_19.getSelectionEnd() + 1);
+            }
+        } else if (solution_step_20.hasFocus()) {
+            if (solution_step_20.getSelectionEnd() == solution_step_20.length()) {
+                solution_step_20.setSelection(solution_step_20.length());
+            } else {
+                solution_step_20.setSelection(solution_step_20.getSelectionEnd() + 1);
             }
         }
     }
@@ -854,6 +1105,72 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                 solution_step_9.setText(solution_step_9.getText().delete(cursorPosition - 1, cursorPosition));
                 solution_step_9.setSelection(cursorPosition - 1);
             }
+        } else if (solution_step_10.hasFocus()) {
+            cursorPosition = solution_step_10.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_10.setText(solution_step_10.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_10.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_11.hasFocus()) {
+            cursorPosition = solution_step_11.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_11.setText(solution_step_11.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_11.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_12.hasFocus()) {
+            cursorPosition = solution_step_12.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_12.setText(solution_step_12.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_12.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_13.hasFocus()) {
+            cursorPosition = solution_step_13.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_13.setText(solution_step_13.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_13.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_14.hasFocus()) {
+            cursorPosition = solution_step_14.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_14.setText(solution_step_14.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_14.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_15.hasFocus()) {
+            cursorPosition = solution_step_15.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_15.setText(solution_step_15.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_15.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_16.hasFocus()) {
+            cursorPosition = solution_step_16.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_16.setText(solution_step_16.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_16.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_17.hasFocus()) {
+            cursorPosition = solution_step_17.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_17.setText(solution_step_17.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_17.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_18.hasFocus()) {
+            cursorPosition = solution_step_18.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_18.setText(solution_step_18.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_18.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_19.hasFocus()) {
+            cursorPosition = solution_step_19.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_19.setText(solution_step_19.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_19.setSelection(cursorPosition - 1);
+            }
+        } else if (solution_step_20.hasFocus()) {
+            cursorPosition = solution_step_20.getSelectionStart();
+            if (cursorPosition > 0) {
+                solution_step_20.setText(solution_step_20.getText().delete(cursorPosition - 1, cursorPosition));
+                solution_step_20.setSelection(cursorPosition - 1);
+            }
         }
     }
 
@@ -876,6 +1193,28 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
             solution_step_8.setText("");
         } else if (solution_step_9.hasFocus()) {
             solution_step_9.setText("");
+        } else if (solution_step_10.hasFocus()) {
+            solution_step_10.setText("");
+        } else if (solution_step_11.hasFocus()) {
+            solution_step_11.setText("");
+        } else if (solution_step_12.hasFocus()) {
+            solution_step_12.setText("");
+        } else if (solution_step_13.hasFocus()) {
+            solution_step_13.setText("");
+        } else if (solution_step_14.hasFocus()) {
+            solution_step_14.setText("");
+        } else if (solution_step_15.hasFocus()) {
+            solution_step_15.setText("");
+        } else if (solution_step_16.hasFocus()) {
+            solution_step_16.setText("");
+        } else if (solution_step_17.hasFocus()) {
+            solution_step_17.setText("");
+        } else if (solution_step_18.hasFocus()) {
+            solution_step_18.setText("");
+        } else if (solution_step_19.hasFocus()) {
+            solution_step_19.setText("");
+        } else if (solution_step_20.hasFocus()) {
+            solution_step_20.setText("");
         }
     }
 
@@ -890,7 +1229,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                     .setMessageGravity(1)
                     .setTitleGravity(1)
                     .setView(R.layout.generated_problem_try_again)
-                    .setListener(R.id.solve_another_input_problem, new View.OnClickListener() {
+                    .setListener(R.id.solve_another_generated_problem, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             new LovelyCustomDialog(SolveProblemActivity.this)
@@ -904,12 +1243,35 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                                     .configureView(new LovelyCustomDialog.ViewConfigurator() {
                                         @Override
                                         public void configureView(View v) {
-                                            Button cancel_problem_btn = (Button) v.findViewById(R.id.cancel_problem_btn);
+                                            FancyButton cancel_problem_btn = (FancyButton) v.findViewById(R.id.cancel_problem_btn);
                                             cancel_problem_btn.setVisibility(View.GONE);
+
+                                            next_problem_press = false;
 
                                             level = LoginActivity.teacheraicadb.getCurrentLevel();
                                             sublevel = LoginActivity.teacheraicadb.getCurrentSublevel(level);
                                             equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                            if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                System.out.println("Problem Exists!");
+                                                equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                                if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                    System.out.println("Problem Exists!");
+                                                    equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                                    if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                        System.out.println("Problem Exists!");
+                                                        equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                                        if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                            System.out.println("Problem Exists!");
+                                                            equation = Randomizer.getRandomEquation(level, sublevel);
+                                                        }
+                                                    }
+                                                }
+                                            }
+
                                             hint = Randomizer.getHint(level, sublevel);
 
                                             generated_problem = (MathView) v.findViewById(R.id.generated_problem);
@@ -966,10 +1328,34 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                                     .setListener(R.id.next_problem_btn, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
+                                            next_problem_press = true;
+
                                             LoginActivity.teacheraicadb.addProblem(equation, equationType);
                                             LoginActivity.teacheraicadb.updateProblemStatus("Skipped");
 
                                             equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                            if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                System.out.println("Problem Exists!");
+                                                equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                                if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                    System.out.println("Problem Exists!");
+                                                    equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                                    if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                        System.out.println("Problem Exists!");
+                                                        equation = Randomizer.getRandomEquation(level, sublevel);
+
+                                                        if (LoginActivity.teacheraicadb.checkProblemIfExists(equation)) {
+                                                            System.out.println("Problem Exists!");
+                                                            equation = Randomizer.getRandomEquation(level, sublevel);
+                                                        }
+                                                    }
+                                                }
+                                                    LoginActivity.teacheraicadb.addProblem(equation, equationType);
+                                            }
+
                                             hint = Randomizer.getHint(level, sublevel);
 
                                             util = new ExprEvaluator();
@@ -1007,9 +1393,9 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                     .setTopColorRes(R.color.darkGreen)
                     .setCancelable(false)
                     .setMessageGravity(1)
-                    .setTitleGravity(1)
                     .setTitle("YOU'VE GOT THE CORRECT ANSWER! GOOD JOB!")
                     .setMessage("Congratulations! Do you want to solve another equation?")
+                    .setTitleGravity(1)
                     .setView(R.layout.input_problem_try_again)
                     .setListener(R.id.solve_another_input_problem, new View.OnClickListener() {
                         @Override
@@ -1575,6 +1961,10 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
 
                                                                    for (int i = 0; i < hint_choices.length; i++) {
                                                                        switch (hint_choices[i]) {
+                                                                           case "Positive Integer Exponents":
+                                                                               hint_code = "P";
+                                                                               read_url.add("file:///android_asset/reading_materials/positive_integer_exponents.html");
+                                                                               break;
                                                                            case "Base Raised to Zero":
                                                                                hint_code = "Z";
                                                                                read_url.add("file:///android_asset/reading_materials/base_raised_to_zero.html");
@@ -1638,6 +2028,9 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
 
                                                                                                                                           if (view.getId() == 1) {
                                                                                                                                               switch (hint_choices[0]) {
+                                                                                                                                                  case "Positive Integer Exponents":
+                                                                                                                                                      hint_code = "P";
+                                                                                                                                                      break;
                                                                                                                                                   case "Base Raised to Zero":
                                                                                                                                                       hint_code = "Z";
                                                                                                                                                       break;
@@ -1675,6 +2068,9 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
 
                                                                                                                                           } else {
                                                                                                                                               switch (hint_choices[1]) {
+                                                                                                                                                  case "Positive Integer Exponents":
+                                                                                                                                                      hint_code = "P";
+                                                                                                                                                      break;
                                                                                                                                                   case "Base Raised to Zero":
                                                                                                                                                       hint_code = "Z";
                                                                                                                                                       break;
@@ -1842,6 +2238,28 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                                 correct_solutions.add(solution_step_8.getText().toString());
                                 if (!solution_step_9.isEnabled()) num_of_solutions++;
                                 correct_solutions.add(solution_step_9.getText().toString());
+                                if (!solution_step_10.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_10.getText().toString());
+                                if (!solution_step_11.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_11.getText().toString());
+                                if (!solution_step_12.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_12.getText().toString());
+                                if (!solution_step_13.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_13.getText().toString());
+                                if (!solution_step_14.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_14.getText().toString());
+                                if (!solution_step_15.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_15.getText().toString());
+                                if (!solution_step_16.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_16.getText().toString());
+                                if (!solution_step_17.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_17.getText().toString());
+                                if (!solution_step_18.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_18.getText().toString());
+                                if (!solution_step_19.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_19.getText().toString());
+                                if (!solution_step_20.isEnabled()) num_of_solutions++;
+                                correct_solutions.add(solution_step_20.getText().toString());
 
                                 if (num_of_solutions != 0) {
                                     for (int i = 0; i < num_of_solutions; i++) {
@@ -1898,6 +2316,17 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                 else if (solution_step_7.hasFocus()) get_solution_step(solution_step_7);
                 else if (solution_step_8.hasFocus()) get_solution_step(solution_step_8);
                 else if (solution_step_9.hasFocus()) get_solution_step(solution_step_9);
+                else if (solution_step_10.hasFocus()) get_solution_step(solution_step_10);
+                else if (solution_step_11.hasFocus()) get_solution_step(solution_step_11);
+                else if (solution_step_12.hasFocus()) get_solution_step(solution_step_12);
+                else if (solution_step_13.hasFocus()) get_solution_step(solution_step_13);
+                else if (solution_step_14.hasFocus()) get_solution_step(solution_step_14);
+                else if (solution_step_15.hasFocus()) get_solution_step(solution_step_15);
+                else if (solution_step_16.hasFocus()) get_solution_step(solution_step_16);
+                else if (solution_step_17.hasFocus()) get_solution_step(solution_step_17);
+                else if (solution_step_18.hasFocus()) get_solution_step(solution_step_18);
+                else if (solution_step_19.hasFocus()) get_solution_step(solution_step_19);
+                else if (solution_step_20.hasFocus()) get_solution_step(solution_step_20);
                 else {
                     new LovelyInfoDialog(SolveProblemActivity.this)
                             .setTitle("UNABLE TO PREVIEW CURRENT SOLUTION")
@@ -2121,6 +2550,28 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
             step_number = 8;
         } else if (current_solution_step.equals(solution_step_9)) {
             step_number = 9;
+        } else if (current_solution_step.equals(solution_step_10)) {
+            step_number = 10;
+        } else if (current_solution_step.equals(solution_step_11)) {
+            step_number = 11;
+        } else if (current_solution_step.equals(solution_step_12)) {
+            step_number = 12;
+        } else if (current_solution_step.equals(solution_step_13)) {
+            step_number = 13;
+        } else if (current_solution_step.equals(solution_step_14)) {
+            step_number = 14;
+        } else if (current_solution_step.equals(solution_step_15)) {
+            step_number = 15;
+        } else if (current_solution_step.equals(solution_step_16)) {
+            step_number = 16;
+        } else if (current_solution_step.equals(solution_step_17)) {
+            step_number = 17;
+        } else if (current_solution_step.equals(solution_step_18)) {
+            step_number = 18;
+        } else if (current_solution_step.equals(solution_step_19)) {
+            step_number = 19;
+        } else if (current_solution_step.equals(solution_step_20)) {
+            step_number = 20;
         }
     }
 

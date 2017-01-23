@@ -64,6 +64,9 @@
     <string name="lecture_base_raised_to_zero_title">Base Raised to Zero</string>
     <string name="lecture_base_raised_to_zero_desc">Discussion of Base Raised to Zero Concepts</string>
 
+    <string name="lecture_positive_integer_exponents_title">Positive Integer Exponents</string>
+    <string name="lecture_positive_integer_exponents_desc">Discussion of Positive Integer Exponents Concepts</string>
+
     <string name="lecture_addition_of_exponents_with_the_same_bases_title">Addition of Exponents with the Same Bases</string>
     <string name="lecture_addition_of_exponents_with_the_same_bases_desc">Discussion of Addition of Exponents with the Same Bases Concepts</string>
 
@@ -80,6 +83,9 @@
     <string name="lecture_negative_integer_exponents_desc">Discussion of Negative Integer Exponents Concepts</string>
 
     <!-- Reading Materials Section Text -->
+    <string name="reading_materials_positive_integer_exponents_title">Positive Integer Exponents</string>
+    <string name="reading_materials_positive_integer_exponents_desc">Concepts and Examples regarding Positive Integer Exponents</string>
+
     <string name="reading_materials_base_raised_to_zero_title">Base Raised to Zero</string>
     <string name="reading_materials_base_raised_to_zero_desc">Concepts and Examples regarding Exponents with Base Raised to Zero</string>
 

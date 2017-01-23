@@ -1,30 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"/>
 
-    <Button
+    <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/solve_another_input_problem"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="YES, SOLVE ANOTHER EQUATION"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"/>
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        app:fb_borderColor="#FFFFFF"
+        app:fb_borderWidth="1dp"
+        app:fb_defaultColor="#3b5998"
+        app:fb_focusColor="#5474b8"
+        app:fb_iconPosition="left"
+        app:fb_iconResource="@drawable/ic_solve"
+        app:fb_radius="30dp"
+        app:fb_text="YES, SOLVE ANOTHER EQUATION"
+        app:fb_textColor="#FFFFFF"/>
 
-    <Button
+    <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/back_to_main"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NO"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"/>
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        app:fb_borderColor="#FFFFFF"
+        app:fb_borderWidth="1dp"
+        app:fb_defaultColor="@color/darkRed"
+        app:fb_focusColor="@color/colorAccent"
+        app:fb_iconPosition="left"
+        app:fb_iconResource="@drawable/ic_back"
+        app:fb_radius="30dp"
+        app:fb_text="NO, GO BACK"
+        app:fb_textColor="#FFFFFF"/>
 
 </LinearLayout>
