@@ -1,40 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/teal"
-              android:orientation="vertical"
-              tools:context="edu.its.solveexponents.teacheraica.content.lectures.LecturePositiveIntegerExponentsFragment">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_dark"
+    android:orientation="vertical"
+    tools:context="edu.its.solveexponents.teacheraica.content.lectures.LecturePositiveIntegerExponentsFragment">
 
-    <LinearLayout
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/card_background"
-        android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_1"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_1"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
 
                 <WebView
-                    android:id="@+id/webvw_lecture_positive_integer_exponents"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_1"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_1"/>
+            </RelativeLayout>
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-</LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/lecture_question_image_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/question"/>
+
+                <TextView
+                    android:id="@+id/lecture_question_title_1"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_1"
+                    android:text="Question"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <io.github.kexanie.library.MathView
+                    android:id="@+id/math_question_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_question_title_1"
+                    android:layout_toEndOf="@+id/lecture_question_image_1"
+                    fab:engine="MathJax">
+                </io.github.kexanie.library.MathView>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_solve_btn_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_1"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_solve"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVE QUESTION"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="15dp">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/all_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/teal"
+            fab:fab_colorPressed="@color/primary"
+            fab:fab_colorRipple="@color/fb_primary_color"
+            fab:fab_label="Overall Stats"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="16dp"
+            android:text="NEXT"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"/>
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

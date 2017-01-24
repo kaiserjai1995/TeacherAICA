@@ -133,7 +133,7 @@ public class ViewHistoryFragment extends Fragment {
                 layout_row_title.setLayoutParams(layout_row_title_layoutParams);
                 layout_row_title.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
                 layout_row_title.setPadding(30, 30, 30, 0);
-                layout_row_title.setBackgroundResource(R.drawable.card_background);
+                layout_row_title.setBackgroundResource(R.drawable.custom_rectangle);
 
                 ImageView problem_solved_image_in = new ImageView(rootView.getContext());
                 RelativeLayout.LayoutParams problem_solved_image_in_layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -213,7 +213,7 @@ public class ViewHistoryFragment extends Fragment {
                 final ExpandableLayout row_problem = new ExpandableLayout(rootView.getContext());
                 ExpandableLayout.LayoutParams row_problem_layoutParams = new ExpandableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 row_problem_layoutParams.setMargins(10, 10, 10, 10);
-                row_problem.setBackgroundResource(R.drawable.card_background);
+                row_problem.setBackgroundResource(R.drawable.custom_rectangle);
                 row_problem.setLayoutParams(row_problem_layoutParams);
                 row_problem.setDuration(300);
                 row_problem.setParallax(0.8F);

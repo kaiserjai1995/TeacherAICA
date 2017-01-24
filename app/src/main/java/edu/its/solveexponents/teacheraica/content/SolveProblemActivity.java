@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
-import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.matheclipse.core.eval.EvalEngine;
 import org.matheclipse.core.eval.ExprEvaluator;
@@ -2348,7 +2347,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void show_answer() {
-        LoginActivity.teacheraicadb.updateProblemStatus("abort");
+        LoginActivity.teacheraicadb.updateProblemStatus("Abort");
 
         new LovelyCustomDialog(SolveProblemActivity.this)
                 .setIcon(R.drawable.aica)
@@ -2478,7 +2477,6 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
         return match;
     }
 
-
     public void process_btn_chars_input(String chars) {
         input_problem.getText().insert(input_problem.getSelectionStart(), chars);
         input_problem.setSelection(input_problem.getSelectionStart());
@@ -2513,7 +2511,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void force_solving_abort() {
-        new LovelyStandardDialog(SolveProblemActivity.this)
+        new LovelyCustomDialog(SolveProblemActivity.this)
                 .setTitle("I'M SORRY")
                 .setMessage("I think its time to let go of this problem and solve a new one. Nice try, though.")
                 .setTitleGravity(1)
@@ -2521,8 +2519,8 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                 .setTopColorRes(R.color.darkDeepOrange)
                 .setIcon(R.drawable.aica)
                 .setCancelable(false)
-                .setPositiveButtonColorRes(R.color.colorAccent)
-                .setPositiveButton("OK", new View.OnClickListener() {
+                .setView(R.layout.force_abort)
+                .setListener(R.id.back_to_main, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         show_answer();

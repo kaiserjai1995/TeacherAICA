@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/activity_layout_solve"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              tools:context="edu.its.solveexponents.teacheraica.content.SolveProblemActivity">
-
-    <!-- The ActionBar displayed at the top -->
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
-        android:background="@drawable/card_background"
+        android:layout_margin="5dp"
         android:descendantFocusability="afterDescendants"
-        android:padding="16dp">
+        android:paddingBottom="5dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="5dp">
 
         <ImageView
-            android:id="@+id/solve_problem_question_image"
+            android:id="@+id/lecture_question_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -32,46 +26,44 @@
             android:src="@drawable/question"/>
 
         <TextView
-            android:id="@+id/solve_problem_problem_title"
+            android:id="@+id/lecture_question_title"
             fontPath="fonts/Raleway-Bold.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="7dp"
-            android:layout_toEndOf="@+id/solve_problem_question_image"
-            android:text="Equation"
+            android:layout_toEndOf="@+id/lecture_question_image"
+            android:text="Question"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:ignore="MissingPrefix"/>
 
         <io.github.kexanie.library.MathView
-            android:id="@+id/math_equation"
+            android:id="@+id/math_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/solve_problem_problem_title"
-            android:layout_toEndOf="@+id/solve_problem_question_image"
-            app:engine="MathJax">
+            android:layout_below="@+id/lecture_question_title"
+            android:layout_toEndOf="@+id/lecture_question_image"
+            fab:engine="MathJax">
         </io.github.kexanie.library.MathView>
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="7dp"
+        android:layout_marginEnd="18dp"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
-        android:background="@drawable/card_background"
+        android:layout_marginStart="18dp"
         android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Solution Space"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+        android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/scrollView_solve"
@@ -102,12 +94,14 @@
                         android:visibility="visible">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            fontPath="fonts/Raleway-Bold.ttf"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 1"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -120,14 +114,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_1"
@@ -138,14 +132,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -162,12 +157,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 2"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -180,14 +177,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_2"
@@ -198,15 +195,16 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
                         </LinearLayout>
+
                     </LinearLayout>
 
                     <!-- Step End -->
@@ -221,12 +219,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 3"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -239,14 +239,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_3"
@@ -257,14 +257,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -281,12 +282,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 4"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -299,14 +302,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_4"
@@ -317,14 +320,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -341,12 +345,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 5"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -359,14 +365,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_5"
@@ -377,14 +383,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -401,12 +408,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 6"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -419,14 +428,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_6"
@@ -437,14 +446,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -461,12 +471,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 7"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -479,14 +491,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_7"
@@ -497,14 +509,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -521,12 +534,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 8"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -539,14 +554,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_8"
@@ -557,14 +572,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -581,12 +597,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 9"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -599,14 +617,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_9"
@@ -617,14 +635,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -641,12 +660,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 10"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -659,14 +680,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_10"
@@ -677,14 +698,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -701,12 +723,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 11"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -719,14 +743,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_11"
@@ -737,14 +761,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -761,12 +786,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 12"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -779,14 +806,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_12"
@@ -797,14 +824,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -821,12 +849,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 13"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -839,14 +869,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_13"
@@ -857,14 +887,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -881,12 +912,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 14"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -899,14 +932,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_14"
@@ -917,14 +950,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -941,12 +975,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 15"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -959,14 +995,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_15"
@@ -977,14 +1013,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1001,12 +1038,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 16"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -1019,14 +1058,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_16"
@@ -1037,14 +1076,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1061,12 +1101,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 17"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -1079,14 +1121,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_17"
@@ -1097,14 +1139,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1121,12 +1164,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 18"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -1139,14 +1184,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_18"
@@ -1157,14 +1202,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1181,12 +1227,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 19"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -1199,14 +1247,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_19"
@@ -1217,14 +1265,15 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1241,12 +1290,14 @@
                         android:visibility="gone">
 
                         <TextView
+                            fontPath="fonts/Raleway-Bold.ttf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="Step 20"
                             android:textSize="15sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            tools:ignore="MissingPrefix"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -1259,14 +1310,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.90"
                                 android:cursorVisible="true"
-                                android:ems="14"
+                                android:ems="12"
                                 android:hint="Enter valid solution"
                                 android:inputType="text"
                                 android:longClickable="false"
                                 android:visibility="visible"
-                                app:met_baseColor="@color/colorPrimaryDark"
-                                app:met_errorColor="@color/darkRed"
-                                app:met_primaryColor="@color/darkGreen"/>
+                                fab:met_baseColor="@color/colorPrimaryDark"
+                                fab:met_errorColor="@color/darkRed"
+                                fab:met_primaryColor="@color/darkGreen"/>
 
                             <mehdi.sakout.fancybuttons.FancyButton
                                 android:id="@+id/submit_solution_step_20"
@@ -1277,47 +1328,46 @@
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
                                 android:paddingTop="10dp"
-                                app:fb_borderColor="#FFFFFF"
-                                app:fb_borderWidth="1dp"
-                                app:fb_defaultColor="#3b5998"
-                                app:fb_focusColor="#5474b8"
-                                app:fb_fontIconResource="&#xf04b;"
-                                app:fb_iconPosition="left"
-                                app:fb_radius="30dp"
-                                app:fb_textColor="#FFFFFF"/>
-                        </LinearLayout>
+                                fab:fb_borderColor="#FFFFFF"
+                                fab:fb_borderWidth="1dp"
+                                fab:fb_defaultColor="#3b5998"
+                                fab:fb_focusColor="#5474b8"
+                                fab:fb_fontIconResource="&#xf04b;"
+                                fab:fb_iconPosition="left"
+                                fab:fb_radius="30dp"
+                                fab:fb_textColor="#FFFFFF"/>
 
+                        </LinearLayout>
                     </LinearLayout>
 
                     <!-- Step End -->
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </ScrollView>
     </LinearLayout>
 
-    <!-- Custom Keyboard -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_background"
-        android:descendantFocusability="afterDescendants"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_margin="5dp">
 
         <TextView
             android:id="@+id/math_keyboard_title"
+            fontPath="fonts/Raleway-Bold.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:text="Math Keyboard"
             android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <!-- First Row -->
+            android:textStyle="bold"
+            tools:ignore="MissingPrefix"/>
 
         <TableLayout
             android:layout_width="match_parent"
@@ -1330,135 +1380,128 @@
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_one"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="1"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="1"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_two"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="2"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="2"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_three"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="3"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="3"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_var_w"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="w"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="w"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_var_a"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="a"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="a"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_add"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="+"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="+"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_power"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="^"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:layout_height="wrap_content"
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="^"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_backspace"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_iconResource="@drawable/sym_keyboard_delete"
-                    app:fb_radius="5dp"
-                    app:fb_textColor="#FFFFFF"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_iconResource="@drawable/sym_keyboard_delete"
+                    fab:fb_radius="5dp"
+                    fab:fb_textColor="#FFFFFF"/>
 
             </TableRow>
 
@@ -1470,49 +1513,46 @@
                     android:id="@+id/btn_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="4"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="4"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_five"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="5"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="5"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_six"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="6"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="6"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -1523,33 +1563,31 @@
                     android:id="@+id/btn_var_x"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="x"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="x"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_var_b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="b"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="b"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -1560,46 +1598,43 @@
                     android:id="@+id/btn_subtract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="-"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="-"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_decimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="."
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="."
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="C"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="C"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
             </TableRow>
 
@@ -1611,49 +1646,46 @@
                     android:id="@+id/btn_seven"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="7"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="7"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_eight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="8"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="8"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_nine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="9"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="9"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -1664,33 +1696,31 @@
                     android:id="@+id/btn_var_y"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="y"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="y"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_var_c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="c"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="c"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -1701,46 +1731,43 @@
                     android:id="@+id/btn_multiply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="*"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="*"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_open_parenthesis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="("
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="("
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_open_brace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="{"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="{"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
             </TableRow>
 
@@ -1752,47 +1779,46 @@
                     android:id="@+id/btn_left_shift"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="←"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="←"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_zero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="0"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="0"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_right_shift"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#006064"
-                    app:fb_focusColor="#00bcd4"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="→"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#006064"
+                    fab:fb_focusColor="#00bcd4"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="→"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -1803,33 +1829,31 @@
                     android:id="@+id/btn_var_z"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="z"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="z"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_var_d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#009688"
-                    app:fb_focusColor="#26a69a"
-                    app:fb_iconPosition="left"
-                    app:fb_radius="5dp"
-                    app:fb_text="d"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#009688"
+                    fab:fb_focusColor="#26a69a"
+                    fab:fb_iconPosition="left"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="d"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -1840,81 +1864,66 @@
                     android:id="@+id/btn_divide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="/"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="/"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_closing_parenthesis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text=")"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text=")"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/btn_closing_brace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:minWidth="35dp"
-                    app:fb_borderColor="#FFFFFF"
-                    app:fb_borderWidth="1dp"
-                    app:fb_defaultColor="#3b5998"
-                    app:fb_focusColor="#5474b8"
-                    app:fb_radius="5dp"
-                    app:fb_text="}"
-                    app:fb_textColor="#FFFFFF"
-                    app:fb_textSize="18sp"/>
+                    android:minWidth="30dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="#3b5998"
+                    fab:fb_focusColor="#5474b8"
+                    fab:fb_radius="5dp"
+                    fab:fb_text="}"
+                    fab:fb_textColor="#FFFFFF"
+                    fab:fb_textSize="18sp"/>
 
             </TableRow>
-
         </TableLayout>
-
     </LinearLayout>
 
-    <LinearLayout
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/lecture_go_back_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/card_background"
-        android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_margin="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fab:fb_borderColor="#FFFFFF"
+        fab:fb_borderWidth="1dp"
+        fab:fb_defaultColor="@color/primary"
+        fab:fb_focusColor="@color/primary_dark"
+        fab:fb_iconPosition="left"
+        fab:fb_iconResource="@drawable/ic_back"
+        fab:fb_radius="30dp"
+        fab:fb_text="GO BACK"
+        fab:fb_textColor="#FFFFFF"/>
 
-        <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/quit_problem_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            app:fb_borderColor="#FFFFFF"
-            app:fb_borderWidth="1dp"
-            app:fb_defaultColor="@color/primary_dark"
-            app:fb_focusColor="@color/primary"
-            app:fb_iconPosition="left"
-            app:fb_iconResource="@drawable/ic_quit"
-            app:fb_radius="30dp"
-            app:fb_text="QUIT SOLVING THIS PROBLEM"
-            app:fb_textColor="#FFFFFF"/>
-
-    </LinearLayout>
 
 </LinearLayout>
