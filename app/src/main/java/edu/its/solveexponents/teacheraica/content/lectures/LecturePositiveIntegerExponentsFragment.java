@@ -2,7 +2,6 @@ package edu.its.solveexponents.teacheraica.content.lectures;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +14,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
@@ -40,8 +41,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 import static io.github.kexanie.library.R.id.MathJax;
 
-    //TODO: Fix Error Messages and Logging of Data
-    //TODO: Add more content
+//TODO: Add more content
 
 /**
  * Created by jairus on 1/23/17.
@@ -55,9 +55,9 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
 
     WebView webvw_1;
     String path_1;
-    String question_1, question_string_1;
-    MathView math_question_1;
-    FancyButton lecture_solve_btn_1;
+    String question_1, question_string_1, question_2, question_string_2, question_3, question_string_3;
+    MathView math_question_1, math_question_2, math_question_3;
+    FancyButton lecture_solve_btn_1, lecture_solve_btn_2, lecture_solve_btn_3;
 
     LovelyCustomDialog dialog;
 
@@ -66,9 +66,9 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
 
     String equation;
 
-    int number_of_steps, step_number;
+    int number_of_steps, step_number, dialog_loaded;
 
-    boolean solved, hinted_and_left, hinted_and_solved, solving, five_errors, nine_errors,
+    boolean solved, hinted_and_left, hinted_and_solved, hinted, solving, five_errors, nine_errors,
             max_solution_reached;
 
     String hint, equation_string, abort_problem_final_answer_string, step_by_step, final_equation, hint_code;
@@ -102,8 +102,6 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
     EvalEngine engine;
     StringWriter stw_step_by_step;
 
-    Intent i;
-
     ArrayList<String> step_list = new ArrayList<>(),
             read_url = new ArrayList<>();
 
@@ -134,6 +132,11 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         getActivity().setTitle("Positive Integer Exponents");
         this.equationType = "Lecture";
 
+        final RelativeLayout lecture_question_1 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_1);
+        final RelativeLayout lecture_question_2 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_2);
+        final RelativeLayout lecture_question_3 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_3);
+        final RelativeLayout lecture_question_4 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_4);
+
         webvw_1 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_1);
         webvw_1.getSettings().setJavaScriptEnabled(true);
         webvw_1.getSettings().setDomStorageEnabled(true);
@@ -142,6 +145,32 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         webvw_1.loadUrl(path_1);
         webvw_1.setBackgroundColor(0x00000000);
 
+        dialog_loaded = 1;
+
+        FloatingActionButton next_interaction = (FloatingActionButton) rootView.findViewById(R.id.next_interaction);
+        next_interaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println(dialog_loaded);
+
+                if (dialog_loaded == 1) {
+                    lecture_question_1.setVisibility(View.VISIBLE);
+                } else if (dialog_loaded == 2) {
+                    lecture_question_1.setVisibility(View.VISIBLE);
+                    lecture_question_2.setVisibility(View.VISIBLE);
+                } else if (dialog_loaded == 3) {
+                    lecture_question_1.setVisibility(View.VISIBLE);
+                    lecture_question_2.setVisibility(View.VISIBLE);
+                    lecture_question_3.setVisibility(View.VISIBLE);
+                } else if (dialog_loaded == 4) {
+                    lecture_question_1.setVisibility(View.VISIBLE);
+                    lecture_question_2.setVisibility(View.VISIBLE);
+                    lecture_question_3.setVisibility(View.VISIBLE);
+                    lecture_question_4.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         math_question_1 = (MathView) rootView.findViewById(R.id.math_question_1);
         question_1 = "3 * 3";
         question_string_1 = convert_equation_to_mathML(question_1);
@@ -149,13 +178,64 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         hint = "Positive Integer Exponents";
 
         lecture_solve_btn_1 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_1);
-        lecture_answer_problem_dialog(question_1, question_string_1, lecture_solve_btn_1);
+
+        if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_1)) {
+            lecture_solve_btn_1.setEnabled(false);
+            lecture_solve_btn_1.setIconResource(R.drawable.ic_ok);
+            lecture_solve_btn_1.setText("THIS HAS BEEN SOLVED!");
+            dialog_loaded++;
+        }
+
+        if (dialog_loaded == 1) {
+            System.out.println("dialog_loaded_1" + question_string_1);
+            lecture_answer_problem_dialog(question_1, question_string_1, lecture_solve_btn_1);
+        }
+
+        math_question_2 = (MathView) rootView.findViewById(R.id.math_question_2);
+        question_2 = "4 * 4 * 4";
+        question_string_2 = convert_equation_to_mathML(question_2);
+        display_question(math_question_2, question_string_2);
+        hint = "Positive Integer Exponents";
+
+        lecture_solve_btn_2 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_2);
+
+        if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_2)) {
+            lecture_solve_btn_2.setEnabled(false);
+            lecture_solve_btn_2.setIconResource(R.drawable.ic_ok);
+            lecture_solve_btn_2.setText("THIS HAS BEEN SOLVED!");
+            dialog_loaded++;
+        }
+
+        if (dialog_loaded == 2) {
+            System.out.println("dialog_loaded_2" + question_string_2);
+            lecture_answer_problem_dialog(question_2, question_string_2, lecture_solve_btn_2);
+        }
+
+        math_question_3 = (MathView) rootView.findViewById(R.id.math_question_3);
+        question_3 = "5 * 5 * 5";
+        question_string_3 = convert_equation_to_mathML(question_3);
+        display_question(math_question_3, question_string_3);
+        hint = "Positive Integer Exponents";
+
+        lecture_solve_btn_3 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_3);
+
+        if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_3)) {
+            lecture_solve_btn_3.setEnabled(false);
+            lecture_solve_btn_3.setIconResource(R.drawable.ic_ok);
+            lecture_solve_btn_3.setText("THIS HAS BEEN SOLVED!");
+            dialog_loaded++;
+        }
+
+        if (dialog_loaded == 3) {
+            System.out.println("dialog_loaded_3" + question_string_3);
+            lecture_answer_problem_dialog(question_3, question_string_3, lecture_solve_btn_3);
+        }
 
         // Inflate the layout for this fragment
         return rootView;
     }
 
-    public void lecture_answer_problem_dialog(final String equation, final String question_string, FancyButton lecture_solve_btn) {
+    public void lecture_answer_problem_dialog(final String equation, final String question_string, final FancyButton lecture_solve_btn) {
         equation_lecture = equation;
 
         lecture_solve_btn.setOnClickListener(new View.OnClickListener() {
@@ -177,14 +257,15 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                                 initializeObjectVariables(v);
                             }
                         })
-                        .setListener(R.id.lecture_go_back_btn, true, new View.OnClickListener() {
+                        .setListener(R.id.lecture_go_back_btn, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (hinted_and_left) {
+                                if (hinted) {
                                     LoginActivity.teacheraicadb.updateProblemStatus("Hinted and Left");
                                 } else {
                                     LoginActivity.teacheraicadb.updateProblemStatus("Left");
                                 }
+                                onDetach();
                             }
                         })
                         .show();
@@ -929,6 +1010,21 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                             .setListener(R.id.ok_btn, true, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    if (dialog_loaded == 1) {
+                                        lecture_solve_btn_1.setEnabled(false);
+                                        lecture_solve_btn_1.setIconResource(R.drawable.ic_ok);
+                                        lecture_solve_btn_1.setText("THIS HAS BEEN SOLVED!");
+                                    } else if (dialog_loaded == 2) {
+                                        lecture_solve_btn_2.setEnabled(false);
+                                        lecture_solve_btn_2.setIconResource(R.drawable.ic_ok);
+                                        lecture_solve_btn_2.setText("THIS HAS BEEN SOLVED!");
+                                    } else if (dialog_loaded == 3) {
+                                        lecture_solve_btn_3.setEnabled(false);
+                                        lecture_solve_btn_3.setIconResource(R.drawable.ic_ok);
+                                        lecture_solve_btn_3.setText("THIS HAS BEEN SOLVED!");
+                                    }
+
+                                    dialog_loaded++;
                                     dialog.dismiss();
                                 }
                             })
@@ -973,7 +1069,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
             LoginActivity.teacheraicadb.addError(equation, current_solution);
         }
 
-        if (errorsCommited == 3) {
+        if (errorsCommited == 3 && !solved) {
             new LovelyCustomDialog(getContext())
                     .setTitle("UH OH...")
                     .setMessage("It seems that you are having a difficulty solving this problem. Want to take a hint?")
@@ -985,6 +1081,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                     .setListener(R.id.take_hint, true, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    hinted = true;
                                     hinted_and_solved = true;
 
                                     new LovelyCustomDialog(getContext())
@@ -1161,7 +1258,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                                                                                                                    .setListener(R.id.solve_expo_back, true, new View.OnClickListener() {
                                                                                                                                @Override
                                                                                                                                public void onClick(View view) {
-                                                                                                                                    hinted_and_left = true;
+
                                                                                                                                }
                                                                                                                            }
                                                                                                                    )
@@ -1178,7 +1275,6 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                                             .setListener(R.id.back_to_solve, true, new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View view) {
-                                                            errorsCommited++;
                                                             solving = true;
                                                         }
                                                     }
@@ -1195,7 +1291,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                             }
                     )
                     .show();
-        } else if (errorsCommited == 5) {
+        } else if (errorsCommited == 5 && !solved) {
             new LovelyCustomDialog(getContext())
                     .setTitle("IS THE PROBLEM VERY DIFFICULT?")
                     .setMessage("It seems that this equation is giving you a hard time. I can provide you the answer to this equation if you want, however, you have to quit solving this problem. Is that all right?")
@@ -1220,7 +1316,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                         }
                     })
                     .show();
-        } else if (errorsCommited == 9) {
+        } else if (errorsCommited == 9 && !solved) {
             nine_errors = true;
             force_solving_abort();
         }
@@ -1731,7 +1827,8 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
     }
 
     public void show_answer() {
-        LoginActivity.teacheraicadb.updateProblemStatus("Abort");
+        System.out.println("Show Answer");
+        LoginActivity.teacheraicadb.updateProblemStatus("Left");
 
         new LovelyCustomDialog(getContext())
                 .setIcon(R.drawable.aica)
@@ -1803,7 +1900,6 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                             abort_problem_solution_lecture.setText("$$" + step_list.get(i) + "$$");
                             abort_answers_view.addView(abort_problem_solution_lecture);
                         }
-
                         step_list.clear();
                     }
                 })
@@ -1812,6 +1908,10 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                     public void onClick(View view) {
                         if (nine_errors) {
                             LoginActivity.teacheraicadb.updateProblemStatus("Errors 9x");
+                        } else if (hinted) {
+                            LoginActivity.teacheraicadb.updateProblemStatus("Hinted and Left");
+                        } else {
+                            LoginActivity.teacheraicadb.updateProblemStatus("Left");
                         }
                         dialog.dismiss();
                     }
@@ -1884,7 +1984,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                 .setListener(R.id.abort_problem_btn, true, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LoginActivity.teacheraicadb.updateProblemStatus("Abort");
+                        LoginActivity.teacheraicadb.updateProblemStatus("Left");
                         show_answer();
                     }
                 })
@@ -1895,21 +1995,16 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                     }
                 })
                 .show();
-
-        hinted_and_left = true;
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
+        System.out.println("onPause: " + hinted_and_left);
+
         if (hinted_and_left) {
             LoginActivity.teacheraicadb.updateProblemStatus("Hinted and Left");
-            dialog.dismiss();
-        }
-
-        if (!solving) {
-            LoginActivity.teacheraicadb.updateProblemStatus("Left");
             dialog.dismiss();
         }
 

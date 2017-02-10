@@ -1927,7 +1927,9 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
             LoginActivity.teacheraicadb.addError(equation, current_solution);
         }
 
-        if (errorsCommited == 3) {
+        System.out.println("Error Count: " + errorsCommited);
+
+        if (errorsCommited == 3 && !solved) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("UH OH...")
                     .setMessage("It seems that you are having a difficulty solving this problem. Want to take a hint?")
@@ -2132,7 +2134,6 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                                             .setListener(R.id.back_to_solve, true, new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View view) {
-                                                            errorsCommited++;
                                                             solving = true;
                                                         }
                                                     }
@@ -2149,7 +2150,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                             }
                     )
                     .show();
-        } else if (errorsCommited == 5) {
+        } else if (errorsCommited == 5 && !solved) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("IS THE PROBLEM VERY DIFFICULT?")
                     .setMessage("It seems that this equation is giving you a hard time. I can provide you the answer to this equation if you want, however, you have to quit solving this problem. Is that all right?")
@@ -2174,7 +2175,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                         }
                     })
                     .show();
-        } else if (errorsCommited == 9) {
+        } else if (errorsCommited == 9 && !solved) {
             nine_errors = true;
             force_solving_abort();
         }
@@ -2274,13 +2275,6 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
                                         no_entered_solutions.setTextSize(18);
                                         no_entered_solutions.setText("Number of Entered Solutions: " + num_of_solutions);
                                         no_entered_solutions.setTypeface(null, Typeface.BOLD);
-
-                                        entered_solution.config(
-                                                "MathJax.Hub.Config({\n" +
-                                                        "  CommonHTML: { linebreaks: { automatic: true } },\n" +
-                                                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n" +
-                                                        "         SVG: { linebreaks: { automatic: true } }\n" +
-                                                        "});");
 
                                         entered_solution_step_numbers.setText("Solution Step Number " + (i + 1));
                                         entered_solution.setText("$$" + correct_solutions.get(i) + "$$");

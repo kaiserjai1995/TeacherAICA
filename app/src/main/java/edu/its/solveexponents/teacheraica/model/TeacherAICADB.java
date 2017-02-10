@@ -909,6 +909,22 @@ public class TeacherAICADB extends SQLiteOpenHelper {
         return problemExists;
     }
 
+    public boolean checkProblemIfExistsLecture(String equation) {
+        String sql = "SELECT *" +
+                " FROM " + TBL_PROBLEMS +
+                " WHERE " + TBL_PROBLEMS_PROBLEM + " = '" + equation + "'" +
+                " AND " + TBL_PROBLEMS_STATUS + " = 'Solved'" +
+                " AND " + TBL_PROBLEMS_PROBLEMTYPE + " = 'Lecture'";
+        Cursor cursor = db.rawQuery(sql, null);
+        boolean problemExists = false;
+
+        if (cursor.moveToFirst()) {
+            problemExists = true;
+        }
+
+        return problemExists;
+    }
+
     public void logLectureModuleView(String module, Date out, Date in) {
         initializeDateTimeFormat();
 
