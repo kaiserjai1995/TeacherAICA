@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -27,7 +28,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="100dp"
             android:gravity="center_horizontal"
-            android:text="CHECK FOR UPDATES SECTION"
+            android:text="APPLICATION UPDATES"
             android:textSize="45sp"
             tools:ignore="MissingPrefix"/>
 
@@ -36,14 +37,24 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_width="fill_parent"
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/check_for_updates_btn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="None at the moment"
-            android:textSize="12sp"/>
+            android:layout_marginTop="2dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            fab:fb_borderColor="#FFFFFF"
+            fab:fb_borderWidth="1dp"
+            fab:fb_defaultColor="@color/primary_dark"
+            fab:fb_focusColor="@color/primary"
+            fab:fb_iconPosition="left"
+            fab:fb_iconResource="@drawable/ic_check_for_updates"
+            fab:fb_radius="30dp"
+            fab:fb_text="CHECK IF UPDATE IS AVAILABLE"
+            fab:fb_textColor="#FFFFFF"/>
+
     </LinearLayout>
 </LinearLayout>
