@@ -6,6 +6,8 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyCustomDialog;
 
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.its.solveexponents.teacheraica.R;
+import edu.its.solveexponents.teacheraica.content.LecturesFragment;
 import edu.its.solveexponents.teacheraica.content.LoginActivity;
 import io.github.kexanie.library.MathView;
 import mehdi.sakout.fancybuttons.FancyButton;
@@ -53,11 +55,25 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    WebView webvw_1;
-    String path_1;
-    String question_1, question_string_1, question_2, question_string_2, question_3, question_string_3;
-    MathView math_question_1, math_question_2, math_question_3;
-    FancyButton lecture_solve_btn_1, lecture_solve_btn_2, lecture_solve_btn_3;
+    String hint = "Positive Integer Exponents";
+
+    WebView webvw_1, webvw_2, webvw_3, webvw_4, webvw_5, webvw_6, webvw_7, webvw_8;
+    String path_1, path_2, path_3, path_4, path_5, path_6, path_7, path_8;
+    String question_1 = "3 * 3", question_2 = "4 * 4 * 4", question_3 = "5 * 5 * 5", question_4 = "2 * 2 * 2",
+            question_5 = "2 * 2 * 2 * 2", question_6 = "2^3", question_7 = "2^5", question_8 = "3^4", question_9 = "10^6";
+    String question_string_1, question_string_2, question_string_3, question_string_4, question_string_5,
+            question_string_6, question_string_7, question_string_8, question_string_9;
+    MathView math_question_1, math_question_2, math_question_3, math_question_4, math_question_5,
+            math_question_6, math_question_7, math_question_8, math_question_9;
+    FancyButton lecture_solve_btn_1, lecture_solve_btn_2, lecture_solve_btn_3, lecture_solve_btn_4,
+            lecture_solve_btn_5, lecture_solve_btn_6, lecture_solve_btn_7, lecture_solve_btn_8, lecture_solve_btn_9;
+    FancyButton lecture_next_1, lecture_next_2, lecture_next_3, lecture_next_4, lecture_next_5, lecture_next_6,
+            lecture_next_7, lecture_next_8, lecture_next_9, lecture_next_10, lecture_next_11, lecture_next_12,
+            lecture_next_13, lecture_next_14, lecture_next_15, lecture_next_16, lecture_next_17;
+    RelativeLayout lecture_question_1, lecture_question_2, lecture_question_3, lecture_question_4, lecture_question_5,
+            lecture_question_6, lecture_question_7, lecture_question_8, lecture_question_9;
+    RelativeLayout lecture_interaction_2, lecture_interaction_3, lecture_interaction_4, lecture_interaction_5,
+            lecture_interaction_6, lecture_interaction_7, lecture_interaction_8;
 
     LovelyCustomDialog dialog;
 
@@ -66,12 +82,12 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
 
     String equation;
 
-    int number_of_steps, step_number, dialog_loaded;
+    int number_of_steps, step_number;
 
     boolean solved, hinted_and_left, hinted_and_solved, hinted, solving, five_errors, nine_errors,
             max_solution_reached;
 
-    String hint, equation_string, abort_problem_final_answer_string, step_by_step, final_equation, hint_code;
+    String equation_string, abort_problem_final_answer_string, step_by_step, final_equation, hint_code;
     String equation_lecture;
 
     FancyButton btn_one, btn_two, btn_three, btn_four, btn_five, btn_six, btn_seven, btn_eight, btn_nine,
@@ -132,12 +148,61 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         getActivity().setTitle("Positive Integer Exponents");
         this.equationType = "Lecture";
 
-        final RelativeLayout lecture_question_1 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_1);
-        final RelativeLayout lecture_question_2 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_2);
-        final RelativeLayout lecture_question_3 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_3);
-        final RelativeLayout lecture_question_4 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_4);
+        lecture_next_1 = (FancyButton) rootView.findViewById(R.id.lecture_next_1);
+        lecture_next_2 = (FancyButton) rootView.findViewById(R.id.lecture_next_2);
+        lecture_next_3 = (FancyButton) rootView.findViewById(R.id.lecture_next_3);
+        lecture_next_4 = (FancyButton) rootView.findViewById(R.id.lecture_next_4);
+        lecture_next_5 = (FancyButton) rootView.findViewById(R.id.lecture_next_5);
+        lecture_next_6 = (FancyButton) rootView.findViewById(R.id.lecture_next_6);
+        lecture_next_7 = (FancyButton) rootView.findViewById(R.id.lecture_next_7);
+        lecture_next_8 = (FancyButton) rootView.findViewById(R.id.lecture_next_8);
+        lecture_next_9 = (FancyButton) rootView.findViewById(R.id.lecture_next_9);
+        lecture_next_10 = (FancyButton) rootView.findViewById(R.id.lecture_next_10);
+        lecture_next_11 = (FancyButton) rootView.findViewById(R.id.lecture_next_11);
+        lecture_next_12 = (FancyButton) rootView.findViewById(R.id.lecture_next_12);
+        lecture_next_13 = (FancyButton) rootView.findViewById(R.id.lecture_next_13);
+        lecture_next_14 = (FancyButton) rootView.findViewById(R.id.lecture_next_14);
+        lecture_next_15 = (FancyButton) rootView.findViewById(R.id.lecture_next_15);
+        lecture_next_16 = (FancyButton) rootView.findViewById(R.id.lecture_next_16);
+        lecture_next_17 = (FancyButton) rootView.findViewById(R.id.lecture_next_17);
+
+        lecture_question_1 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_1);
+        lecture_question_2 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_2);
+        lecture_question_3 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_3);
+        lecture_question_4 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_4);
+        lecture_question_5 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_5);
+        lecture_question_6 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_6);
+        lecture_question_7 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_7);
+        lecture_question_8 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_8);
+        lecture_question_9 = (RelativeLayout) rootView.findViewById(R.id.lecture_question_9);
+
+        lecture_interaction_2 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_2);
+        lecture_interaction_3 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_3);
+        lecture_interaction_4 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_4);
+        lecture_interaction_5 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_5);
+        lecture_interaction_6 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_6);
+        lecture_interaction_7 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_7);
+        lecture_interaction_8 = (RelativeLayout) rootView.findViewById(R.id.lecture_interaction_8);
+
+        lecture_solve_btn_1 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_1);
+        lecture_solve_btn_2 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_2);
+        lecture_solve_btn_3 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_3);
+        lecture_solve_btn_4 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_4);
+        lecture_solve_btn_5 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_5);
+        lecture_solve_btn_6 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_6);
+        lecture_solve_btn_7 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_7);
+        lecture_solve_btn_8 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_8);
+        lecture_solve_btn_9 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_9);
 
         webvw_1 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_1);
+        webvw_2 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_2);
+        webvw_3 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_3);
+        webvw_4 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_4);
+        webvw_5 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_5);
+        webvw_6 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_6);
+        webvw_7 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_7);
+        webvw_8 = (WebView) rootView.findViewById(R.id.webvw_lecture_positive_integer_exponents_8);
+
         webvw_1.getSettings().setJavaScriptEnabled(true);
         webvw_1.getSettings().setDomStorageEnabled(true);
         webvw_1.setWebViewClient(new WebViewClient());
@@ -145,91 +210,373 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         webvw_1.loadUrl(path_1);
         webvw_1.setBackgroundColor(0x00000000);
 
-        dialog_loaded = 1;
+        math_question_1 = (MathView) rootView.findViewById(R.id.math_question_1);
+        math_question_1.setMinimumWidth(50);
+        math_question_1.setMinimumHeight(50);
 
-        FloatingActionButton next_interaction = (FloatingActionButton) rootView.findViewById(R.id.next_interaction);
-        next_interaction.setOnClickListener(new View.OnClickListener() {
+        lecture_next_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(dialog_loaded);
+                lecture_question_1.setVisibility(View.VISIBLE);
+                lecture_next_1.setVisibility(View.GONE);
 
-                if (dialog_loaded == 1) {
-                    lecture_question_1.setVisibility(View.VISIBLE);
-                } else if (dialog_loaded == 2) {
-                    lecture_question_1.setVisibility(View.VISIBLE);
-                    lecture_question_2.setVisibility(View.VISIBLE);
-                } else if (dialog_loaded == 3) {
-                    lecture_question_1.setVisibility(View.VISIBLE);
-                    lecture_question_2.setVisibility(View.VISIBLE);
-                    lecture_question_3.setVisibility(View.VISIBLE);
-                } else if (dialog_loaded == 4) {
-                    lecture_question_1.setVisibility(View.VISIBLE);
-                    lecture_question_2.setVisibility(View.VISIBLE);
-                    lecture_question_3.setVisibility(View.VISIBLE);
-                    lecture_question_4.setVisibility(View.VISIBLE);
+                question_string_1 = convert_equation_to_mathML(question_1);
+                display_question(math_question_1, question_string_1);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_1)) {
+                    lecture_solve_btn_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_1, question_string_1, lecture_solve_btn_1);
                 }
             }
         });
 
-        math_question_1 = (MathView) rootView.findViewById(R.id.math_question_1);
-        question_1 = "3 * 3";
-        question_string_1 = convert_equation_to_mathML(question_1);
-        display_question(math_question_1, question_string_1);
-        hint = "Positive Integer Exponents";
+        lecture_next_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_2.setVisibility(View.VISIBLE);
+                lecture_next_2.setVisibility(View.GONE);
 
-        lecture_solve_btn_1 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_1);
-
-        if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_1)) {
-            lecture_solve_btn_1.setEnabled(false);
-            lecture_solve_btn_1.setIconResource(R.drawable.ic_ok);
-            lecture_solve_btn_1.setText("THIS HAS BEEN SOLVED!");
-            dialog_loaded++;
-        }
-
-        if (dialog_loaded == 1) {
-            System.out.println("dialog_loaded_1" + question_string_1);
-            lecture_answer_problem_dialog(question_1, question_string_1, lecture_solve_btn_1);
-        }
+                webvw_2.getSettings().setJavaScriptEnabled(true);
+                webvw_2.getSettings().setDomStorageEnabled(true);
+                webvw_2.setWebViewClient(new WebViewClient());
+                path_2 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_2.html").toString();
+                webvw_2.loadUrl(path_2);
+                webvw_2.setBackgroundColor(0x00000000);
+            }
+        });
 
         math_question_2 = (MathView) rootView.findViewById(R.id.math_question_2);
-        question_2 = "4 * 4 * 4";
-        question_string_2 = convert_equation_to_mathML(question_2);
-        display_question(math_question_2, question_string_2);
-        hint = "Positive Integer Exponents";
+        math_question_2.setMinimumWidth(50);
+        math_question_2.setMinimumHeight(50);
 
-        lecture_solve_btn_2 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_2);
+        lecture_next_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_2.setVisibility(View.VISIBLE);
+                lecture_next_3.setVisibility(View.GONE);
 
-        if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_2)) {
-            lecture_solve_btn_2.setEnabled(false);
-            lecture_solve_btn_2.setIconResource(R.drawable.ic_ok);
-            lecture_solve_btn_2.setText("THIS HAS BEEN SOLVED!");
-            dialog_loaded++;
-        }
+                question_string_2 = convert_equation_to_mathML(question_2);
+                display_question(math_question_2, question_string_2);
 
-        if (dialog_loaded == 2) {
-            System.out.println("dialog_loaded_2" + question_string_2);
-            lecture_answer_problem_dialog(question_2, question_string_2, lecture_solve_btn_2);
-        }
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_2)) {
+                    lecture_solve_btn_1.setVisibility(View.GONE);
+                    lecture_solve_btn_2.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_2, question_string_2, lecture_solve_btn_2);
+                }
+            }
+        });
+
+        lecture_next_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_3.setVisibility(View.VISIBLE);
+                lecture_next_4.setVisibility(View.GONE);
+
+                webvw_3.getSettings().setJavaScriptEnabled(true);
+                webvw_3.getSettings().setDomStorageEnabled(true);
+                webvw_3.setWebViewClient(new WebViewClient());
+                path_3 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_3.html").toString();
+                webvw_3.loadUrl(path_3);
+                webvw_3.setBackgroundColor(0x00000000);
+            }
+        });
 
         math_question_3 = (MathView) rootView.findViewById(R.id.math_question_3);
-        question_3 = "5 * 5 * 5";
-        question_string_3 = convert_equation_to_mathML(question_3);
-        display_question(math_question_3, question_string_3);
-        hint = "Positive Integer Exponents";
+        math_question_3.setMinimumWidth(50);
+        math_question_3.setMinimumHeight(50);
 
-        lecture_solve_btn_3 = (FancyButton) rootView.findViewById(R.id.lecture_solve_btn_3);
+        lecture_next_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_3.setVisibility(View.VISIBLE);
+                lecture_next_5.setVisibility(View.GONE);
 
-        if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_3)) {
-            lecture_solve_btn_3.setEnabled(false);
-            lecture_solve_btn_3.setIconResource(R.drawable.ic_ok);
-            lecture_solve_btn_3.setText("THIS HAS BEEN SOLVED!");
-            dialog_loaded++;
-        }
+                question_string_3 = convert_equation_to_mathML(question_3);
+                display_question(math_question_3, question_string_3);
 
-        if (dialog_loaded == 3) {
-            System.out.println("dialog_loaded_3" + question_string_3);
-            lecture_answer_problem_dialog(question_3, question_string_3, lecture_solve_btn_3);
-        }
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_3)) {
+                    lecture_solve_btn_3.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_3, question_string_3, lecture_solve_btn_3);
+                }
+            }
+        });
+
+        lecture_next_6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_4.setVisibility(View.VISIBLE);
+                lecture_next_6.setVisibility(View.GONE);
+
+                webvw_4.getSettings().setJavaScriptEnabled(true);
+                webvw_4.getSettings().setDomStorageEnabled(true);
+                webvw_4.setWebViewClient(new WebViewClient());
+                path_4 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_4.html").toString();
+                webvw_4.loadUrl(path_4);
+                webvw_4.setBackgroundColor(0x00000000);
+            }
+        });
+
+        math_question_4 = (MathView) rootView.findViewById(R.id.math_question_4);
+        math_question_4.setMinimumWidth(50);
+        math_question_4.setMinimumHeight(50);
+
+        lecture_next_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_4.setVisibility(View.VISIBLE);
+                lecture_next_7.setVisibility(View.GONE);
+
+                question_string_4 = convert_equation_to_mathML(question_4);
+                display_question(math_question_4, question_string_4);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_4)) {
+                    lecture_solve_btn_4.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.GONE);
+                    lecture_next_8.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_4, question_string_4, lecture_solve_btn_4);
+                }
+            }
+        });
+
+        lecture_next_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_5.setVisibility(View.VISIBLE);
+                lecture_next_8.setVisibility(View.GONE);
+
+                webvw_5.getSettings().setJavaScriptEnabled(true);
+                webvw_5.getSettings().setDomStorageEnabled(true);
+                webvw_5.setWebViewClient(new WebViewClient());
+                path_5 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_5.html").toString();
+                webvw_5.loadUrl(path_5);
+                webvw_5.setBackgroundColor(0x00000000);
+            }
+        });
+
+        math_question_5 = (MathView) rootView.findViewById(R.id.math_question_5);
+        math_question_5.setMinimumWidth(50);
+        math_question_5.setMinimumHeight(50);
+
+        lecture_next_9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_5.setVisibility(View.VISIBLE);
+                lecture_next_9.setVisibility(View.GONE);
+
+                question_string_5 = convert_equation_to_mathML(question_5);
+                display_question(math_question_5, question_string_5);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_5)) {
+                    lecture_solve_btn_5.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.GONE);
+                    lecture_next_8.setVisibility(View.GONE);
+                    lecture_next_10.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_5, question_string_5, lecture_solve_btn_5);
+                }
+            }
+        });
+
+        lecture_next_10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_6.setVisibility(View.VISIBLE);
+                lecture_next_10.setVisibility(View.GONE);
+
+                webvw_6.getSettings().setJavaScriptEnabled(true);
+                webvw_6.getSettings().setDomStorageEnabled(true);
+                webvw_6.setWebViewClient(new WebViewClient());
+                path_6 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_6.html").toString();
+                webvw_6.loadUrl(path_6);
+                webvw_6.setBackgroundColor(0x00000000);
+            }
+        });
+
+        lecture_next_11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_7.setVisibility(View.VISIBLE);
+                lecture_next_11.setVisibility(View.GONE);
+
+                webvw_7.getSettings().setJavaScriptEnabled(true);
+                webvw_7.getSettings().setDomStorageEnabled(true);
+                webvw_7.setWebViewClient(new WebViewClient());
+                path_7 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_7.html").toString();
+                webvw_7.loadUrl(path_7);
+                webvw_7.setBackgroundColor(0x00000000);
+            }
+        });
+
+        math_question_6 = (MathView) rootView.findViewById(R.id.math_question_6);
+        math_question_6.setMinimumWidth(50);
+        math_question_6.setMinimumHeight(50);
+
+        lecture_next_12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_6.setVisibility(View.VISIBLE);
+                lecture_next_12.setVisibility(View.GONE);
+
+                question_string_6 = convert_equation_to_mathML(question_6);
+                display_question(math_question_6, question_string_6);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_6)) {
+                    lecture_solve_btn_6.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.GONE);
+                    lecture_next_8.setVisibility(View.GONE);
+                    lecture_next_10.setVisibility(View.GONE);
+                    lecture_next_13.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_6, question_string_6, lecture_solve_btn_6);
+                }
+            }
+        });
+
+        math_question_7 = (MathView) rootView.findViewById(R.id.math_question_7);
+        math_question_7.setMinimumWidth(50);
+        math_question_7.setMinimumHeight(50);
+
+        lecture_next_13.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_7.setVisibility(View.VISIBLE);
+                lecture_next_13.setVisibility(View.GONE);
+
+                question_string_7 = convert_equation_to_mathML(question_7);
+                display_question(math_question_7, question_string_7);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_7)) {
+                    lecture_solve_btn_7.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.GONE);
+                    lecture_next_8.setVisibility(View.GONE);
+                    lecture_next_10.setVisibility(View.GONE);
+                    lecture_next_13.setVisibility(View.GONE);
+                    lecture_next_14.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_7, question_string_7, lecture_solve_btn_7);
+                }
+            }
+        });
+
+        math_question_8 = (MathView) rootView.findViewById(R.id.math_question_8);
+        math_question_8.setMinimumWidth(50);
+        math_question_8.setMinimumHeight(50);
+
+        lecture_next_14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_8.setVisibility(View.VISIBLE);
+                lecture_next_14.setVisibility(View.GONE);
+
+                question_string_8 = convert_equation_to_mathML(question_8);
+                display_question(math_question_8, question_string_8);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_8)) {
+                    lecture_solve_btn_8.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.GONE);
+                    lecture_next_8.setVisibility(View.GONE);
+                    lecture_next_10.setVisibility(View.GONE);
+                    lecture_next_13.setVisibility(View.GONE);
+                    lecture_next_14.setVisibility(View.GONE);
+                    lecture_next_15.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_8, question_string_8, lecture_solve_btn_8);
+                }
+            }
+        });
+
+        math_question_9 = (MathView) rootView.findViewById(R.id.math_question_9);
+        math_question_9.setMinimumWidth(50);
+        math_question_9.setMinimumHeight(50);
+
+        lecture_next_15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_question_9.setVisibility(View.VISIBLE);
+                lecture_next_15.setVisibility(View.GONE);
+
+                question_string_9 = convert_equation_to_mathML(question_9);
+                display_question(math_question_9, question_string_9);
+
+                if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_9)) {
+                    lecture_solve_btn_9.setVisibility(View.GONE);
+                    lecture_next_1.setVisibility(View.GONE);
+                    lecture_next_2.setVisibility(View.GONE);
+                    lecture_next_4.setVisibility(View.GONE);
+                    lecture_next_6.setVisibility(View.GONE);
+                    lecture_next_8.setVisibility(View.GONE);
+                    lecture_next_10.setVisibility(View.GONE);
+                    lecture_next_13.setVisibility(View.GONE);
+                    lecture_next_14.setVisibility(View.GONE);
+                    lecture_next_15.setVisibility(View.GONE);
+                    lecture_next_16.setVisibility(View.VISIBLE);
+                } else {
+                    lecture_answer_problem_dialog(question_9, question_string_9, lecture_solve_btn_9);
+                }
+            }
+        });
+
+        lecture_next_16.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lecture_interaction_8.setVisibility(View.VISIBLE);
+                lecture_next_16.setVisibility(View.GONE);
+
+                webvw_8.getSettings().setJavaScriptEnabled(true);
+                webvw_8.getSettings().setDomStorageEnabled(true);
+                webvw_8.setWebViewClient(new WebViewClient());
+                path_8 = Uri.parse("file:///android_asset/lectures/positive_integer_exponents/positive_integer_exponents_8.html").toString();
+                webvw_8.loadUrl(path_8);
+                webvw_8.setBackgroundColor(0x00000000);
+            }
+        });
+
+        lecture_next_17.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = null;
+                Class fragmentClass;
+
+                fragmentClass = LecturesFragment.class;
+
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+            }
+        });
 
         // Inflate the layout for this fragment
         return rootView;
@@ -290,7 +637,7 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
         }
 
         final_equation = stw.toString();
-        equation_string = "<font size='+2'>" + stw.toString().replace("&#x2062;", "*") + "</font>";
+        equation_string = "<font size='5px'>" + stw.toString().replace("&#x2062;", "*") + "</font>";
 
         return equation_string;
     }
@@ -1010,21 +1357,95 @@ public class LecturePositiveIntegerExponentsFragment extends Fragment {
                             .setListener(R.id.ok_btn, true, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if (dialog_loaded == 1) {
-                                        lecture_solve_btn_1.setEnabled(false);
-                                        lecture_solve_btn_1.setIconResource(R.drawable.ic_ok);
-                                        lecture_solve_btn_1.setText("THIS HAS BEEN SOLVED!");
-                                    } else if (dialog_loaded == 2) {
-                                        lecture_solve_btn_2.setEnabled(false);
-                                        lecture_solve_btn_2.setIconResource(R.drawable.ic_ok);
-                                        lecture_solve_btn_2.setText("THIS HAS BEEN SOLVED!");
-                                    } else if (dialog_loaded == 3) {
-                                        lecture_solve_btn_3.setEnabled(false);
-                                        lecture_solve_btn_3.setIconResource(R.drawable.ic_ok);
-                                        lecture_solve_btn_3.setText("THIS HAS BEEN SOLVED!");
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_1)) {
+                                        lecture_solve_btn_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.VISIBLE);
                                     }
 
-                                    dialog_loaded++;
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_2)) {
+                                        lecture_solve_btn_2.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_3)) {
+                                        lecture_solve_btn_3.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_4)) {
+                                        lecture_solve_btn_4.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.GONE);
+                                        lecture_next_8.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_5)) {
+                                        lecture_solve_btn_5.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.GONE);
+                                        lecture_next_8.setVisibility(View.GONE);
+                                        lecture_next_10.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_6)) {
+                                        lecture_solve_btn_6.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.GONE);
+                                        lecture_next_8.setVisibility(View.GONE);
+                                        lecture_next_10.setVisibility(View.GONE);
+                                        lecture_next_13.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_7)) {
+                                        lecture_solve_btn_7.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.GONE);
+                                        lecture_next_8.setVisibility(View.GONE);
+                                        lecture_next_10.setVisibility(View.GONE);
+                                        lecture_next_13.setVisibility(View.GONE);
+                                        lecture_next_14.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_8)) {
+                                        lecture_solve_btn_8.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.GONE);
+                                        lecture_next_8.setVisibility(View.GONE);
+                                        lecture_next_10.setVisibility(View.GONE);
+                                        lecture_next_13.setVisibility(View.GONE);
+                                        lecture_next_14.setVisibility(View.GONE);
+                                        lecture_next_15.setVisibility(View.VISIBLE);
+                                    }
+
+                                    if (LoginActivity.teacheraicadb.checkProblemIfExistsLecture(question_9)) {
+                                        lecture_solve_btn_9.setVisibility(View.GONE);
+                                        lecture_next_1.setVisibility(View.GONE);
+                                        lecture_next_2.setVisibility(View.GONE);
+                                        lecture_next_4.setVisibility(View.GONE);
+                                        lecture_next_6.setVisibility(View.GONE);
+                                        lecture_next_8.setVisibility(View.GONE);
+                                        lecture_next_10.setVisibility(View.GONE);
+                                        lecture_next_13.setVisibility(View.GONE);
+                                        lecture_next_14.setVisibility(View.GONE);
+                                        lecture_next_15.setVisibility(View.GONE);
+                                        lecture_next_16.setVisibility(View.VISIBLE);
+                                    }
+
                                     dialog.dismiss();
                                 }
                             })

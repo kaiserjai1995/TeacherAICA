@@ -38,6 +38,7 @@ public class LecturesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_lectures, container, false);
+        getActivity().setTitle("Lectures");
 
         rv_lectures = (RecyclerView) rootView.findViewById(R.id.rv_lectures);
 

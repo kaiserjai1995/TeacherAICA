@@ -13,14 +13,14 @@ public class Randomizer {
     Each skill set will be having 12 equations overall in 4 levels of difficulty, having 3 equations each level
         1. Positive Integer Exponents:
             Level 1 (5 Items): [s1][a]^[e1]
-//            Level 2 (5 Items): ([s1][a]^[e1]) [s2] ([s3][/b]^[e2])
-//            Level 3 (5 Items): ([s1][a][v]^[e1]) [s2] ([s3][b][v]^[e2])
-//            Level 4 (5 Items): (([s1][a][v1]^[e1])^[e3]) [s2] (([s3][b][v1]^[e2])^[e4])
-//        1. Base Raised to Zero:
-//            Level 1 (2 Items): [s1][a]^0
-//            Level 2 (2 Items): ([s1][a]^0) [s2] ([s1][a]^0)
-//            Level 3 (2 Items): ([s1][a][v1]^0) [s2] ([s3][b][v2]^0)
-//            Level 4 (2 Items): (([s1][a][v1]^0)^[e1]) [s2] (([s3][b][v1]^0)^[e2])
+            Level 2 (5 Items): ([s1][a]^[e1]) [s2] ([s3][/b]^[e2])
+            Level 3 (5 Items): ([s1][a][v]^[e1]) [s2] ([s3][b][v]^[e2])
+            Level 4 (5 Items): (([s1][a][v1]^[e1])^[e3]) [s2] (([s3][b][v1]^[e2])^[e4])
+        1. Base Raised to Zero:
+            Level 1 (2 Items): [s1][a]^0
+            Level 2 (2 Items): ([s1][a]^0) [s2] ([s1][a]^0)
+            Level 3 (2 Items): ([s1][a][v1]^0) [s2] ([s3][b][v2]^0)
+            Level 4 (2 Items): (([s1][a][v1]^0)^[e1]) [s2] (([s3][b][v1]^0)^[e2])
 
         2. Addition of Exponents with Same Bases
             Level 1 (4 Items): ([v1]^[e1]) * ([v1]^[e2]) -

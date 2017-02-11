@@ -1929,7 +1929,7 @@ public class SolveProblemActivity extends AppCompatActivity implements View.OnCl
 
         System.out.println("Error Count: " + errorsCommited);
 
-        if (errorsCommited == 3 && !solved) {
+        if (errorsCommited == 3 && !solved && !equationType.equals("Custom")) {
             new LovelyCustomDialog(SolveProblemActivity.this)
                     .setTitle("UH OH...")
                     .setMessage("It seems that you are having a difficulty solving this problem. Want to take a hint?")

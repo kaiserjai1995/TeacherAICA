@@ -154,7 +154,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .setTitle("Sign Up Failed")
                 .setTitleGravity(1)
                 .setCancelable(true)
-                .setMessage("The username you have entered already exists. Please enter another username.")
+                .setMessage("Please check the fields for errors.")
                 .setTopColorRes(R.color.primary)
                 .setConfirmButtonText("OK")
                 .show();

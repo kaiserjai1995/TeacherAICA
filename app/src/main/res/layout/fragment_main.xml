@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#1565C0"
-              android:orientation="vertical"
-              tools:context="edu.its.solveexponents.teacheraica.content.MainFragment">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1565C0"
+    android:orientation="vertical"
+    tools:context="edu.its.solveexponents.teacheraica.content.MainFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,4 +35,17 @@
 
     </LinearLayout>
 
-</LinearLayout>
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/allow_tip_of_the_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_history_summary"
+        fab:fab_colorNormal="@color/teal"
+        fab:fab_colorPressed="@color/primary"
+        fab:fab_colorRipple="@color/fb_primary_color"
+        fab:fab_label="Show Tip of the Day"/>
+
+</android.support.design.widget.CoordinatorLayout>

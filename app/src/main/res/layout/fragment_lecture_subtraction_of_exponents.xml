@@ -1,40 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/teal"
+              android:background="@color/primary_dark"
               android:orientation="vertical"
               tools:context="edu.its.solveexponents.teacheraica.content.lectures.LectureSubtractionOfExponentsFragment">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/card_background"
-        android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_1"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_1"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
 
                 <WebView
-                    android:id="@+id/webvw_lecture_subtraction_of_exponents"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:id="@+id/webvw_lecture_subtraction_of_exponents_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_1"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_1"/>
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_subtraction_of_exponents_1"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_2"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_2"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_subtraction_of_exponents_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_2"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_2"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_subtraction_of_exponents_2"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_2"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

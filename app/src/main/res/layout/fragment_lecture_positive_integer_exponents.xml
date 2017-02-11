@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,6 @@
     android:background="@color/primary_dark"
     android:orientation="vertical"
     tools:context="edu.its.solveexponents.teacheraica.content.lectures.LecturePositiveIntegerExponentsFragment">
-
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -21,6 +20,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/lecture_interaction_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -56,6 +56,27 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lecture_aica_title_1"
                     android:layout_toEndOf="@+id/lecture_aica_pic_1"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_1"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -120,6 +141,89 @@
                     fab:fb_text="SOLVE QUESTION"
                     fab:fb_textColor="#FFFFFF"/>
 
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_1"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_1"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_2"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_2"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_2"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_2"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_2"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_2"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -184,6 +288,89 @@
                     fab:fb_text="SOLVE QUESTION"
                     fab:fb_textColor="#FFFFFF"/>
 
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_2"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_2"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_3"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_3"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_3"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_3"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_3"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_3"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -248,6 +435,89 @@
                     fab:fb_text="SOLVE QUESTION"
                     fab:fb_textColor="#FFFFFF"/>
 
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_3"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_3"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_4"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_4"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_4"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_4"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_4"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -312,34 +582,706 @@
                     fab:fb_text="SOLVE QUESTION"
                     fab:fb_textColor="#FFFFFF"/>
 
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_4"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_5"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_5"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_5"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_5"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_5"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_5"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_question_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_question_image_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/question"/>
+
+                <TextView
+                    android:id="@+id/lecture_question_title_5"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_5"
+                    android:text="Question"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <io.github.kexanie.library.MathView
+                    android:id="@+id/math_question_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_question_title_5"
+                    android:layout_toEndOf="@+id/lecture_question_image_5"
+                    fab:engine="MathJax">
+                </io.github.kexanie.library.MathView>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_solve_btn_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_5"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_5"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_solve"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVE QUESTION"
+                    fab:fb_textColor="#FFFFFF"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_5"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_5"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_6"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_6"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_6"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_6"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_6"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_6"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_7"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_7"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_7"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_7"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_7"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_7"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_question_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_question_image_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/question"/>
+
+                <TextView
+                    android:id="@+id/lecture_question_title_6"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_6"
+                    android:text="Question"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <io.github.kexanie.library.MathView
+                    android:id="@+id/math_question_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_question_title_6"
+                    android:layout_toEndOf="@+id/lecture_question_image_6"
+                    fab:engine="MathJax">
+                </io.github.kexanie.library.MathView>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_solve_btn_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_6"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_6"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_solve"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVE QUESTION"
+                    fab:fb_textColor="#FFFFFF"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_6"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_6"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_question_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_question_image_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/question"/>
+
+                <TextView
+                    android:id="@+id/lecture_question_title_7"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_7"
+                    android:text="Question"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <io.github.kexanie.library.MathView
+                    android:id="@+id/math_question_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_question_title_7"
+                    android:layout_toEndOf="@+id/lecture_question_image_7"
+                    fab:engine="MathJax">
+                </io.github.kexanie.library.MathView>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_solve_btn_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_7"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_7"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_solve"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVE QUESTION"
+                    fab:fb_textColor="#FFFFFF"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_7"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_7"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_question_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_question_image_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/question"/>
+
+                <TextView
+                    android:id="@+id/lecture_question_title_8"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_8"
+                    android:text="Question"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <io.github.kexanie.library.MathView
+                    android:id="@+id/math_question_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_question_title_8"
+                    android:layout_toEndOf="@+id/lecture_question_image_8"
+                    fab:engine="MathJax">
+                </io.github.kexanie.library.MathView>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_solve_btn_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_8"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_8"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_solve"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVE QUESTION"
+                    fab:fb_textColor="#FFFFFF"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_8"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_8"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_question_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_question_image_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/question"/>
+
+                <TextView
+                    android:id="@+id/lecture_question_title_9"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="7dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_9"
+                    android:text="Question"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <io.github.kexanie.library.MathView
+                    android:id="@+id/math_question_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_question_title_9"
+                    android:layout_toEndOf="@+id/lecture_question_image_9"
+                    fab:engine="MathJax">
+                </io.github.kexanie.library.MathView>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_solve_btn_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_9"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_9"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_solve"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVE QUESTION"
+                    fab:fb_textColor="#FFFFFF"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/math_question_9"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_question_image_9"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="SOLVED, NEXT"
+                    fab:fb_textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lecture_interaction_8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/custom_rectangle"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/lecture_aica_pic_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/aica"/>
+
+                <TextView
+                    android:id="@+id/lecture_aica_title_8"
+                    fontPath="fonts/Raleway-Bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_8"
+                    android:text="Teacher AICA"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix"/>
+
+                <WebView
+                    android:id="@+id/webvw_lecture_positive_integer_exponents_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecture_aica_title_8"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_8"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/lecture_next_17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/webvw_lecture_positive_integer_exponents_8"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/lecture_aica_pic_8"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    fab:fb_borderColor="#FFFFFF"
+                    fab:fb_borderWidth="1dp"
+                    fab:fb_defaultColor="@color/primary_dark"
+                    fab:fb_focusColor="@color/primary"
+                    fab:fb_iconPosition="left"
+                    fab:fb_iconResource="@drawable/ic_next"
+                    fab:fb_radius="30dp"
+                    fab:fb_text="GO BACK TO LECTURES"
+                    fab:fb_textColor="#FFFFFF"/>
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="15dp">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/next_interaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/teal"
-            fab:fab_colorPressed="@color/primary"
-            fab:fab_colorRipple="@color/fb_primary_color"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="16dp"
-            android:text="NEXT"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white"/>
-    </FrameLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

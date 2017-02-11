@@ -43,8 +43,8 @@ public class CheckForUpdatesFragment extends Fragment {
                             new Intent("android.intent.action.VIEW",
                                     Uri.parse("https://play.google.com/store/apps/details?id=edu.its.solveexponents.teacheraica"));
                     startActivity(viewIntent);
-                }catch(Exception e) {
-                    Toast.makeText(getContext(),"Unable to Connect Try Again...", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Unable to Connect Try Again...", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
